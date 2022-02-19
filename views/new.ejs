@@ -1,0 +1,31 @@
+<% layout('layouts/template') %>
+
+    <div style="height: 15px;"></div>
+
+    <div class="container">
+
+        <h1 class="d-block text-center">새로 만들거냥?</h1>
+        <div class="col-6 offset-3">
+            <form action="/" method="POST">
+                <div class="mb-3">
+                    <label class="form-label" for="title">제목</label>
+                    <input class="form-control" type="text" id="title" name="title" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">본문</label>
+                    <textarea class="form-control" type="text" id="description" name="description"
+                        required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">url</label>
+                    <input class="form-control" type="text" id="url" name="url">
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-success">저장이다냥</button>
+                </div>
+            </form>
+        </div>
+
+
+
+    </div>

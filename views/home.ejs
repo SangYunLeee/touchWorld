@@ -1,5 +1,31 @@
 <% layout('layouts/template') %>
+<% if (imgArray) { %>
+    <% for (let image of imgArray) { %>
 
-<div class="container">
-    <span>test</span>
-</div>
+            <div class="container mb-2 goToNew" style=" max-height: 200px;" >
+                <div class=" row">
+                    <div class="border col-xs-3 col-md-3 col-5 d-flex align-items-center">
+                        <!-- min-height: 100px; -->
+                            <img class="img-fluid" style="width: auto; max-height: 150px;"
+                                <% if (!image.url) { %>
+                                    <%image.url = "https://media.istockphoto.com/vectors/curious-cat-sticker-on-a-car-or-a-refrigerator-vector-id941880292?k=20&m=941880292&s=612x612&w=0&h=c4Js1OlaWBJLok7jUA1IOBC8lDzC6VnFrcuW0vEhxr8="%>
+                                <% } %>
+
+                                src="<%= image.url %>"
+                                alt="Card image cap"
+                            >
+                    </div>
+                    <div class="card col-xs-9 col-md-9 col-7">
+                        <div class="card-body">
+                            <h5 class="card-title"> <%= image.filename %>  </h5>
+                            <p class="card-text"><%=image.description %></p>
+
+                        </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+    <% } %>
+<% } %>
+
+<!-- min-height: 100px; -->
