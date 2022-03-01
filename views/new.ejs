@@ -4,25 +4,24 @@
 
     <div class="container-fluid">
 
-        <h1 class="d-block text-center">새로 만들거냥?</h1>
-        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 col-12 w-100 mx-auto" style="max-width: 600.98px">
-            <form action="/" method="POST" class="w-100">
+        <h4 class="d-block text-center">새로 만들거냥?</h4>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 col-12 w-100 mx-auto" style="max-width: 600px">
+            <form action="/" method="POST" class="w-100 position-relative">
                 <div class="mb-3">
                     <label class="form-label" for="title">제목</label>
                     <input class="form-control" type="text" id="title" name="title" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="description">본문</label>
+                    <label class="form-label" for="description" >본문</label>
                     <textarea class="form-control" type="text" id="description" name="description"
+                    style="height: 27vh;"
                         required></textarea>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="description">url</label>
                     <input class="form-control" type="text" id="url" name="url">
                 </div>
-                <div class="mb-3">
-                    <button class="btn btn-success">저장이다냥</button>
-                </div>
+                <button class="btn btn-success position-absolute" style="right: 0px;">저장이다냥</button>
             </form>
         </div>
     </div>

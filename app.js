@@ -33,6 +33,15 @@ app.get('/new', (req, res) => {
     res.render('new');
 });
 
+app.get('/user/login', (req, res) => {
+    res.render('user/login');
+});
+
+app.get('/user/register', async (req, res) => {
+    res.render('user/register');
+});
+
+
 app.post('/', async (req, res) => {
     console.dir(req.body);
     const body = req.body;
@@ -47,12 +56,12 @@ app.get('/:id', async (req, res) =>  {
         if (!img) {
             return res.redirect('/');
         }
-        console.dir(img);
         res.render('show', { img });
     } catch (error) {
         return res.redirect('/');
     }
 })
+
 
 
 const db = mongoose.connection;
@@ -61,12 +70,9 @@ db.once('open', () => {
     console.log("DB connected");
 });
 
-
 const dbUrl = "mongodb://localhost:27017/touch-world";
 mongoose.connect(dbUrl, {
 });
-
-
 
 app.listen(3000, () => {
     console.log("listening good...");
