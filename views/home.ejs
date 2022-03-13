@@ -8,10 +8,10 @@
                 <div class=" row d-flex justify-content-center " >
                     <div class="border col-xs-2 col-md-2 col-3 d-flex align-items-center justify-content-center p-0" style="max-width: 120px">
                             <img class="img-fluid text-center" style="width: auto; max-height: 100px;"
-                                <% if (!image.url) { %>
-                                    <%image.url = "https://media.istockphoto.com/vectors/curious-cat-sticker-on-a-car-or-a-refrigerator-vector-id941880292?k=20&m=941880292&s=612x612&w=0&h=c4Js1OlaWBJLok7jUA1IOBC8lDzC6VnFrcuW0vEhxr8="%>
+                                <% if (!image.thumbnailUrl) { %>
+                                    <%image.thumbnailUrl = "https://media.istockphoto.com/vectors/curious-cat-sticker-on-a-car-or-a-refrigerator-vector-id941880292?k=20&m=941880292&s=612x612&w=0&h=c4Js1OlaWBJLok7jUA1IOBC8lDzC6VnFrcuW0vEhxr8="%>
                                 <% } %>
-                                src="<%= image.url %>"
+                                src="<%= image.thumbnailUrl %>"
                                 alt="Card image cap"
                             >
                     </div>
@@ -19,7 +19,7 @@
                         <div class="card-body">
                             <h5 class="card-title "
                             >
-                                <%= image.filename %>
+                                <%= image.title %>
                             </h5>
                             <p class="card-text mh-25 text-truncate d-block "><%=image.description %></p>
                         </div>
