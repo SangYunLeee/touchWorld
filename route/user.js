@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const router = express.Router();
 
 // local include
@@ -8,14 +9,7 @@ router.get('/login', (req, res) => {
     res.render('user/login');
 });
 
-router.post('/login', async (req, res) => {
-    const {id, password} = req.body;
-    const user = await UserModel.findAndValidate(id, password);
-    if (user) {
-        req.session.user_id = user._id;
-    } else {
-        req.session.user_id = null;
-    }
+router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect: '/user/login'})  ,async (req, res) => {
     res.redirect('/');
 });
 
@@ -31,10 +25,9 @@ router.get('/register', async (req, res) => {
 router.post('/register', async (req, res) => {
     const { password, username } = req.body;
     const user = new UserModel({
-        username: username,
-        pwd: password
+        username: username
     });
-    await user.save();
+    const registeredUser = await UserModel.register(user, password);
     res.redirect('/');
 });
 
@@ -43,14 +36,5 @@ router.get('/logout', (req, res) => {
     res.redirect('/user/login');
 });
 
-
-// test
-router.get('/secret', (req, res) => {
-    if (!req.session.user_id) {
-        res.send("plz login");
-    } else {
-        res.send('IT is secret');
-    }
-});
 
 module.exports = router;

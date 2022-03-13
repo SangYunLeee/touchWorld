@@ -1,16 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
+const passportLocalMongoose = require('passport-local-mongoose');
+
 
 const userSchema = new Schema({
-    username: {
+    email: {
         type: String,
-        unique: true,
-        require: true
-    },
-    pwd: {
-        type: String,
-        require: true
+        sparse: true,
+        unique: true
     }
 });
 
@@ -20,9 +18,6 @@ userSchema.statics.findAndValidate = async function (id, pwd) {
     return validPwd ? user : false;
 }
 
-userSchema.pre('save', async function (next) {
-    this.pwd = await bcrypt.hash(this.pwd, 12);
-    next();
-})
+userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', userSchema);

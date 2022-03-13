@@ -6,11 +6,14 @@ const methodOverride = require('method-override');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const flash = require('connect-flash');
 
 // local include
-
 const postRoute = require('./route/post');
 const userRoute = require('./route/user');
+const UserModel = require("./model/user");
 
 // express app setting
 const app = express();
@@ -27,6 +30,13 @@ app.use(session(
                 saveUninitialized: true
             })
 );
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(UserModel.authenticate()));
+passport.serializeUser(UserModel.serializeUser())
+passport.deserializeUser(UserModel.deserializeUser())
+
 
 app.use('/post', postRoute);
 app.use('/user', userRoute);
@@ -35,7 +45,6 @@ app.use('/user', userRoute);
 app.get('/', async (req, res) =>  {
     res.redirect('/post');
 });
-
 
 // connect
 const db = mongoose.connection;
