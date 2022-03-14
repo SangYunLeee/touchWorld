@@ -36,7 +36,12 @@ app.use(passport.session());
 passport.use(new LocalStrategy(UserModel.authenticate()));
 passport.serializeUser(UserModel.serializeUser())
 passport.deserializeUser(UserModel.deserializeUser())
-
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+});
 
 app.use('/post', postRoute);
 app.use('/user', userRoute);
@@ -44,6 +49,15 @@ app.use('/user', userRoute);
 
 app.get('/', async (req, res) =>  {
     res.redirect('/post');
+});
+
+// catch error
+app.use(async (err, req, res, next) => {
+    const { statusCode = 500 } = err;
+    if (!err.message)
+        err.message = 'Oh No, Something went wroung';
+    res.status(statusCode);
+    res.render('error', { err });
 });
 
 // connect
