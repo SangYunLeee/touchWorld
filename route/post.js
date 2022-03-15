@@ -20,16 +20,38 @@ router.post('/', requireLogin, catchAsync(async (req, res) => {
     res.redirect(`/`);
 }));
 
+router.delete('/:id', catchAsync(async (req, res) =>  {
+    const {id} = req.params;
+    const img = await PostModel.findByIdAndDelete(id);
+    return res.redirect('/');
+}));
+
 router.get('/:id', catchAsync(async (req, res) =>  {
-    try {
-        const img = await PostModel.findById(req.params.id);
-        if (!img) {
-            return res.redirect('/');
-        }
-        res.render('show', { img });
-    } catch (error) {
+    const post = await PostModel.findById(req.params.id);
+    if (!post) {
         return res.redirect('/');
     }
+    res.render('show', { post });
+}));
+
+router.put('/:id', catchAsync(async (req, res) =>  {
+    console.log(req.body);
+    const {title, description, url} = req.body;
+    const post = await PostModel.findByIdAndUpdate(req.params.id, {title, description, thumbnailUrl: url});
+    if (!post) {
+        return res.redirect('/');
+    }
+    post.save();
+    console.log(post);
+    res.redirect(`/post/${post._id}`);
+}));
+
+router.get('/:id/edit', catchAsync(async (req, res) =>  {
+    const post = await PostModel.findById(req.params.id);
+    if (!post) {
+        return res.redirect('/');
+    }
+    res.render('edit', { post });
 }));
 
 module.exports = router;

@@ -1,12 +1,22 @@
 <% layout('layouts/template') %>
 
-<div class="container normal-max-width " style="min-height: 20vh;">
-    <div class="col-12 border" style="min-height: 20vh;">
-        <h4 class="mt-2 custom-solid"><%= img.title %> </h4>
-        <div style="word-break:break-all;;"><%= img.description %> </div>
+<div class="container normal-max-width position-relative " style="min-height: 20vh;">
 
+    <div class="col-xs-12 col-sm-10 col-md-8 col-lg-8 col-12 w-100 mx-auto " >
+        <div class="border p-3" style="min-height: 20vh;">
+            <h4 class="mt-2 custom-solid"><%= post.title %> </h4>
+            <div style="word-break:break-all;; white-space: pre-line"><%= post.description %> </div>
 
-
+        </div>
+        <span class="float-right mt-2 ml-2 p-0">
+            <a class="btn btn-sm btn-secondary " href="/post/<%=post._id%>/edit">수정쓰</a>
+        </span>
     </div>
 
+
+    <form class="btn-sm float-right mt-2 p-0"
+        action="/post/<%=post._id%>?_method=DELETE"
+        method="POST">
+        <button class="btn btn-sm btn-danger">삭제쓰</button>
+    </form>
 </div>
