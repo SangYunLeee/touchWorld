@@ -15,7 +15,7 @@ router.get('/new', requireLogin, (req, res) => {
 
 router.post('/', requireLogin, catchAsync(async (req, res) => {
     const body = req.body;
-    const img = new PostModel({title: body.title, description: body.description, thumbnailUrl: body.url });
+    const img = new PostModel({title: body.title, description: body.description, thumbnailUrl: body.url, author: req.user._id });
     await img.save();
     res.redirect(`/`);
 }));
@@ -27,7 +27,7 @@ router.delete('/:id', catchAsync(async (req, res) =>  {
 }));
 
 router.get('/:id', catchAsync(async (req, res) =>  {
-    const post = await PostModel.findById(req.params.id);
+    const post = await PostModel.findById(req.params.id).populate('author');;
     if (!post) {
         return res.redirect('/');
     }
@@ -35,14 +35,12 @@ router.get('/:id', catchAsync(async (req, res) =>  {
 }));
 
 router.put('/:id', catchAsync(async (req, res) =>  {
-    console.log(req.body);
     const {title, description, url} = req.body;
     const post = await PostModel.findByIdAndUpdate(req.params.id, {title, description, thumbnailUrl: url});
     if (!post) {
         return res.redirect('/');
     }
     post.save();
-    console.log(post);
     res.redirect(`/post/${post._id}`);
 }));
 

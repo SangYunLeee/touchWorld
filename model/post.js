@@ -6,15 +6,20 @@ const bcrypt = require('bcrypt');
 const postSchema = new Schema({
     title: {
         type: String,
-        require: true
+        required: true
     },
     description: {
         type: String,
-        require: true
+        required: true
     },
     thumbnailUrl: {
         type: String,
-        require: false
+        required: false
+    },
+    author: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     }
 });
 
