@@ -11,13 +11,9 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect: '/user/login'}), catchAsync(async (req, res) => {
-    res.redirect('/');
+    const redirectUrl = req.session.returnUrl || '/';
+    res.redirect(redirectUrl);
 }));
-
-router.post('/logout', (req, res) => {
-    req.session.destroy();
-    res.redirect('/');
-})
 
 router.get('/register', catchAsync(async (req, res) => {
     res.render('user/register');
@@ -29,13 +25,15 @@ router.post('/register', catchAsync(async (req, res) => {
         username: username
     });
     const registeredUser = await UserModel.register(user, password);
+    req.login(registeredUser, err => {
+        if (err) return next(err);
+    })
     res.redirect('/');
 }));
 
 router.get('/logout', (req, res) => {
-    req.session.user_id = null;
-    res.redirect('/user/login');
+    req.logout();
+    res.redirect('/');
 });
-
 
 module.exports = router;
