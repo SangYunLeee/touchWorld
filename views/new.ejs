@@ -1,4 +1,11 @@
 <% layout('layouts/template') %>
+    <!-- Include Quill stylesheet -->
+    <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+
+    <!-- Create the editor container -->
+
+
+
 
     <div style="height: 15px;"></div>
 
@@ -12,16 +19,49 @@
                     <input class="form-control" type="text" id="title" name="title" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="description" >본문</label>
-                    <textarea class="form-control" type="text" id="description" name="description"
-                    style="height: 27vh;"
-                        required></textarea>
+                    <!-- Create the toolbar container -->
+                    <div id="toolbar">
+                        <button class="ql-bold">Bold</button>
+                        <button class="ql-italic">Italic</button>
+                        <select class="ql-font">
+                            <option selected>ubuntu</option>
+                            <option value="mirza">Mirza</option>
+                            <option value="roboto">Roboto</option>
+                          </select>
+                    </div>
+                    <input name="description" type="hidden">
+                    <input name="descriptionText" type="hidden">
+                    <div id="editor" style="height: 27vh;"></div>
                 </div>
+
+
+
                 <div class="mb-3">
-                    <label class="form-label" for="description">url</label>
+                    <label class="form-label" for="url">url</label>
                     <input class="form-control" type="text" id="url" name="url">
                 </div>
+
                 <button class="btn btn-success position-absolute" style="right: 0px;">저장이다냥</button>
             </form>
         </div>
     </div>
+
+    <!-- Include the Quill library -->
+    <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
+
+    <!-- Initialize Quill editor -->
+    <script>
+        var editor = new Quill('#editor', {
+        modules: { toolbar: '#toolbar' },
+        theme: 'snow'
+        });
+        var form = document.querySelector('form');
+        form.onsubmit = function() {
+            // Populate hidden form on submit
+            var about = document.querySelector('input[name=description]');
+            about.value = editor.root.innerHTML;
+            var descriptionText = document.querySelector('input[name=descriptionText]');
+            // about.value = JSON.stringify(editor.getText());
+        }
+    </script>
+

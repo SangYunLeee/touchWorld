@@ -27,3 +27,8 @@ h2 {
 .custom-solid {
   border-bottom: 1.3px solid #bbb;
 }
+
+p {
+  font-size: 13px;
+  margin: 0;
+}

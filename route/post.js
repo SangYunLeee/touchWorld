@@ -1,13 +1,24 @@
 const express = require('express');
+const sanitizeHtml = require('sanitize-html');
 const router = express.Router();
 const {requireLogin} = require('../middleware');
 const {catchAsync} = require('../utils/catchAsync');
 const PostModel = require('../model/post');
 
-router.get('/', catchAsync(async (req, res) =>  {
-    const imgArray = await PostModel.find({});
+function RemoveHtmlTags(a) {
+    return a.replace(/(<([^>]+)>)/ig, "");
+}
+
+router.get('/?', catchAsync(async (req, res) =>  {
+    const {page = 1} = req.query;
+    imgArray = await PostModel.find({});
+    for (let img of imgArray) {
+        img.description = RemoveHtmlTags(img.description);
+    }
     res.render('home', {imgArray});
 }))
+
+
 
 router.get('/new', requireLogin, (req, res) => {
     res.render('new');
@@ -15,7 +26,8 @@ router.get('/new', requireLogin, (req, res) => {
 
 router.post('/', requireLogin, catchAsync(async (req, res) => {
     const body = req.body;
-    const img = new PostModel({title: body.title, description: body.description, thumbnailUrl: body.url, author: req.user._id });
+    console.log(body);
+    const img = new PostModel({title: body.title, description: sanitizeHtml(body.description), thumbnailUrl: body.url, author: req.user._id });
     await img.save();
     res.redirect(`/`);
 }));
@@ -27,6 +39,7 @@ router.delete('/:id', catchAsync(async (req, res) =>  {
 }));
 
 router.get('/:id', catchAsync(async (req, res) =>  {
+    console.log(req.params);
     const post = await PostModel.findById(req.params.id).populate('author');;
     if (!post) {
         return res.redirect('/');
