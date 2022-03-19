@@ -26,7 +26,6 @@ router.get('/new', requireLogin, (req, res) => {
 
 router.post('/', requireLogin, catchAsync(async (req, res) => {
     const body = req.body;
-    console.log(body);
     const img = new PostModel({title: body.title, description: sanitizeHtml(body.description), thumbnailUrl: body.url, author: req.user._id });
     await img.save();
     res.redirect(`/`);
@@ -39,7 +38,6 @@ router.delete('/:id', catchAsync(async (req, res) =>  {
 }));
 
 router.get('/:id', catchAsync(async (req, res) =>  {
-    console.log(req.params);
     const post = await PostModel.findById(req.params.id).populate('author');;
     if (!post) {
         return res.redirect('/');

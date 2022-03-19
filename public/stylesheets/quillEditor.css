@@ -24,3 +24,7 @@ font-family: "Mirza";
 font-family: "Roboto";
 }
 /* We do not set Aref Ruqaa since it is the default font */
+
+.ql-editor p {
+    font-size: 14px;
+}
