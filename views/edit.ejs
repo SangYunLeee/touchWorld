@@ -1,5 +1,5 @@
 <% layout('layouts/template') %>
-<%- include('partials/quillEditor/quillcss') %>
+
     <div style="height: 15px;"></div>
 
     <div class="container-fluid">
@@ -12,9 +12,11 @@
                     <input class="form-control" type="text" id="title" name="title" value="<%= post.title %>" required>
                 </div>
                 <div class="mb-3">
+                    <%- include('partials/quillEditor/quillcss') %>
                     <%- include('partials/quillEditor/quillEditorHeader') %>
                     <%- post.description %>
                     <%- include('partials/quillEditor/quillEditorFooter') %>
+                    <%- include('partials/quillEditor/quillLibrary') %>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="description">url</label>
@@ -24,4 +26,3 @@
             </form>
         </div>
     </div>
-<%- include('partials/quillEditor/quillLibrary') %>

@@ -1,5 +1,4 @@
 <% layout('layouts/template') %>
-
 <div class="container normal-max-width position-relative " style="min-height: 20vh;">
 
     <div class="col-xs-12 col-sm-10 col-md-8 col-lg-8 col-12 w-100 mx-auto " >
@@ -10,9 +9,11 @@
             <% username = "익명" %>
             <% } %>
             <div style="font-size: 0.8rem;">작성자: <%= username %> </div>
-            <h4 class="mt-2 custom-solid"><%= post.title %> </h4>
-            <div style="word-break:break-all;; white-space: pre-line"><%- post.description %> </div>
+            <h4 class="ml-3 mt-2"><%= post.title %> </h4>
+            <div class="custom-solid"></div>
 
+            <%- include('partials/quillEditor/quillcss') %>
+            <div class="ql-editor" style="word-break:break-all;; white-space: pre-line"><%- post.description %> </div>
         </div>
 
         <% if (currentUser && post.author && post.author.equals(currentUser._id)) {%>
