@@ -18,8 +18,6 @@ router.get('/?', catchAsync(async (req, res) =>  {
     res.render('home', {imgArray});
 }))
 
-
-
 router.get('/new', requireLogin, (req, res) => {
     res.render('new');
 });
