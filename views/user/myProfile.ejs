@@ -1,0 +1,42 @@
+<% layout('layouts/template') %>
+<div id="myDIV" class="container p-0">
+    <div class="loginForm">
+        <h4 class="mx-auto text-center" >내 프로필</h4>
+        <form action="" method="POST" class="validated-form position-relative" novalidate>
+            <div class="mb-3">
+                <label class="form-label" for="nickname">닉네임</label>
+                <input class="form-control sh-n" type="text" id="nickname" name="nickname" placeholder="닉네임 없다우"
+                    <% if (currentUser.nickname) { %>
+                    value="<%= currentUser.nickname %>"
+                    <% } %>
+                required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <p style="min-height:2.5rem;">
+                <button class="btn btn-sm btn-secondary" style="float: right; display: block;">수정합니다!</button>
+            </p>
+        </form>
+        <div class="mt-2 custom-solid"></div>
+        <form action="" method="POST" class="validated-form position-relative mt-3" novalidate>
+            <div class="mb-3">
+                <label class="form-label" for="oldPassword">현재 비밀번호</label>
+                <input class="form-control sh-n" type="password" id="oldPassword" name="oldPassword" placeholder="" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="newPassword">바꿀 비밀번호</label>
+                <input class="form-control sh-n" type="password" id="newPassword" name="newPassword" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <p style="min-height:2rem;">
+                <button class="btn btn-sm btn-secondary" style="float: right; display: block;">바꿉니다!</button>
+            </p>
+        </form>
+    </div>
+</div>

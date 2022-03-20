@@ -9,6 +9,11 @@ const userSchema = new Schema({
         type: String,
         sparse: true,
         unique: true
+    },
+    nickname: {
+        type: String,
+        sparse: true,
+        unique: true
     }
 });
 

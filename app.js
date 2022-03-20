@@ -37,6 +37,7 @@ app.use(passport.session());
 passport.use(new LocalStrategy(UserModel.authenticate()));
 passport.serializeUser(UserModel.serializeUser())
 passport.deserializeUser(UserModel.deserializeUser())
+
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
@@ -44,13 +45,12 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/post', postRoute);
-app.use('/user', userRoute);
-
-
 app.get('/', async (req, res) =>  {
     res.redirect('/post');
 });
+
+app.use('/post', postRoute);
+app.use('/user', userRoute);
 
 // catch error
 app.use(async (err, req, res, next) => {
