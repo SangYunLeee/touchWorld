@@ -11,4 +11,20 @@
     crossorigin="anonymous"></script>
 </body>
 
+<script>
+    var loginForm = document.querySelector(".loginForm");
+    const loginFormClass = ["col-md-5", "col-sm-7", "col-10","mx-auto","mw-300","py-3","border","bg-gray"];
+    if (loginForm) {
+        loginFormClass.forEach(function(item) {
+            loginForm.classList.add(item);
+        });
+    }
+    var viewForm = document.querySelector(".viewForm");
+    if (viewForm) {
+        const viewFormClass = ["col-xs-12", "col-sm-10", "col-md-8", "col-lg-6", "col-12", "w-100", "mx-auto", "py-3", "mw-600", "border","bg-gray"];
+        viewFormClass.forEach(function(item) {
+            viewForm.classList.add(item);
+        });
+    }
+</script>
 </html>

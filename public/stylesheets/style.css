@@ -31,3 +31,27 @@ h2 {
 p {
   margin: 0;
 }
+
+.mw-300 {
+  max-width: 300px;
+}
+
+.mw-600 {
+  max-width: 600px;
+}
+
+.sh-n {
+  height: 28px;
+}
+
+.container-fluid {
+  padding: 0px;
+}
+
+#editor {
+  background-color: white;
+}
+
+.bg-gray {
+  background-color: rgb(248, 248, 248);
+}
