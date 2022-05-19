@@ -4,7 +4,7 @@ import PostItem from './PostItem';
 
 export default function Home() {
   return (
-    <div className='mt-4'>
+    <div className=''>
       <PostItem />
     </div>
   )

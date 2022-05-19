@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from "react-router-dom";
 
 import catImg from "../asset/cat_navbar.png";
-const navbar = "justify-content-center d-flex bg-light w-100"
+const navbar = "justify-content-center d-flex bg-light w-100 mb-4 pb-2"
 const navbar_content = "col-12 bg-light navbar navbar-expand-sm navbar-light bg-light p-0 mt-1 mb-1"
 const Img_class = "d-inline-block mr-3"
 const nav_item = "nav-link text-secondary text-center"
