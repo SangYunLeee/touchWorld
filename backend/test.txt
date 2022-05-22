@@ -1,0 +1,8 @@
+{
+    "username": "sororiri",
+    "email": "sororiri@gmail.com",
+    "password": "dddddd",
+    "roles": ["user", "moderator"]
+}
+
+http://localhost:8080/api/auth/signup
