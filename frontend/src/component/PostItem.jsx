@@ -13,7 +13,7 @@ export default function PostItem() {
     <div
       className={c_postitem}
       style={{ maxHeight: "200px" }}
-      onclick="location.href='/post';"
+      onClick="location.href='/post';"
     >
       <div className={c_postitem_item}>
         <div

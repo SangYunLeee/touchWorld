@@ -19,8 +19,8 @@ export default function Navbar() {
               <div className="collapse navbar-collapse " id="navbar_toggler">
                   <Link className={`${nav_item} active`} to="/">Home</Link>
                   <Link className={`${nav_item} me-auto`} to="/post/new">새 글 올리기</Link>
-                  <Link className={`${nav_item} pl-3 pr-3`} to="/user/login">로그인쓰</Link>
-                  <Link className={`${nav_item} pl-3 pr-3`} to="/user/register">회원가입</Link>
+                  <Link className={`${nav_item} pl-3 pr-3`} to="/login">로그인쓰</Link>
+                  <Link className={`${nav_item} pl-3 pr-3`} to="/register">회원가입</Link>
               </div>
           </nav>
       </div>
