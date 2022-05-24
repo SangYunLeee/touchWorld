@@ -8,6 +8,7 @@ import HomeTitle from './component/HomeTitle'
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginPage from "./component/LoginPage";
 import RegisterPage from "./component/RegisterPage";
+import ProfilePage from "./component/ProfilePage";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="post/new" element={<NewPost />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
+        <Route path="profile" element={<ProfilePage />} />
       </Routes>
       </div>
       <header className="App-header">
