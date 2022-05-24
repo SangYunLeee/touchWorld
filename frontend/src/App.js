@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import LoginPage from "./component/LoginPage";
 import RegisterPage from "./component/RegisterPage";
 import ProfilePage from "./component/ProfilePage";
+import AddPostPage from "./component/AddPostPage";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="post/add" element={<AddPostPage />} />
       </Routes>
       </div>
       <header className="App-header">
