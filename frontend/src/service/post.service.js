@@ -8,16 +8,17 @@ const get = id => {
   return http.get(`/post/${id}`);
 };
 const create = data => {
-  return http.post("/post", {...data, headers: authHeader()});
+  console.log(authHeader());
+  return http.post("/post", data, {headers: authHeader()});
 };
 const update = (id, data) => {
-  return http.put(`/post/${id}`, data);
+  return http.put(`/post/${id}`, data, {headers: authHeader()});
 };
 const remove = id => {
-  return http.delete(`/post/${id}`);
+  return http.delete(`/post/${id}`, {headers: authHeader()});
 };
 const removeAll = () => {
-  return http.delete(`/post`);
+  return http.delete(`/post`, {headers: authHeader()});
 };
 const findByTitle = title => {
   return http.get(`/post?title=${title}`);
