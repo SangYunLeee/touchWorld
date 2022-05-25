@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import PostDataService from "../service/post.service";
+import "./AddPostPage.css";
+
 const AddPost = () => {
   const initialPostState = {
     id: null,
@@ -38,7 +40,8 @@ const AddPost = () => {
     setSubmitted(false);
   };
   return (
-    <div className="submit-form">
+    <div className="addPost">
+      <div className="submit-form">
     {submitted ? (
       <div>
         <h4>You submitted successfully!</h4>
@@ -78,6 +81,8 @@ const AddPost = () => {
       </div>
     )}
   </div>
+    </div>
+
   );
 };
 export default AddPost;

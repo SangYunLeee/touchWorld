@@ -8,12 +8,11 @@ const c_postitem_item_imgContainer =
   "border col-xs-2 col-md-2 col-3 d-flex align-items-center justify-content-center p-0";
 const c_postitem_item_imgContainer_img = "img-fluid text-center";
 
-export default function PostItem() {
+export default function PostItem(props) {
   return (
     <div
       className={c_postitem}
       style={{ maxHeight: "200px" }}
-      onClick="location.href='/post';"
     >
       <div className={c_postitem_item}>
         <div
@@ -29,9 +28,9 @@ export default function PostItem() {
         </div>
         <div className={c_postitem_item_textArea}>
           <div className="card-body">
-            <h5 className="card-title"> title</h5>
+            <h5 className="card-title"> {props.title}</h5>
             <p className="card-text mh-25 text-truncate d-block ">
-              image description
+            {props.description}
             </p>
           </div>
         </div>

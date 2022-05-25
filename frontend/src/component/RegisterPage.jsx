@@ -4,6 +4,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import AuthService from "../service/auth.service";
+import catImg from "../asset/cat_noimage.jpg";
 import "./AuthPage.css";
 
 const required = (value) => {
@@ -90,8 +91,9 @@ const Register = () => {
     <div className="registerPage col-md-12">
       <div className="card card-container">
         <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+          src={catImg}
           alt="profile-img"
+          style={{borderStyle:"solid", borderWidth:"1px", borderColor: "DarkGray"}}
           className="profile-img-card"
         />
         <Form onSubmit={handleRegister} ref={form}>

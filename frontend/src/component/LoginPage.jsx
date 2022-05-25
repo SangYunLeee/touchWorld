@@ -6,6 +6,7 @@ import CheckButton from "react-validation/build/button";
 
 import AuthService from "../service/auth.service";
 import "./AuthPage.css";
+import catImg from "../asset/cat_noimage.jpg";
 
 const required = (value) => {
   if (!value) {
@@ -49,7 +50,7 @@ const Login = () => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(username, password).then(
         () => {
-          navigate("/profile");
+          navigate("/");
           window.location.reload();
         },
         (error) => {
@@ -73,7 +74,8 @@ const Login = () => {
     <div className="loginPage col-md-12">
       <div className="card card-container">
         <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+          style={{borderStyle:"solid", borderWidth:"1px", borderColor: "DarkGray"}}
+          src={catImg}
           alt="profile-img"
           className="profile-img-card"
         />

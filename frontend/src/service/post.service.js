@@ -1,4 +1,6 @@
 import http from "../http-common";
+import authHeader from "./auth.header";
+
 const getAll = () => {
   return http.get("/post");
 };
@@ -6,7 +8,7 @@ const get = id => {
   return http.get(`/post/${id}`);
 };
 const create = data => {
-  return http.post("/post", data);
+  return http.post("/post", {...data, headers: authHeader()});
 };
 const update = (id, data) => {
   return http.put(`/post/${id}`, data);

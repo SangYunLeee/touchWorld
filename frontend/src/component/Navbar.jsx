@@ -24,16 +24,16 @@ export default function Navbar() {
 
   const NoneUserNavItems = () => {
     return [
-      <Link className={`${nav_item}`} to="/login">로그인쓰</Link>,
-      <Link className={`${nav_item}`} to="/register">회원가입</Link>
+      <Link key="login" className={`${nav_item}`} to="/login">로그인쓰</Link>,
+      <Link key="regist" className={`${nav_item}`} to="/register">회원가입</Link>
     ]
   }
 
   const UserNavItems = () => {
     return [
-      <Link className={`${nav_item}`} to="/profile">{currentUser.username}</Link>,
-      <Link className={`${nav_item}`} to="/profile">내 정보</Link>,
-      <Link className={`${nav_item}`} to="/" onClick={logOut}>로그 아웃</Link>
+      <Link key="username" className={`${nav_item}`} to="/profile">{currentUser.username}</Link>,
+      <Link key="profile" className={`${nav_item}`} to="/profile">내 정보</Link>,
+      <Link key="logout" className={`${nav_item}`} to="/" onClick={logOut}>로그 아웃</Link>
     ]
   }
 

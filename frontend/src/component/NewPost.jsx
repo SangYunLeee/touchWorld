@@ -25,7 +25,6 @@ export default function NewPost() {
                 </p>
             </form>
         </div>
-
       </div>
     </div>
   )
