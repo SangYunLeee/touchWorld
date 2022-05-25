@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import './App.css';
+import './public.css';
 import Navbar from './component/Navbar'
 import Home from './component/Home'
 import NewPost from './component/NewPost'
@@ -20,7 +21,7 @@ function App() {
       <div className="container">
       <Routes>
         <Route index element={<Home />} />
-        <Route path="post/new" element={<AddPostPage />} />
+        <Route path="post/new" element={<NewPost />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="profile" element={<ProfilePage />} />
