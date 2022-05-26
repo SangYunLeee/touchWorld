@@ -11,7 +11,6 @@ const c_newPost_container_form_btn = "btn btn-success position-absolute"
 
 export default function NewPost() {
   let navigate = useNavigate();
-  const [value, setValue] = useState('');
   const initialPostState = {
     id: null,
     title: "",
@@ -19,7 +18,6 @@ export default function NewPost() {
     published: false
   };
   const [post, setPost] = useState(initialPostState);
-  const [submitted, setSubmitted] = useState(false);
   const handleInputChange = event => {
     const { name, value } = event.target;
     setPost({ ...post, [name]: value });

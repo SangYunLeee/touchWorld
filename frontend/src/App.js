@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 
 import './App.css';
 import './public.css';
@@ -11,25 +11,31 @@ import LoginPage from "./component/LoginPage";
 import RegisterPage from "./component/RegisterPage";
 import ProfilePage from "./component/ProfilePage";
 import AddPostPage from "./component/AddPostPage";
+import PostDetailPage from "./component/PostDetailPage";
 
+const PostDetail = () => {
+  let { id } = useParams();
+  return <PostDetailPage postId={id} />;
+}
 
 function App() {
   return (
     <div className="App">
-      <HomeTitle />
-      <Navbar />
-      <div className="container">
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="post/new" element={<NewPost />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="profile" element={<ProfilePage />} />
-        <Route path="post/add" element={<AddPostPage />} />
-      </Routes>
+      <div className="body">
+        <HomeTitle />
+        <Navbar />
+        <div className="container">
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="post/new" element={<NewPost />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<RegisterPage />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="post/add" element={<AddPostPage />} />
+            <Route path="post/:id" element={<PostDetail />} />
+          </Routes>
+        </div>
       </div>
-      <header className="App-header">
-      </header>
     </div>
   );
 }

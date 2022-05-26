@@ -1,0 +1,58 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import ReactQuill from 'react-quill';
+import PostDataService from "../service/post.service";
+import 'react-quill/dist/quill.snow.css';
+const c_newPost = "container-fluid"
+const c_newPost_container = "col-xs-12 col-sm-10 col-md-8 col-lg-6 col-12 mx-auto py-3 mw-600 border bg-gray"
+const c_newPost_container_title = "d-block text-center"
+const c_newPost_container_form = "w-100 position-relative"
+const c_newPost_container_form_btn = "btn btn-success position-absolute"
+
+export default function PostDetailPage(props) {
+  const { postId } = props;
+  const initialPostState = {
+    id: null,
+    title: "title",
+    description: "des",
+    published: false
+  };
+  const [post, setPost] = useState(initialPostState);
+
+  const moduleConfig = {
+    toolbar: false
+  }
+
+  useEffect(() => {
+    retrievePosts();
+  }, []);
+
+  const retrievePosts = () => {
+    PostDataService.get(postId)
+      .then(response => {
+        setPost(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+  return (
+    <div className={c_newPost}>
+      <div className='row'>
+        <div className={c_newPost_container}>
+          <h4 className={c_newPost_container_title}>{post.title}</h4>
+          <div className={c_newPost_container_form}>
+            <div className="mb-3" >
+              <ReactQuill readOnly={true} modules={moduleConfig} className='min-h-300' theme="snow" value={post.description} />
+            </div>
+            <p className='p-0 m-0' style={{ height: "2.0rem" }}>
+              <button className={c_newPost_container_form_btn} style={{ right: "0px" }}
+              >수정할령?</button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

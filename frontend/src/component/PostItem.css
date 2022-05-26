@@ -1,0 +1,20 @@
+.postitem .card-body {
+  padding: 0.5rem 0.3rem;
+}
+
+.postitem .card-title {
+  margin-bottom: 0.2rem;
+}
+
+.postitem .card-text {
+  font-size: 0.9rem;
+}
+
+.postitem {
+  /* background-color: aqua; */
+}
+
+.postitem .card:hover {
+  background-color: rgb(247, 247, 243);
+  cursor: pointer;
+}

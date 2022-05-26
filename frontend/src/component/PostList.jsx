@@ -22,7 +22,7 @@ export default function PostList() {
   return (
     <>
     {posts.map((post, index) => (
-      <PostItem key={index} title={post.title} description={post.description} />
+      <PostItem key={index} post={post} />
     ))}
     </>
   )
