@@ -3,18 +3,25 @@ import { useNavigate } from "react-router-dom";
 import ReactQuill from 'react-quill';
 import PostDataService from "../service/post.service";
 import 'react-quill/dist/quill.snow.css';
+import AuthService from "../service/auth.service";
 const c_newPost = "container-fluid"
 const c_newPost_container = "col-xs-12 col-sm-10 col-md-8 col-lg-6 col-12 mx-auto py-3 mw-600 border bg-gray"
 const c_newPost_container_title = "d-block text-center"
 const c_newPost_container_form = "w-100 position-relative"
-const c_newPost_container_form_btn = "btn btn-success position-absolute"
+const c_newPost_container_form_update_btn = "btn btn-success position-absolute"
+const c_newPost_container_form_delete_btn = "btn btn-danger position-absolute"
 
 export default function PostDetailPage(props) {
+  let navigate = useNavigate();
+  const currentUser = AuthService.getCurrentUser();
   const { postId } = props;
   const initialPostState = {
     id: null,
     title: "title",
     description: "des",
+    author: {
+      id: null
+    },
     published: false
   };
   const [post, setPost] = useState(initialPostState);
@@ -35,7 +42,18 @@ export default function PostDetailPage(props) {
       .catch(e => {
         console.log(e);
       });
+
   };
+
+  const handleDelete = () => {
+    PostDataService.remove(post.id)
+      .then(response => {
+        navigate("/");
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
 
   return (
     <div className={c_newPost}>
@@ -47,8 +65,21 @@ export default function PostDetailPage(props) {
               <ReactQuill readOnly={true} modules={moduleConfig} className='min-h-300' theme="snow" value={post.description} />
             </div>
             <p className='p-0 m-0' style={{ height: "2.0rem" }}>
-              <button className={c_newPost_container_form_btn} style={{ right: "0px" }}
-              >수정할령?</button>
+
+              {
+                ((currentUser.id == post.author.id) || (!post.author.id))  && [
+                  <button className={c_newPost_container_form_update_btn} style={{ right: "0px" }}
+                    key="update"
+                  >
+                    수정할령?
+                  </button>,
+                  <button className={c_newPost_container_form_delete_btn} style={{ right: "100px" }}
+                    onClick={handleDelete}
+                    key="delete"
+                  >삭제</button>
+                ]
+              }
+
             </p>
           </div>
         </div>

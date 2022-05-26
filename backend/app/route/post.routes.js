@@ -19,10 +19,10 @@ module.exports = app => {
   // Retrieve a single Post with id
   router.get("/:id", postCtl.findOne);
   // Update a Post with id
-  router.put("/:id", postCtl.update);
+  router.put("/:id", [authJwt.verifyToken], postCtl.update);
   // Delete a Post with id
-  router.delete("/:id", postCtl.delete);
+  router.delete("/:id", [authJwt.verifyToken], postCtl.delete);
   // Create a new Post
-  router.delete("/", postCtl.deleteAll);
+  router.delete("/", [authJwt.verifyToken], postCtl.deleteAll);
   app.use('/post', router);
 };

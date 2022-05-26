@@ -12,6 +12,7 @@ exports.create = (req, res) => {
     title: req.body.title,
     description: req.body.description,
     published: req.body.published ? req.body.published : false,
+    author: req.userId
   });
   // Save Post in the database
   post
@@ -44,11 +45,13 @@ exports.findAll = (req, res) => {
 // Find a single Post with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
-  Post.findById(id)
+  Post.findById(id).populate('author')
     .then(data => {
       if (!data)
         res.status(404).send({ message: "Not found Post with id " + id });
-      else res.send(data);
+      else {
+        res.send(data.toJSON());
+      }
     })
     .catch(err => {
       res
@@ -81,21 +84,26 @@ exports.update = (req, res) => {
 // Delete a Post with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
-  Post.findByIdAndRemove(id)
-    .then(data => {
-      if (!data) {
-        res.status(404).send({
-          message: `Cannot delete Post with id=${id}. Maybe Post was not found!`
-        });
-      } else {
-        res.send({
-          message: "Post was deleted successfully!"
-        });
+  Post.findById(id)
+    .then(post => {
+      if (post.author && post.author != req.userId) {
+        throw 'incorrect author';
       }
+      Post.findByIdAndRemove(id)
+      .then(data => {
+        if (!data) {
+          throw `Cannot delete Post with id=${id}. Maybe Post was not found!`
+        } else {
+          res.send({
+            message: "Post was deleted successfully!"
+          });
+        }
+      })
     })
     .catch(err => {
+      // status  404 와 500 후에 확인 필요.
       res.status(500).send({
-        message: "Could not delete Post with id=" + id
+        message: err
       });
     });
 };
