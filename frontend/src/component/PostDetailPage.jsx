@@ -67,7 +67,7 @@ export default function PostDetailPage(props) {
             <p className='p-0 m-0' style={{ height: "2.0rem" }}>
 
               {
-                ((currentUser.id == post.author.id) || (!post.author.id))  && [
+                ((!post.author) || (post.author && currentUser.id == post.author.id))  && [
                   <button className={c_newPost_container_form_update_btn} style={{ right: "0px" }}
                     key="update"
                   >
