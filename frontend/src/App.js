@@ -18,6 +18,11 @@ const PostDetail = () => {
   return <PostDetailPage postId={id} />;
 }
 
+const PostEdit = () => {
+  let { id } = useParams();
+  return <NewPost postId={id} isEditMode={true} />;
+}
+
 function App() {
   return (
     <div className="App">
@@ -27,11 +32,11 @@ function App() {
         <div className="container">
           <Routes>
             <Route index element={<Home />} />
-            <Route path="post/new" element={<NewPost />} />
+            <Route path="post/new" element={<NewPost isEditMode={false} />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
             <Route path="profile" element={<ProfilePage />} />
-            <Route path="post/add" element={<AddPostPage />} />
+            <Route path="post/edit/:id" element={<PostEdit />} />
             <Route path="post/:id" element={<PostDetail />} />
           </Routes>
         </div>

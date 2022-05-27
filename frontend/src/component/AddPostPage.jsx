@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import PostDataService from "../service/post.service";
 import "./AddPostPage.css";
 
-const AddPost = () => {
+const AddPost = (props) => {
+  const {postId, isEditMode} = props;
   const initialPostState = {
     id: null,
     title: "",

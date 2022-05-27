@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from 'react-quill';
 import PostDataService from "../service/post.service";
@@ -9,7 +9,8 @@ const c_newPost_container_title = "d-block text-center"
 const c_newPost_container_form = "w-100 position-relative"
 const c_newPost_container_form_btn = "btn btn-success position-absolute"
 
-export default function NewPost() {
+export default function NewPost(props) {
+  const {postId, isEditMode} = props;
   let navigate = useNavigate();
   const initialPostState = {
     id: null,
@@ -32,9 +33,11 @@ export default function NewPost() {
       title: post.title,
       description: post.description
     };
-    PostDataService.create(data)
+    (isEditMode?  PostDataService.update(postId, data) :
+                  PostDataService.create(data)
+    )
       .then(response => {
-        navigate("/");
+        navigate(`/post/${response.data.id}`);
         window.location.reload();
       })
       .catch(e => {
@@ -42,15 +45,29 @@ export default function NewPost() {
       });
   };
 
+  useEffect(() => {
+    if (isEditMode)
+      retrievePosts();
+  }, []);
+
+  const retrievePosts = () => {
+    PostDataService.get(postId)
+      .then(response => {
+        setPost(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+
+  };
+
   return (
     <div className={c_newPost}>
       <div className='row'>
         <div className={c_newPost_container}>
-            <h4 className={c_newPost_container_title}>새로 만들거냥?</h4>
             <div className={c_newPost_container_form}>
                 <div className="mb-3">
-                    <label className="form-label" htmlFor="title">제목</label>
-                    <input className="form-control sh-n" type="text" id="title" name="title" required onChange={handleInputChange} />
+                    <input className="form-control sh-n" type="text" id="title" name="title" value={post.title} required onChange={handleInputChange} />
                 </div>
                 <div className="mb-3" >
                 <ReactQuill className='min-h-300' theme="snow" value={post.description} onChange={setEditorValue}/>

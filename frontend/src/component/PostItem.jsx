@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import catImg from "../asset/cat_noimage.jpg";
 import "./PostItem.css";
+import {stripTags} from '../helper';
 
 const c_postitem = "postitem container mb-2 mx-auto myCursor normal-max-width";
 const c_postitem_item = "row d-flex justify-content-center";
@@ -38,7 +39,7 @@ export default function PostItem(props) {
           <div className="card-body">
             <h6 className="card-title"> {title}</h6>
             <p className="card-text mh-25 text-truncate d-block ">
-            {description}
+            {stripTags(description)}
             </p>
           </div>
         </div>

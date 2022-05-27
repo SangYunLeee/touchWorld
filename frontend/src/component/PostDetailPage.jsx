@@ -4,6 +4,8 @@ import ReactQuill from 'react-quill';
 import PostDataService from "../service/post.service";
 import 'react-quill/dist/quill.snow.css';
 import AuthService from "../service/auth.service";
+import "./QuillEditor.css";
+
 const c_newPost = "container-fluid"
 const c_newPost_container = "col-xs-12 col-sm-10 col-md-8 col-lg-6 col-12 mx-auto py-3 mw-600 border bg-gray"
 const c_newPost_container_title = "d-block text-center"
@@ -11,14 +13,15 @@ const c_newPost_container_form = "w-100 position-relative"
 const c_newPost_container_form_update_btn = "btn btn-success position-absolute"
 const c_newPost_container_form_delete_btn = "btn btn-danger position-absolute"
 
+
 export default function PostDetailPage(props) {
   let navigate = useNavigate();
   const currentUser = AuthService.getCurrentUser();
   const { postId } = props;
   const initialPostState = {
     id: null,
-    title: "title",
-    description: "des",
+    title: "...",
+    description: "...",
     author: {
       id: null
     },
@@ -55,6 +58,10 @@ export default function PostDetailPage(props) {
       });
   }
 
+  const handleEdit = () => {
+    navigate(`/post/edit/${post.id}`)
+  }
+
   return (
     <div className={c_newPost}>
       <div className='row'>
@@ -69,6 +76,7 @@ export default function PostDetailPage(props) {
               {
                 ((!post.author) || (post.author && currentUser.id == post.author.id))  && [
                   <button className={c_newPost_container_form_update_btn} style={{ right: "0px" }}
+                  onClick={handleEdit}
                     key="update"
                   >
                     수정할령?
