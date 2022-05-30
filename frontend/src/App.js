@@ -12,6 +12,7 @@ import RegisterPage from "./component/RegisterPage";
 import ProfilePage from "./component/ProfilePage";
 import AddPostPage from "./component/AddPostPage";
 import PostDetailPage from "./component/PostDetailPage";
+import ProfilePwdUpdatePage from "./component/ProfilePwdUpdatePage";
 
 const PostDetail = () => {
   let { id } = useParams();
@@ -21,6 +22,10 @@ const PostDetail = () => {
 const PostEdit = () => {
   let { id } = useParams();
   return <NewPost postId={id} isEditMode={true} />;
+}
+
+const ProfileEdit = () => {
+  return <ProfilePage editMode={true} />;
 }
 
 function App() {
@@ -35,7 +40,9 @@ function App() {
             <Route path="post/new" element={<NewPost isEditMode={false} />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
-            <Route path="profile" element={<ProfilePage />} />
+            <Route path="profile" element={<ProfilePage />} editMode={false} />
+            <Route path="profile/edit" element={<ProfileEdit />} />
+            <Route path="profile/pwdupdate" element={<ProfilePwdUpdatePage />} />
             <Route path="post/edit/:id" element={<PostEdit />} />
             <Route path="post/:id" element={<PostDetail />} />
           </Routes>

@@ -1,0 +1,15 @@
+.profilePwdUpdatePage *:is(div, p) label {
+  width: 150px;
+}
+
+.profilePwdUpdatePage *:is(div, p){
+  display: table;
+}
+
+.profilePwdUpdatePage > * {
+  margin: 0 auto;
+}
+
+.profilePwdUpdatePage *:is(div, p) input {
+  max-width: 220px;
+}

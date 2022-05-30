@@ -11,7 +11,11 @@ const nav_item = "nav-link text-secondary text-center"
 export default function Navbar() {
   const [currentUser, setCurrentUser] = useState(undefined);
   useEffect(() => {
-    const user = AuthService.getCurrentUser();
+    var user;
+    try {
+      user = AuthService.getCurrentUser();
+    } catch {
+    }
     if (user) {
       setCurrentUser(user);
     }

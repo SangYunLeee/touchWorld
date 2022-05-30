@@ -4,6 +4,7 @@ module.exports = mongoose => {
     username: String,
     email: String,
     password: String,
+    nickname: String,
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,

@@ -4,7 +4,14 @@ const User = db.user;
 const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
-exports.signup = (req, res) => {
+
+var ctl = {
+  signup : null,
+  signin : null,
+  updateUser : null
+}
+
+ctl.signup = (req, res) => {
   const user = new User({
     username: req.body.username,
     email: req.body.email,
@@ -53,7 +60,7 @@ exports.signup = (req, res) => {
     }
   });
 };
-exports.signin = (req, res) => {
+ctl.signin = (req, res) => {
   User.findOne({
     username: req.body.username
   })
@@ -73,6 +80,7 @@ exports.signin = (req, res) => {
       if (!passwordIsValid) {
         return res.status(401).send({
           accessToken: null,
+
           message: "Invalid Password!"
         });
       }
@@ -87,8 +95,30 @@ exports.signin = (req, res) => {
         id: user._id,
         username: user.username,
         email: user.email,
+        nickname: user.nickname,
         roles: authorities,
         accessToken: token
       });
     });
 };
+
+ctl.updateUser = (req, res) => {
+  User.findOne({
+    id: req.userId
+  })
+    .then(user => {
+      user.email = req.body.email;
+      user.nickname = req.body.nickname;
+      user.save()
+        .then(user => {
+          res.status(200).send({
+            ...user.toJSON()
+          })
+        })
+    })
+    .catch(err => {
+      res.status(500).send({message: err});
+    })
+}
+
+module.exports = ctl;
