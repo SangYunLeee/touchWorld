@@ -5,7 +5,6 @@ import PostDataService from "../service/post.service";
 import 'react-quill/dist/quill.snow.css';
 const c_newPost = "container-fluid"
 const c_newPost_container = "col-xs-12 col-sm-10 col-md-8 col-lg-6 col-12 mx-auto py-3 mw-600 border bg-gray"
-const c_newPost_container_title = "d-block text-center"
 const c_newPost_container_form = "w-100 position-relative"
 const c_newPost_container_form_btn = "btn btn-success position-absolute"
 
@@ -46,20 +45,19 @@ export default function NewPost(props) {
   };
 
   useEffect(() => {
+    const retrievePosts = () => {
+      PostDataService.get(postId)
+        .then(response => {
+          setPost(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    };
+
     if (isEditMode)
       retrievePosts();
-  }, []);
-
-  const retrievePosts = () => {
-    PostDataService.get(postId)
-      .then(response => {
-        setPost(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-
-  };
+  }, [isEditMode, postId]);
 
   return (
     <div className={c_newPost}>

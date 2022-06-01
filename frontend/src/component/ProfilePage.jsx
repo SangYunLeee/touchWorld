@@ -16,9 +16,10 @@ const Profile = (props) => {
   const [editMode, setEditMode] = useState(initEditMode);
 
   useEffect(() => {
+    console.log('useEffect');
     setEditMode(props.editMode);
     setUser(currentUser);
-  }, []);
+  }, [props.editMode, currentUser]);
 
   const setInputValue = (event) => {
     const { name, value } = event.target;

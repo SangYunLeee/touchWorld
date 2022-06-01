@@ -34,19 +34,18 @@ export default function PostDetailPage(props) {
   }
 
   useEffect(() => {
+    console.log("useEffect")
+    const retrievePosts = () => {
+      PostDataService.get(postId)
+        .then(response => {
+          setPost(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    };
     retrievePosts();
-  }, []);
-
-  const retrievePosts = () => {
-    PostDataService.get(postId)
-      .then(response => {
-        setPost(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-
-  };
+  },[postId]);
 
   const handleDelete = () => {
     PostDataService.remove(post.id)
@@ -74,7 +73,8 @@ export default function PostDetailPage(props) {
             <p className='p-0 m-0' style={{ height: "2.0rem" }}>
 
               {
-                ((!post.author) || (post.author && currentUser.id == post.author.id))  && [
+
+                ((!post.author) || (post.author && currentUser.id === post.author.id))  && [
                   <button className={c_newPost_container_form_update_btn} style={{ right: "0px" }}
                   onClick={handleEdit}
                     key="update"

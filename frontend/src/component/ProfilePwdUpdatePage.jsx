@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../service/auth.service";
 import "./ProfilePwdUpdatePage.css";
@@ -9,33 +9,36 @@ const c_userInfo_edit_btn = "btn bg-secondary position-absolute text-light";
 
 const ProfilePwdUpdatePage = (props) => {
   const navigate = useNavigate();
-  const currentUser = AuthService.getCurrentUser();
+  var currentUser = AuthService.getCurrentUser();
+  currentUser.newPassword = "";
+  currentUser.oldPassword = "";
 
   const [user, setUser] = useState(currentUser);
-  var initEditMode = props.editMode;
-
-  useEffect(() => {
-    setUser(currentUser);
-  }, []);
+  const [warningMessage, setWarningMessage] = useState("");
 
   const setInputValue = (event) => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
   };
 
-  const goToEditProfile = () => {
-    navigate("/profile/edit");
-  };
+  const onClickedUpdatePwdBtn = () => {
+    console.log("test onClickedUpdatePwdBtn");
+    if (user.oldPassword !== user.oldPassword2) {
 
-  const onClickUpdateUserInfo = () => {
-    console.log("test onClickUpdateUserInfo");
-    AuthService.updateUserInfo({
-      nickname: user.nickname,
-      email: user.email,
-    }).then(() => {
+    }
+    AuthService.updatePassword({
+      oldPassword: user.oldPassword,
+      newPassword: user.newPassword
+    })
+      .then(() => {
       navigate("/profile");
       window.location.reload();
-    });
+    })
+      .catch((err) => {
+        const msg = "변경에 실패했습니다"
+        setWarningMessage(msg);
+      })
+    ;
   };
 
   return (
@@ -50,7 +53,7 @@ const ProfilePwdUpdatePage = (props) => {
           type='password'
           placeholder="기존 비밀번호를 입력해주세요"
           onChange={setInputValue}
-          name="oldPassward"
+          name="oldPassword"
         />
       </div>
       <p>
@@ -61,7 +64,7 @@ const ProfilePwdUpdatePage = (props) => {
           type='password'
           placeholder="다시 입력해주세요"
           onChange={setInputValue}
-          name="oldPassward2"
+          name="oldPassword2"
         />
       </p>
       <p>
@@ -69,15 +72,21 @@ const ProfilePwdUpdatePage = (props) => {
         <input
           placeholder="변경할 비밀번호를 입력해주세요"
           onChange={setInputValue}
-          name="newPassward"
+          name="newPassword"
+          type='password'
           className="mt-2"
         />
       </p>
+      {
+        warningMessage && (
+          <div> {warningMessage} </div>
+        )
+      }
       <p className="p-0 m-0" style={{ height: "4.0rem" }}>
         <button
           className={c_userInfo_edit_btn}
           style={{ right: "15px", bottom: "15px" }}
-          onClick={onClickUpdateUserInfo}
+          onClick={onClickedUpdatePwdBtn}
         >
           변경 완료
         </button>

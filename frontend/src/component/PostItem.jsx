@@ -32,7 +32,7 @@ export default function PostItem(props) {
             className={c_postitem_item_imgContainer_img}
             style={{ width: "auto", maxHeight: "60px" }}
             src={catImg}
-            alt="Card image cap"
+            alt="Card cap"
           />
         </div>
         <div className={c_postitem_item_textArea}>

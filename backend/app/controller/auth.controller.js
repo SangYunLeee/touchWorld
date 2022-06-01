@@ -8,7 +8,8 @@ var bcrypt = require("bcryptjs");
 var ctl = {
   signup : null,
   signin : null,
-  updateUser : null
+  updateUser : null,
+  updatePwd: null
 }
 
 ctl.signup = (req, res) => {
@@ -117,6 +118,41 @@ ctl.updateUser = (req, res) => {
         })
     })
     .catch(err => {
+      res.status(500).send({message: err});
+    })
+}
+
+ctl.updatePwd = (req, res) => {
+  User.findOne({
+    id: req.userId
+  })
+    .then(user => {
+      if (!user) {
+
+        return res.status(404).send({ message: "User Not found." });
+      }
+      console.log("body: ", req.body);
+      console.log("user: ", user.password);
+      var passwordIsValid = bcrypt.compareSync(
+        req.body.oldPassword,
+        user.password
+      );
+      if (!passwordIsValid) {
+        return res.status(401).send({
+          accessToken: null,
+          message: "Invalid Password!"
+        });
+      }
+      user.password = bcrypt.hashSync(req.body.newPassword, 8);
+      user.save()
+        .then((user) => {
+          res.status(200).send({
+            message: "password changed"
+          });
+        })
+    })
+    .catch(err => {
+      console.log("rr:" , err);
       res.status(500).send({message: err});
     })
 }

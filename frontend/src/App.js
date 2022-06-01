@@ -10,7 +10,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import LoginPage from "./component/LoginPage";
 import RegisterPage from "./component/RegisterPage";
 import ProfilePage from "./component/ProfilePage";
-import AddPostPage from "./component/AddPostPage";
 import PostDetailPage from "./component/PostDetailPage";
 import ProfilePwdUpdatePage from "./component/ProfilePwdUpdatePage";
 

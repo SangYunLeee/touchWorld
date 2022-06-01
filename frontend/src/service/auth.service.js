@@ -44,11 +44,20 @@ const updateUserInfo = async (userInfo) => {
         })
 };
 
+const updatePassword = async ({oldPassword, newPassword}) => {
+  return axios
+      .put(API_URL + "password", {
+        oldPassword,
+        newPassword
+      }, {headers: authHeader()});
+};
+
 const AuthService = {
     register,
     login,
     logout,
     getCurrentUser,
-    updateUserInfo
+    updateUserInfo,
+    updatePassword
 };
 export default AuthService;

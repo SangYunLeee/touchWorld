@@ -19,4 +19,5 @@ module.exports = function(app) {
   );
   app.post("/api/auth/signin", controller.signin);
   app.put("/api/auth/userinfo",[authJwt.verifyToken], controller.updateUser);
+  app.put("/api/auth/password",[authJwt.verifyToken], controller.updatePwd);
 };
