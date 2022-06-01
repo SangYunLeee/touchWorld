@@ -12,7 +12,6 @@ import RegisterPage from "./component/RegisterPage";
 import ProfilePage from "./component/ProfilePage";
 import PostDetailPage from "./component/PostDetailPage";
 import ProfilePwdUpdatePage from "./component/ProfilePwdUpdatePage";
-
 const PostDetail = () => {
   let { id } = useParams();
   return <PostDetailPage postId={id} />;
