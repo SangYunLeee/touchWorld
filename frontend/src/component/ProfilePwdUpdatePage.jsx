@@ -4,7 +4,7 @@ import AuthService from "../service/auth.service";
 import "./ProfilePwdUpdatePage.css";
 
 const c_profilePwdUpdatePage =
-  "profilePwdUpdatePage col-xs-12 col-sm-10 col-md-8 col-lg-6 col-12 mx-auto py-3 mw-600 border bg-gray";
+  "profilePwdUpdatePage border bg-gray";
 const c_userInfo_edit_btn = "btn bg-secondary position-absolute text-light";
 
 const ProfilePwdUpdatePage = (props) => {
@@ -42,7 +42,7 @@ const ProfilePwdUpdatePage = (props) => {
   };
 
   return (
-    <div className={`${c_profilePwdUpdatePage} profileForm px-3 position-relative`}>
+    <div className={`${c_profilePwdUpdatePage} profileForm p-3 position-relative`} style={{width: '450px'}}>
       <header className="jumbotron">
         <h3>비밀번호 변경</h3>
         <hr className="solid"></hr>

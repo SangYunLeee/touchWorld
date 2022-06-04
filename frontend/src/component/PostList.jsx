@@ -20,10 +20,10 @@ export default function PostList() {
   };
 
   return (
-    <>
+    <div style={{width: "550px"}}>
     {posts.map((post, index) => (
       <PostItem key={index} post={post} />
     ))}
-    </>
+    </div>
   )
 }

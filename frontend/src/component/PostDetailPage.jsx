@@ -6,8 +6,7 @@ import 'react-quill/dist/quill.snow.css';
 import AuthService from "../service/auth.service";
 import "./QuillEditor.css";
 
-const c_newPost = "container-fluid"
-const c_newPost_container = "col-xs-12 col-sm-10 col-md-8 col-lg-6 col-12 mx-auto py-3 mw-600 border bg-gray"
+const c_newPost_container = "border bg-gray p-3"
 const c_newPost_container_title = "d-block text-center"
 const c_newPost_container_form = "w-100 position-relative"
 const c_newPost_container_form_update_btn = "btn btn-success position-absolute"
@@ -62,9 +61,7 @@ export default function PostDetailPage(props) {
   }
 
   return (
-    <div className={c_newPost}>
-      <div className='row'>
-        <div className={c_newPost_container}>
+        <div className={c_newPost_container} style={{width:'500px'}}>
           <h4 className={c_newPost_container_title}>{post.title}</h4>
           <div className={c_newPost_container_form}>
             <div className="mb-3" >
@@ -87,11 +84,8 @@ export default function PostDetailPage(props) {
                   >삭제</button>
                 ]
               }
-
             </p>
           </div>
         </div>
-      </div>
-    </div>
   )
 }

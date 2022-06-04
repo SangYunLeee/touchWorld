@@ -4,8 +4,8 @@ import catImg from "../asset/cat_noimage.jpg";
 import "./PostItem.css";
 import {stripTags} from '../helper';
 
-const c_postitem = "postitem container mb-2 mx-auto myCursor normal-max-width";
-const c_postitem_item = "row d-flex justify-content-center";
+const c_postitem = "postitem mb-2 mx-auto myCursor normal-max-width";
+const c_postitem_item = "d-flex justify-content-center";
 const c_postitem_item_textArea = "hover-grey card col-xs-10 col-md-10 col-9";
 const c_postitem_item_imgContainer =
   "border col-xs-2 col-md-2 col-3 d-flex align-items-center justify-content-center p-0";

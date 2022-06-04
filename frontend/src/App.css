@@ -1,0 +1,13 @@
+.colapse-ms {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .colapse-ms {
+    display: block;
+  }
+}
+
+.h-fit-content {
+  height: fit-content
+}

@@ -4,7 +4,7 @@ import AuthService from "../service/auth.service";
 import "./ProfilePage.css";
 
 const c_userInfo_container =
-  "profilepage col-xs-12 col-sm-10 col-md-8 col-lg-6 col-12 mx-auto py-3 mw-600 border bg-gray";
+  "profilepage border bg-gray";
 const c_userInfo_edit_btn = "btn bg-secondary position-absolute text-light";
 
 const Profile = (props) => {
@@ -15,11 +15,14 @@ const Profile = (props) => {
   var initEditMode = props.editMode;
   const [editMode, setEditMode] = useState(initEditMode);
 
+
   useEffect(() => {
     console.log('useEffect');
     setEditMode(props.editMode);
     setUser(currentUser);
-  }, [props.editMode, currentUser]);
+    // eslint-disable-next-line
+  }, []);
+
 
   const setInputValue = (event) => {
     const { name, value } = event.target;
@@ -44,7 +47,7 @@ const Profile = (props) => {
   }
 
   return (
-    <div className={`${c_userInfo_container} profileForm px-3 position-relative`}>
+    <div className={`${c_userInfo_container} profileForm p-3 position-relative`} style={{width: '450px'}}>
       <header className="jumbotron">
         <h3>{editMode? "내 정보 변경" : "내 정보" }</h3>
         <hr className="solid"></hr>
