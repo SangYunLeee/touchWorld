@@ -71,7 +71,7 @@ export default function PostDetailPage(props) {
 
               {
 
-                ((!post.author) || (post.author && currentUser.id === post.author.id))  && [
+                ((!post.author) || (post.author && !!currentUser && currentUser.id === post.author.id))  && [
                   <button className={c_newPost_container_form_update_btn} style={{ right: "0px" }}
                   onClick={handleEdit}
                     key="update"

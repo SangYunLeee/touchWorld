@@ -36,10 +36,10 @@ function App() {
         <Navbar />
         <Container fluid>
         <div className="row">
-            <Container className='col-3 vh-100' >
+            <Container className='col-3 vh-100 d-none d-md-flex justify-content-end' >
               <Sidebar/>
             </Container>
-            <Container className='col-12 col-lg-6 d-flex justify-content-center h-fit-content' fluid>
+            <Container className='col-12 col-md-6 d-flex justify-content-center h-fit-content' fluid>
               <Routes>
                 <Route index element={<Home />} />
                 <Route
@@ -62,7 +62,7 @@ function App() {
                 <Route path="post/:id" element={<PostDetail />} />
               </Routes>
             </Container >
-            <Container className='col-3 d-none d-lg-block'>
+            <Container className='col-3 d-none d-md-block'>
             </Container>
           </div>
         </Container>

@@ -1,0 +1,12 @@
+.sidebar .addBtn {
+  background-color: rgb(241, 255, 241);
+}
+
+.sidebar .addBtn:hover {
+  background-color: rgb(201, 238, 201);
+}
+
+.sidebar .btn {
+  margin-top: 5px;
+  padding: 2px 4px;
+}

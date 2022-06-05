@@ -11,3 +11,7 @@
 .h-fit-content {
   height: fit-content
 }
+
+.myCursor {
+  cursor: pointer;
+}
