@@ -16,6 +16,9 @@ export default function Sidebar(props) {
       <ListGroup.Item>전체 게시글</ListGroup.Item>
       {isEditMode ? (
         <ListGroup.Item className="addBtn " style={{ textAlign: "center" }}>
+          <div style={{marginBottom:"5px"}}>
+            게시글 분류 추가
+          </div>
           <input
             onClick={(e) => {
               e.preventDefault();

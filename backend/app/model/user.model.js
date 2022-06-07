@@ -10,7 +10,13 @@ module.exports = mongoose => {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Role"
       }
-    ]
+    ],
+    postCategory: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "postCategory"
+      }
+    ],
   }, {
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
