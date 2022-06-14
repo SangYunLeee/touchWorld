@@ -4,7 +4,8 @@ const PostCategory = db.postCategory;
 
 var ctl = {
   create : null,
-  findByUser: null
+  findByUser: null,
+  delete : null
 }
 
 ctl.create = (req, res) => {
@@ -46,7 +47,9 @@ ctl.findByUser = (req, res) => {
   PostCategory.find({author: userId})
     .then(data => {
       if (!data)
-        res.status(404).send({ message: "Not found PostCategory with userId " + userId });
+        res
+          .status(404)
+          .send({ message: "Not found PostCategory with userId " + userId });
       else {
         console.log("founded data: ", data);
         res.send(data);
@@ -58,5 +61,30 @@ ctl.findByUser = (req, res) => {
         .send({ message: "Error retrieving PostCategory with userId=" + userId });
     });
 };
+
+// delete a single PostCategory with an id
+// pass
+  // query: userId
+  ctl.delete = (req, res) => {
+    const categoryId = req.params.id;
+    console.log("delete CALLED")
+    console.log("categoryId: ", categoryId);
+    PostCategory.deleteById(categoryId)
+      .then(data => {
+        if (!data)
+          res
+            .status(404)
+            .send({ message: "Not found PostCategory with userId " + userId });
+        else {
+          console.log("deleted data: ", data);
+          res.send(data);
+        }
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .send({ message: "Error retrieving PostCategory with userId=" + userId });
+      });
+  };
 
 module.exports = ctl;
