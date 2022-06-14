@@ -37,9 +37,12 @@ export default function Sidebar(props) {
       <ListGroup.Item>전체 게시글</ListGroup.Item>
       {postCategories && postCategories.map((category, index) => (
         <ListGroup.Item key={index}
-          className="text-truncate"
+          className="category-list-item d-flex"
         >
-          {category.title}
+            <span className='category-text d-inline-block w-100 text-truncate'> {category.title}</span>
+            <i class="editBtn bi bi-three-dots-vertical position-absolute d-none "
+              style={{right:"2px"}}
+            ></i>
         </ListGroup.Item>
       ))}
       {isEditMode ? (

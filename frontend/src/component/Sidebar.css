@@ -10,3 +10,17 @@
   margin-top: 5px;
   padding: 2px 4px;
 }
+
+.sidebar .category-list-item:hover .editBtn {
+  display: inline-block!important;
+  cursor: pointer;
+}
+
+.sidebar .category-list-item:hover {
+  background-color: rgb(241, 241, 241);
+}
+
+.sidebar .category-text:hover {
+  cursor: pointer;
+  text-decoration: underline solid rgb(255, 181, 181) 3px;
+}

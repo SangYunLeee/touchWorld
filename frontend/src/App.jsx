@@ -7,6 +7,7 @@ import Home from "./component/Home";
 import NewPost from "./component/NewPost";
 import HomeTitle from "./component/HomeTitle";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import LoginPage from "./component/LoginPage";
 import RegisterPage from "./component/RegisterPage";
 import ProfilePage from "./component/ProfilePage";
