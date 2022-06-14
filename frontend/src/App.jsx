@@ -36,7 +36,7 @@ function App() {
         <Navbar />
         <Container fluid>
         <div className="row">
-            <Container className='col-3 vh-100 d-none d-md-flex justify-content-end' >
+            <Container className='col-3 min-vh-100 d-none d-md-flex' >
               <Sidebar/>
             </Container>
             <Container className='col-12 col-md-6 d-flex justify-content-center h-fit-content' fluid>

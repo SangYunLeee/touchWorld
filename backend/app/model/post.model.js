@@ -11,6 +11,10 @@ module.exports = mongoose => {
       author: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+      },
+      PostCategory: {
+        type: Schema.Types.ObjectId,
+        ref: 'PostCategory'
       }
     },
     { timestamps: true }

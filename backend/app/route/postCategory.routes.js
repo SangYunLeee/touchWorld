@@ -10,7 +10,10 @@ module.exports = app => {
     );
     next();
   });
-  // Create a new Post
+  // Create a new PostCategory
   router.post("/", [authJwt.verifyToken], ctl.create);
+  // Get Categories by UID
+  router.get("/", ctl.findByUser);
+
   app.use('/postCategory', router);
 };

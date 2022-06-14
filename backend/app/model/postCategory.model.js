@@ -3,16 +3,18 @@ const Schema = mongoose.Schema;
 
 module.exports = mongoose => {
 
-  var schema = mongoose.Schema(
-    {
-      title: String,
-      author: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
+  var schema = mongoose.Schema({
+    title: {
+      type: String,
+      required: true
     },
-    { timestamps: true }
-  );
+    author: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    }
+  });
+
   schema.virtual('id').get(function() {
     return this._id;
   });
