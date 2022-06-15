@@ -23,7 +23,7 @@
 					"name": "username",
 					"datatype": "String",
 					"param": "",
-					"pk": false,
+					"pk": true,
 					"nn": true,
 					"comment": "",
 					"defaultvalue": "",
@@ -37,7 +37,7 @@
 					"name": "email",
 					"datatype": "String",
 					"param": "",
-					"pk": false,
+					"pk": true,
 					"nn": false,
 					"comment": "",
 					"defaultvalue": "",
@@ -105,6 +105,14 @@
 						{
 							"id": "04574a59-170e-4128-9aef-6429cf73da53",
 							"colid": "cbaa0e4b-85ed-4809-9845-84ca18e9ac3f"
+						},
+						{
+							"id": "78f07678-83db-43fe-8615-4f4f4e6ff446",
+							"colid": "eae7e928-3c86-42f1-ac8a-8f6f425a3bf7"
+						},
+						{
+							"id": "f5a3d2f6-a9bd-4c57-b9fb-1a922d9f0b62",
+							"colid": "d3fdd728-98f3-449d-8580-f268f883d9f4"
 						}
 					]
 				}
@@ -190,6 +198,36 @@
 					"data": "",
 					"fk": true,
 					"ref": "PostCategory"
+				},
+				{
+					"id": "0a0eb072-5e0b-46d4-beeb-5abdcfe82943",
+					"name": "User_username",
+					"datatype": "String",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"list": false,
+					"ref": "",
+					"options": "",
+					"fk": true
+				},
+				{
+					"id": "9aa6b686-124e-4571-9505-433fa51bdad0",
+					"name": "User_email",
+					"datatype": "String",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"list": false,
+					"ref": "",
+					"options": "",
+					"fk": true
 				}
 			],
 			"relations": [
@@ -265,6 +303,36 @@
 					"data": "",
 					"fk": true,
 					"ref": "User"
+				},
+				{
+					"id": "5b126374-11eb-4a39-9ceb-9a023c12650a",
+					"name": "User_username",
+					"datatype": "String",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"list": false,
+					"ref": "",
+					"options": "",
+					"fk": true
+				},
+				{
+					"id": "a4fb85a5-7f95-483b-a93e-9766d248a8c6",
+					"name": "User_email",
+					"datatype": "String",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"list": false,
+					"ref": "",
+					"options": "",
+					"fk": true
 				}
 			],
 			"relations": [
@@ -374,6 +442,16 @@
 					"id": "5f962fda-4980-4f76-9e7d-82e156821df7",
 					"parentcol": "cbaa0e4b-85ed-4809-9845-84ca18e9ac3f",
 					"childcol": "b4639839-aa29-4f9c-8ab3-f98b67e60a5c"
+				},
+				{
+					"id": "cddd8005-8b8d-4b54-a544-633366b4a51a",
+					"parentcol": "eae7e928-3c86-42f1-ac8a-8f6f425a3bf7",
+					"childcol": "0a0eb072-5e0b-46d4-beeb-5abdcfe82943"
+				},
+				{
+					"id": "9bcf4512-1514-474e-98a2-856d5f8b681d",
+					"parentcol": "d3fdd728-98f3-449d-8580-f268f883d9f4",
+					"childcol": "9aa6b686-124e-4571-9505-433fa51bdad0"
 				}
 			],
 			"generate": true,
@@ -399,6 +477,16 @@
 					"id": "a8233ebe-4ecb-4def-9446-c3a327be4b6e",
 					"parentcol": "cbaa0e4b-85ed-4809-9845-84ca18e9ac3f",
 					"childcol": "268845f8-a695-4516-bffb-25f745f2a258"
+				},
+				{
+					"id": "32fb4c3e-8c14-4612-b34e-1e0c3ed4c36e",
+					"parentcol": "eae7e928-3c86-42f1-ac8a-8f6f425a3bf7",
+					"childcol": "5b126374-11eb-4a39-9ceb-9a023c12650a"
+				},
+				{
+					"id": "c3d7c5b6-c9c8-4e68-b8a8-baa57be75bf1",
+					"parentcol": "d3fdd728-98f3-449d-8580-f268f883d9f4",
+					"childcol": "a4fb85a5-7f95-483b-a93e-9766d248a8c6"
 				}
 			],
 			"generate": true,
@@ -483,7 +571,7 @@
 		"stickyParentIsDisplayed": false,
 		"def_coltopk": true,
 		"def_others": "",
-		"lastSaved": "Sat Jun 11 2022 17:22:48 GMT+0900 (Korean Standard Time)",
+		"lastSaved": "Thu Jun 16 2022 00:10:37 GMT+0900 (Korean Standard Time)",
 		"writeFileParam": false
 	},
 	"otherObjects": {},
@@ -504,7 +592,7 @@
 					"referencedItemId": "a7ccd8e7-6169-45c4-a092-d9f828504442",
 					"x": 476,
 					"y": 340,
-					"gHeight": 136,
+					"gHeight": 154,
 					"gWidth": 201,
 					"color": "#ffffff",
 					"background": "#03a9f4",
@@ -515,7 +603,7 @@
 					"referencedItemId": "8043efa0-43a4-44ef-9613-daeeff11b1bb",
 					"x": 115,
 					"y": 247,
-					"gHeight": 118,
+					"gHeight": 172,
 					"gWidth": 232,
 					"color": "#ffffff",
 					"background": "#03a9f4",
@@ -526,7 +614,7 @@
 					"referencedItemId": "f6b120c1-2764-4f52-88b3-6dc4d706a80f",
 					"x": 116,
 					"y": 390,
-					"gHeight": 87,
+					"gHeight": 136,
 					"gWidth": 235,
 					"color": "#ffffff",
 					"background": "#03a9f4",
