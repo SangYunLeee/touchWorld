@@ -184,7 +184,7 @@
 					"datatype": "ObjectId",
 					"param": "",
 					"pk": false,
-					"nn": true,
+					"nn": false,
 					"comment": "",
 					"defaultvalue": "",
 					"data": "",
@@ -483,7 +483,7 @@
 		"stickyParentIsDisplayed": false,
 		"def_coltopk": true,
 		"def_others": "",
-		"lastSaved": "Fri Jun 10 2022 21:28:47 GMT+0900 (Korean Standard Time)",
+		"lastSaved": "Sat Jun 11 2022 17:22:48 GMT+0900 (Korean Standard Time)",
 		"writeFileParam": false
 	},
 	"otherObjects": {},
