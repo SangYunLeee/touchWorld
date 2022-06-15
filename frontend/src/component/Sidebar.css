@@ -1,5 +1,27 @@
+.sidebar {
+  width: 100%;
+  max-width: 250px;
+}
+
 .sidebar .addBtn {
   background-color: rgb(248, 248, 248);
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.sidebar .addBtn .inputBtn{
+  width: 100%;
+}
+
+.sidebar .addBtn .btnList{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.sidebar .category-list-item .btnList{
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
 }
 
 .sidebar .addBtn:hover {
@@ -11,9 +33,28 @@
   padding: 2px 4px;
 }
 
+.sidebar .category-list-item {
+  display: flex!important;
+  flex-wrap: wrap;
+}
+
+.sidebar .category-list-item .editBtn {
+  width: 16px;
+  box-sizing: content-box;
+  border: 2px solid rgba(255, 0, 0, .0);
+  right: 2px;
+}
+
 .sidebar .category-list-item:hover .editBtn {
   display: inline-block!important;
   cursor: pointer;
+}
+
+.sidebar .category-list-item .editBtn:hover {
+  background-color: rgb(255, 219, 219,0.4);
+  cursor: pointer;
+  border-style: solid;
+  border: 2px solid rgba(218, 155, 155, 0.5);
 }
 
 .sidebar .category-list-item:hover {

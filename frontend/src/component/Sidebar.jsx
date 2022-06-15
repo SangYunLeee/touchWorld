@@ -5,12 +5,18 @@ import useToggle from "../hook/useToggle";
 import PostCategoryService from "../service/postCategory.service";
 import AuthService from "../service/auth.service";
 import "./Sidebar.css";
+import CategoryItem from "./SidebarCategoryItem"
 
 export default function Sidebar(props) {
   const [inputValue, handleInputChange, resetInputValue] = useInputState("");
   const [isEditMode, toggleIsEditMode] = useToggle(false);
   const [postCategories, setPostCategories] = useState("");
   var currentUser = AuthService.getCurrentUser();
+
+  const deletePostCategory = async (categoryId) => {
+    await PostCategoryService.deleteOne(categoryId);
+    retrievePostCategories();
+  }
 
   const retrievePostCategories = async () => {
     PostCategoryService.findByUserId(currentUser.id)
@@ -32,45 +38,52 @@ export default function Sidebar(props) {
   return (
     <ListGroup
       className={`${props.className} sidebar`}
-      style={{ width: "100%", maxWidth: "250px" }}
     >
-      <ListGroup.Item>전체 게시글</ListGroup.Item>
+      <ListGroup.Item key="all">전체 게시글</ListGroup.Item>
       {postCategories && postCategories.map((category, index) => (
-        <ListGroup.Item key={index}
-          className="category-list-item d-flex"
-        >
-            <span className='category-text d-inline-block w-100 text-truncate'> {category.title}</span>
-            <i class="editBtn bi bi-three-dots-vertical position-absolute d-none "
-              style={{right:"2px"}}
-            ></i>
-        </ListGroup.Item>
+        <CategoryItem
+          category={category}
+          title={category.title}
+          key={category.id}
+          categoryId={category.id}
+          deletePostCategory={deletePostCategory}
+        />
       ))}
+      {postCategories && postCategories.map((category, index) => (
+        console.log("category: ", category)
+      ))
+      }
+
       {isEditMode ? (
-        <ListGroup.Item className="addBtn " style={{ textAlign: "center" }}>
-          <div style={{marginBottom:"5px"}}>
+        <ListGroup.Item className="addBtn" key="addEditBtn">
+          <div>
             게시글 분류 추가
           </div>
           <input
+            className='inputBtn'
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
             }}
             onChange={handleInputChange}
             value={inputValue}
-            style={{ width: "100%" }}
           />
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+          <div
+            className='btnList'
+          >
             <button type="button" className="btn btn-success"
               onClick={ async () => {
                 await PostCategoryService.create({title: inputValue});
                 retrievePostCategories();
+                resetInputValue();
+                toggleIsEditMode();
               }}
             >
               추가
             </button>
             <button
               type="button"
-              className="btn btn-danger"
+              className="btn btn-secondary"
               onClick= {() => {
                 resetInputValue();
                 toggleIsEditMode();
@@ -82,11 +95,11 @@ export default function Sidebar(props) {
         </ListGroup.Item>
       ) : (
         <ListGroup.Item
+          key="addBtn"
           className="addBtn myCursor"
-          style={{ textAlign: "center" }}
           onClick={toggleIsEditMode}
         >
-          추가 +
+          카테고리 추가 +
         </ListGroup.Item>
       )}
     </ListGroup>

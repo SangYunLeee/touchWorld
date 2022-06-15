@@ -64,17 +64,18 @@ ctl.findByUser = (req, res) => {
 
 // delete a single PostCategory with an id
 // pass
-  // query: userId
+  // param: id
   ctl.delete = (req, res) => {
     const categoryId = req.params.id;
     console.log("delete CALLED")
-    console.log("categoryId: ", categoryId);
-    PostCategory.deleteById(categoryId)
+    PostCategory.deleteOne({_id: categoryId, author: req.userId})
       .then(data => {
-        if (!data)
+        if (!data) {
+          console.log("deleting...");
           res
             .status(404)
             .send({ message: "Not found PostCategory with userId " + userId });
+        }
         else {
           console.log("deleted data: ", data);
           res.send(data);

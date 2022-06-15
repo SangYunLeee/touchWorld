@@ -13,8 +13,17 @@ const create = data => {
 const findByUserId = userId => {
   return http.get(`${serviceTarget}?userId=${userId}`);
 };
+
+const deleteOne = id => {
+  console.log(serviceTarget, id);
+  var rtn = http.delete(serviceTarget + `/${id}`, {headers: authHeader()});
+  console.log("get end");
+  return rtn;
+};
+
 const PostCategoryService = {
   create,
-  findByUserId
+  findByUserId,
+  deleteOne
 };
 export default PostCategoryService;
