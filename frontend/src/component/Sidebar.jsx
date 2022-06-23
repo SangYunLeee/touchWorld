@@ -39,9 +39,16 @@ export default function Sidebar(props) {
     <ListGroup
       className={`${props.className} sidebar`}
     >
-      <ListGroup.Item key="all">전체 게시글</ListGroup.Item>
+      <CategoryItem
+        key="all"
+        className='categoryAll category-list-item'
+        isEditable={false}
+        title="전체 게시글"
+      >
+      </CategoryItem>
       {postCategories && postCategories.map((category, index) => (
         <CategoryItem
+          isEditable={true}
           category={category}
           title={category.title}
           key={category.id}

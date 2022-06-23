@@ -1,5 +1,6 @@
 const db = require("../model");
 const Post = db.post;
+const User = db.user;
 // Create and Save a new Post
 exports.create = (req, res) => {
   // Validate request
@@ -28,14 +29,33 @@ exports.create = (req, res) => {
     });
 };
 // Retrieve all Posts from the database.
-exports.findAll = (req, res) => {
-  const title = req.query.title;
+exports.findAll = async (req, res) => {
+  const title = (req.query.title || "").toString();
+  const author = req.query.author || "";
+
+  console.log("author: ", author);
+  console.log("title: ", title);
+
+  const titleFilter = title ? { $regex: new RegExp(title), $options: "i" } : {};
+  var authorFilter = {};
+  author && await User.findOne({username: author})
+    .then(data => {
+      if (data) {
+        console.log("TEST 1", data);
+        authorFilter = data.id;
+      }
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
+    console.log("TEST 2");
   var condition = title ? {
-      title: { $regex: new RegExp(title), $options: "i" },
-      author: {}
+      title: titleFilter,
+      author: authorFilter
     } : {};
   Post.find(condition)
     .then(data => {
+      console.log("data: ", data);
       res.send(data);
     })
     .catch(err => {

@@ -1,10 +1,21 @@
 module.exports = mongoose => {
   mongoose.set('toJSON', { virtuals: true });
   var schema = mongoose.Schema({
-    username: String,
+    username: {
+      type: String,
+      required: true,
+      unique: true
+    },
     email: String,
-    password: String,
-    nickname: String,
+    password: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    nickname: {
+      type: String,
+      unique: true
+    },
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,

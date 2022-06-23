@@ -3,7 +3,7 @@ import React from "react";
 import useToggle from "../hook/useToggle";
 
 export default function SidebarCategoryItem(props) {
-  const { title, deletePostCategory, category } = props;
+  const { title, deletePostCategory, category, isEditable } = props;
   const [isEditMode, toggleIsEditMode] = useToggle(false);
 
   return (
@@ -13,7 +13,11 @@ export default function SidebarCategoryItem(props) {
       </span>
       <i
         className="editBtn bi bi-three-dots-vertical position-absolute d-none "
-        onClick={toggleIsEditMode}
+        onClick={() => {
+          if (isEditable) {
+            toggleIsEditMode();
+          }
+        }}
       ></i>
       {
         isEditMode && (
@@ -31,7 +35,9 @@ export default function SidebarCategoryItem(props) {
             type="button"
             className="btn btn-secondary"
             onClick={() => {
-              toggleIsEditMode();
+              if (isEditable) {
+                toggleIsEditMode();
+              }
             }}
           >
             취소
