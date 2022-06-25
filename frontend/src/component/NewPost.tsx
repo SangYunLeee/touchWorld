@@ -6,22 +6,22 @@ import 'react-quill/dist/quill.snow.css';
 const c_newPost_container_form = "border bg-gray p-3"
 const c_newPost_container_form_btn = "btn btn-success position-absolute"
 
-export default function NewPost(props) {
+export default function NewPost(props : any) {
   const {postId, isEditMode} = props;
   let navigate = useNavigate();
   const initialPostState = {
-    id: null,
+    id: null as any,
     title: "",
     description: "",
     published: false
   };
   const [post, setPost] = useState(initialPostState);
-  const handleInputChange = event => {
+  const handleInputChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setPost({ ...post, [name]: value });
   };
 
-  const setEditorValue = (text) => {
+  const setEditorValue = (text : string) => {
     setPost({ ...post, description: text });
   }
 
@@ -33,11 +33,11 @@ export default function NewPost(props) {
     (isEditMode?  PostDataService.update(postId, data) :
                   PostDataService.create(data)
     )
-      .then(response => {
+      .then((response : any) => {
         navigate(`/post/${response.data.id}`);
         window.location.reload();
       })
-      .catch(e => {
+      .catch((e : any) => {
         console.log(e);
       });
   };

@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import catImg from "../asset/cat_noimage.jpg";
 import "./PostItem.css";
 import {stripTags} from '../helper';
+import catImg from "../asset/cat_noimage.jpg";
 
 const c_postitem = "postitem mb-2 mx-auto myCursor normal-max-width";
 const c_postitem_item = "d-flex justify-content-center";

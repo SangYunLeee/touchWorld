@@ -4,8 +4,8 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import AuthService from "../service/auth.service";
-import catImg from "../asset/cat_noimage.jpg";
 import "./AuthPage.css";
+const catImg = "../asset/cat_noimage.jpg";
 
 const required = (value) => {
   if (!value) {
@@ -44,8 +44,8 @@ const vpassword = (value) => {
   }
 };
 const Register = () => {
-  const form = useRef();
-  const checkBtn = useRef();
+  const form = useRef<typeof Form>();
+  const checkBtn = useRef<typeof CheckButton>();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -67,8 +67,8 @@ const Register = () => {
     e.preventDefault();
     setMessage("");
     setSuccessful(false);
-    form.current.validateAll();
-    if (checkBtn.current.context._errors.length === 0) {
+    form.current?.validateAll();
+    if (checkBtn.current?.context._errors.length === 0) {
       AuthService.register(username, email, password).then(
         (response) => {
           setMessage(response.data.message);

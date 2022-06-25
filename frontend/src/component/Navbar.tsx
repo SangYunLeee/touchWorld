@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../service/auth.service";
-import catImg from "../asset/cat_navbar.png";
 import NavbarB from "react-bootstrap/Navbar";
+import catImg from "../asset/cat_navbar.png";
 const navbar = "justify-content-center d-flex bg-light w-100 mb-4 pb-2";
 const navbar_content =
   "col-12 bg-light navbar navbar-expand-sm navbar-light p-0  mb-1 px-2";
@@ -27,28 +27,28 @@ export default function Navbar() {
   };
 
   const NoneUserNavItems = () => {
-    return [
+    return <>
       <Link key="login" className={`${nav_item}`} to="/login">
         로그인쓰
-      </Link>,
+      </Link>
       <Link key="regist" className={`${nav_item}`} to="/register">
         회원가입
-      </Link>,
-    ];
+      </Link>
+    </>;
   };
 
   const UserNavItems = () => {
-    return [
+    return <>
       <Link key="username" className={`${nav_item}`} to="/profile">
         {currentUser.username}
-      </Link>,
+      </Link>
       <Link key="profile" className={`${nav_item}`} to="/profile">
         내 정보
-      </Link>,
+      </Link>
       <Link key="logout" className={`${nav_item}`} to="/" onClick={logOut}>
         로그 아웃
-      </Link>,
-    ];
+      </Link>
+    </>;
   };
 
   return (

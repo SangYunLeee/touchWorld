@@ -1,14 +1,13 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-
 import AuthService from "../service/auth.service";
 import "./AuthPage.css";
-import catImg from "../asset/cat_noimage.jpg";
+import Input from "react-validation/build/input";
+import CheckButton from "react-validation/build/button";
+import Form from 'react-validation/build/form';
+const catImg = "../asset/cat_noimage.jpg";
 
-const required = (value) => {
+const required = (value : string) => {
   if (!value) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -21,33 +20,33 @@ const required = (value) => {
 const Login = () => {
   let navigate = useNavigate();
 
-  const form = useRef();
-  const checkBtn = useRef();
+  const form = useRef<typeof Form>();
+  const checkBtn = useRef<typeof CheckButton>();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const onChangeUsername = (e) => {
+  const onChangeUsername = (e : React.ChangeEvent<HTMLInputElement>) => {
     const username = e.target.value;
     setUsername(username);
   };
 
-  const onChangePassword = (e) => {
+  const onChangePassword = (e : React.ChangeEvent<HTMLInputElement>) => {
     const password = e.target.value;
     setPassword(password);
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = (e : React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     setMessage("");
     setLoading(true);
 
-    form.current.validateAll();
+    form.current?.validateAll();
 
-    if (checkBtn.current.context._errors.length === 0) {
+    if (checkBtn.current?.context._errors.length === 0) {
       AuthService.login(username, password).then(
         () => {
           navigate(`/?author=${username}`);

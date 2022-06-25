@@ -2,7 +2,7 @@ import { Routes, Route, useParams } from "react-router-dom";
 
 import "./App.css";
 import "./public.css";
-import Navbar from "./component/Navbar";
+import Navbar from "./component/Navbar"; // @ts-ignore
 import Home from "./component/Home";
 import NewPost from "./component/NewPost";
 import HomeTitle from "./component/HomeTitle";
@@ -52,7 +52,6 @@ function App() {
                 <Route
                   path="profile"
                   element={<ProfilePage />}
-                  editMode={false}
                 />
                 <Route path="profile/edit" element={<ProfileEdit />} />
                 <Route

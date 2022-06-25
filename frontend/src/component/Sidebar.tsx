@@ -10,7 +10,7 @@ import CategoryItem from "./SidebarCategoryItem"
 export default function Sidebar(props) {
   const [inputValue, handleInputChange, resetInputValue] = useInputState("");
   const [isEditMode, toggleIsEditMode] = useToggle(false);
-  const [postCategories, setPostCategories] = useState("");
+  const [postCategories, setPostCategories] = useState<Array<any>>([]);
   var currentUser = AuthService.getCurrentUser();
 
   const deletePostCategory = async (categoryId) => {
@@ -46,6 +46,7 @@ export default function Sidebar(props) {
         title="전체 게시글"
       >
       </CategoryItem>
+      <>
       {postCategories && postCategories.map((category, index) => (
         <CategoryItem
           isEditable={true}
@@ -56,10 +57,13 @@ export default function Sidebar(props) {
           deletePostCategory={deletePostCategory}
         />
       ))}
+      </>
+      <>
       {postCategories && postCategories.map((category, index) => (
         console.log("category: ", category)
       ))
       }
+      </>
 
       {isEditMode ? (
         <ListGroup.Item className="addBtn" key="addEditBtn">

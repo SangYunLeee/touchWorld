@@ -1,14 +1,14 @@
 import axios from "axios";
 import authHeader from "./auth.header";
 const API_URL = "http://localhost:8080/api/auth/";
-const register = (username, email, password) => {
+const register = (username : string, email: string, password: string) => {
     return axios.post(API_URL + "signup", {
         username,
         email,
         password,
     });
 };
-const login = async (username, password) => {
+const login = async (username : string, password : string) => {
     return axios
         .post(API_URL + "signin", {
             username,
@@ -29,7 +29,12 @@ const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem("user"));
 };
 
-const updateUserInfo = async (userInfo) => {
+interface UserInfo {
+  email: string;
+  nickname: string;
+}
+
+const updateUserInfo = async (userInfo : UserInfo) => {
   return axios
       .put(API_URL + "userinfo", {
         email: userInfo.email,
@@ -44,11 +49,16 @@ const updateUserInfo = async (userInfo) => {
         })
 };
 
-const updatePassword = async ({oldPassword, newPassword}) => {
+interface PasswordSet {
+  oldPassword: string;
+  newPassword: string;
+}
+
+const updatePassword = async (passwordSet : PasswordSet) => {
   return axios
       .put(API_URL + "password", {
-        oldPassword,
-        newPassword
+        oldPassword : passwordSet.oldPassword,
+        newPassword : passwordSet.newPassword
       }, {headers: authHeader()});
 };
 
