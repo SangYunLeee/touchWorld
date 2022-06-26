@@ -18,7 +18,7 @@ export default function PostDetailPage(props) {
   const currentUser = AuthService.getCurrentUser();
   const { postId } = props;
   const initialPostState = {
-    id: null,
+    id: "",
     title: "...",
     description: "...",
     author: {

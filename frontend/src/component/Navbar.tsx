@@ -10,7 +10,7 @@ const Img_class = "d-inline-block mr-3";
 const nav_item = "nav-link text-secondary text-center";
 
 export default function Navbar() {
-  const [currentUser, setCurrentUser] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState({username: undefined});
   useEffect(() => {
     var user;
     try {
@@ -23,7 +23,7 @@ export default function Navbar() {
 
   const logOut = () => {
     AuthService.logout();
-    setCurrentUser(undefined);
+    setCurrentUser({username: undefined});
   };
 
   const NoneUserNavItems = () => {
@@ -40,7 +40,7 @@ export default function Navbar() {
   const UserNavItems = () => {
     return <>
       <Link key="username" className={`${nav_item}`} to="/profile">
-        {currentUser.username}
+        {currentUser?.username}
       </Link>
       <Link key="profile" className={`${nav_item}`} to="/profile">
         내 정보

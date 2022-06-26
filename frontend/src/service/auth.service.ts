@@ -26,7 +26,7 @@ const logout = () => {
     localStorage.removeItem("user");
 };
 const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem("user"));
+    return JSON.parse(localStorage.getItem("user") || "");
 };
 
 interface UserInfo {
@@ -39,7 +39,7 @@ const updateUserInfo = async (userInfo : UserInfo) => {
       .put(API_URL + "userinfo", {
         email: userInfo.email,
         nickname: userInfo.nickname
-      }, {headers: authHeader()})
+      }, {headers: authHeader() || ''})
         .then((response) => {
           const {email, nickname} = response.data;
           localStorage.setItem("user", JSON.stringify({...getCurrentUser(), email, nickname}));
