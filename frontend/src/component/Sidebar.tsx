@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from "react";
+import { useSearchParams } from "react-router-dom";
+import IPostCagetory from "../types/PostCategory";
 import ListGroup from "react-bootstrap/ListGroup";
 import useInputState from "../hook/useInputState";
 import useToggle from "../hook/useToggle";
@@ -7,13 +9,13 @@ import AuthService from "../service/auth.service";
 import "./Sidebar.css";
 import CategoryItem from "./SidebarCategoryItem"
 
-export default function Sidebar(props) {
+export default function Sidebar(props: any) {
   const [inputValue, handleInputChange, resetInputValue] = useInputState("");
   const [isEditMode, toggleIsEditMode] = useToggle(false);
-  const [postCategories, setPostCategories] = useState<Array<any>>([]);
+  const [postCategories, setPostCategories] = useState<Array<IPostCagetory>>();
   var currentUser = AuthService.getCurrentUser();
 
-  const deletePostCategory = async (categoryId) => {
+  const deletePostCategory = async (categoryId : string) => {
     await PostCategoryService.deleteOne(categoryId);
     retrievePostCategories();
   }
@@ -25,6 +27,7 @@ export default function Sidebar(props) {
         setPostCategories(response.data);
       })
       .catch(e => {
+        setPostCategories(undefined);
         console.log(e);
       });
   };

@@ -3,18 +3,18 @@ import authHeader from "./auth.header";
 
 const serviceTarget = "/postCategory"
 
-const create = data => {
+const create = (data : {title : string}) => {
   console.log(serviceTarget, data);
   var rtn = http.post(serviceTarget, data, {headers: authHeader()});
   console.log("get end");
   return rtn;
 };
 
-const findByUserId = userId => {
+const findByUserId = (userId : string) => {
   return http.get(`${serviceTarget}?userId=${userId}`);
 };
 
-const deleteOne = id => {
+const deleteOne = (id : string) => {
   console.log(serviceTarget, id);
   var rtn = http.delete(serviceTarget + `/${id}`, {headers: authHeader()});
   console.log("get end");

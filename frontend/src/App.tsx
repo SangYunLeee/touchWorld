@@ -36,34 +36,32 @@ function App() {
         <HomeTitle />
         <Navbar />
         <Container fluid>
-        <div className="row">
-            <Container className='col-3 min-vh-100 d-none d-md-flex' >
-              <Sidebar/>
+          <div className="row">
+            <Container className="col-3 min-vh-100 d-none d-md-flex">
+              <Sidebar />
             </Container>
-            <Container className='col-12 col-md-6 d-flex justify-content-center h-fit-content' fluid>
+            <Container
+              className="col-12 col-md-6 d-flex justify-content-center h-fit-content"
+              fluid
+            >
               <Routes>
                 <Route index element={<Home />} />
-                <Route
-                  path="post/new"
-                  element={<NewPost isEditMode={false} />}
-                />
                 <Route path="login" element={<LoginPage />} />
                 <Route path="register" element={<RegisterPage />} />
-                <Route
-                  path="profile"
-                  element={<ProfilePage />}
-                />
+                <Route path="profile" element={<ProfilePage />} />
                 <Route path="profile/edit" element={<ProfileEdit />} />
                 <Route
                   path="profile/pwdupdate"
                   element={<ProfilePwdUpdatePage />}
                 />
-                <Route path="post/edit/:id" element={<PostEdit />} />
-                <Route path="post/:id" element={<PostDetail />} />
+                <Route path="post">
+                  <Route path="new" element={<NewPost isEditMode={false} />} />
+                  <Route path="edit/:id" element={<PostEdit />} />
+                  <Route path=":id" element={<PostDetail />} />
+                </Route>
               </Routes>
-            </Container >
-            <Container className='col-3 d-none d-md-block'>
             </Container>
+            <Container className="col-3 d-none d-md-block"></Container>
           </div>
         </Container>
       </div>
