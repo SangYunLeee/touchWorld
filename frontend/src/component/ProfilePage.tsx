@@ -11,6 +11,10 @@ const Profile = (props) => {
   const navigate = useNavigate();
   const currentUser = AuthService.getCurrentUser();
 
+  if (!currentUser) {
+    navigate("/");
+  }
+
   const [user, setUser] = useState(currentUser);
   var initEditMode = props.editMode;
   const [editMode, setEditMode] = useState(initEditMode);
@@ -24,7 +28,7 @@ const Profile = (props) => {
   }, []);
 
 
-  const setInputValue = (event) => {
+  const setInputValue = (event: { target: HTMLInputElement; }) => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
   };
@@ -39,7 +43,7 @@ const Profile = (props) => {
 
   const onClickUpdateUserInfo = () => {
     console.log("test onClickUpdateUserInfo")
-    AuthService.updateUserInfo({nickname: user.nickname, email: user.email})
+    AuthService.updateUserInfo({nickname: user?.nickname, email: user?.email})
       .then(() => {
         navigate('/profile');
         window.location.reload();
@@ -54,18 +58,18 @@ const Profile = (props) => {
       </header>
       <p>
         <label>아이디 </label>
-        {user.username}
+        {user?.username}
       </p>
       <p>
         <label> 닉네임 </label>
         {editMode ? (
           <input
             placeholder="닉네임을 정해주세요"
-            value={user.nickname && user.nickname}
+            value={user?.nickname && user.nickname}
             onChange={setInputValue}
             name="nickname"
           />
-        ) : user.nickname ? (
+        ) : user?.nickname ? (
           user.nickname
         ) : (
           "닉네임 없음"
@@ -76,11 +80,11 @@ const Profile = (props) => {
         {editMode ? (
           <input
             placeholder="이메일을 정해주세요"
-            value={user.email && user.email}
+            value={user?.email && user.email}
             onChange={setInputValue}
             name="email"
           />
-        ) : user.email ? (
+        ) : user?.email ? (
           user.email
         ) : (
           "이메일 없음"
@@ -88,7 +92,7 @@ const Profile = (props) => {
       </p>
       <strong>권한</strong>
       <ul>
-        {user.roles &&
+        {user?.roles &&
           user.roles.map((role, index) => <li key={index}>{role}</li>)}
       </ul>
       {editMode ? (

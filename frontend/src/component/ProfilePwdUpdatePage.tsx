@@ -10,8 +10,9 @@ const c_userInfo_edit_btn = "btn bg-secondary position-absolute text-light";
 const ProfilePwdUpdatePage = (props) => {
   const navigate = useNavigate();
   var currentUser = AuthService.getCurrentUser();
-  currentUser.newPassword = "";
-  currentUser.oldPassword = "";
+  let newPassword : string = "";
+  let oldPassword : string = "";
+  let oldPassword2 : string = "";
 
   const [user, setUser] = useState(currentUser);
   const [warningMessage, setWarningMessage] = useState("");
@@ -23,12 +24,12 @@ const ProfilePwdUpdatePage = (props) => {
 
   const onClickedUpdatePwdBtn = () => {
     console.log("test onClickedUpdatePwdBtn");
-    if (user.oldPassword !== user.oldPassword2) {
+    if (oldPassword !== oldPassword2) {
 
     }
     AuthService.updatePassword({
-      oldPassword: user.oldPassword,
-      newPassword: user.newPassword
+      oldPassword,
+      newPassword
     })
       .then(() => {
       navigate("/profile");

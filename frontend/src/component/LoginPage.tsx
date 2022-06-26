@@ -5,7 +5,7 @@ import "./AuthPage.css";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import Form from 'react-validation/build/form';
-const catImg = "../asset/cat_noimage.jpg";
+import catImg from "../asset/cat_noimage.jpg";
 
 const required = (value : string) => {
   if (!value) {

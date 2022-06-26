@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import IUserInfo from "../types/User";
 import { Link } from "react-router-dom";
 import AuthService from "../service/auth.service";
 import NavbarB from "react-bootstrap/Navbar";
@@ -10,7 +11,7 @@ const Img_class = "d-inline-block mr-3";
 const nav_item = "nav-link text-secondary text-center";
 
 export default function Navbar() {
-  const [currentUser, setCurrentUser] = useState({username: undefined});
+  const [currentUser, setCurrentUser] = useState<IUserInfo | null>({username: undefined});
   useEffect(() => {
     var user;
     try {
@@ -23,7 +24,7 @@ export default function Navbar() {
 
   const logOut = () => {
     AuthService.logout();
-    setCurrentUser({username: undefined});
+    setCurrentUser(null);
   };
 
   const NoneUserNavItems = () => {

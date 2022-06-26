@@ -19,7 +19,7 @@ export default function Sidebar(props) {
   }
 
   const retrievePostCategories = async () => {
-    PostCategoryService.findByUserId(currentUser.id)
+    PostCategoryService.findByUserId(currentUser?.id)
       .then(response => {
         console.log("post cate List: ", response.data);
         setPostCategories(response.data);

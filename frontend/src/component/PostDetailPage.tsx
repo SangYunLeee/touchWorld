@@ -5,6 +5,7 @@ import PostDataService from "../service/post.service";
 import 'react-quill/dist/quill.snow.css';
 import AuthService from "../service/auth.service";
 import "./QuillEditor.css";
+import IPostData from "../types/Post";
 
 const c_newPost_container = "border bg-gray p-3"
 const c_newPost_container_title = "d-block text-center"
@@ -17,7 +18,7 @@ export default function PostDetailPage(props) {
   let navigate = useNavigate();
   const currentUser = AuthService.getCurrentUser();
   const { postId } = props;
-  const initialPostState = {
+  const initialPostState : IPostData = {
     id: "",
     title: "...",
     description: "...",
@@ -26,7 +27,7 @@ export default function PostDetailPage(props) {
     },
     published: false
   };
-  const [post, setPost] = useState(initialPostState);
+  const [post, setPost] = useState<IPostData>(initialPostState);
 
   const moduleConfig = {
     toolbar: false
@@ -48,7 +49,7 @@ export default function PostDetailPage(props) {
 
   const handleDelete = () => {
     PostDataService.remove(post.id)
-      .then(response => {
+      .then((response : any) => {
         navigate("/");
       })
       .catch(e => {

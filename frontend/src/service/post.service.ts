@@ -1,22 +1,18 @@
 import http from "../http-common";
 import authHeader from "./auth.header";
+import IPostData from "../types/Post";
 
 const getAll = () => {
-  return http.get("/post");
+  return http.get<Array<IPostData>>("/post");
 };
 const get = (id : string) => {
-  return http.get(`/post/${id}`);
+  return http.get<IPostData>(`/post/${id}`);
 };
 
-interface Post {
-  title: string,
-  description: string
+const create = (data : IPostData) => {
+  return http.post<IPostData>("/post", data, {headers: authHeader()});
 };
-
-const create = (data : Post) => {
-  return http.post("/post", data, {headers: authHeader()});
-};
-const update = (id : string, data : Post) => {
+const update = (id : string, data : IPostData) => {
   return http.put(`/post/${id}`, data, {headers: authHeader()});
 };
 const remove = (id : string) => {
@@ -26,7 +22,7 @@ const removeAll = () => {
   return http.delete(`/post`, {headers: authHeader()});
 };
 const findByTitle = (title : string) => {
-  return http.get(`/post?title=${title}`);
+  return http.get<Array<IPostData>>(`/post?title=${title}`);
 };
 const PostService = {
   getAll,

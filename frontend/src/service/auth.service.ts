@@ -1,6 +1,8 @@
 import axios from "axios";
 import authHeader from "./auth.header";
+import IUserInfo from "../types/User";
 const API_URL = "http://localhost:8080/api/auth/";
+
 const register = (username : string, email: string, password: string) => {
     return axios.post(API_URL + "signup", {
         username,
@@ -25,21 +27,18 @@ const login = async (username : string, password : string) => {
 const logout = () => {
     localStorage.removeItem("user");
 };
-const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem("user") || "");
+const getCurrentUser = () : (IUserInfo | null) => {
+  const currentUser = localStorage.getItem("user");
+  if (currentUser) {
+    return JSON.parse(currentUser);
+  } else {
+    return null;
+  }
 };
 
-interface UserInfo {
-  email: string;
-  nickname: string;
-}
-
-const updateUserInfo = async (userInfo : UserInfo) => {
+const updateUserInfo = async (userInfo : IUserInfo) => {
   return axios
-      .put(API_URL + "userinfo", {
-        email: userInfo.email,
-        nickname: userInfo.nickname
-      }, {headers: authHeader() || ''})
+      .put(API_URL + "userinfo", userInfo, {headers: authHeader()})
         .then((response) => {
           const {email, nickname} = response.data;
           localStorage.setItem("user", JSON.stringify({...getCurrentUser(), email, nickname}));
