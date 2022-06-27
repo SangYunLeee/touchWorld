@@ -17,10 +17,6 @@ const login = async (username : string, password : string) => {
             password,
         })
         .then((response) => {
-            if (response.data.accessToken) {
-              console.log(JSON.stringify(response.data));
-                localStorage.setItem("user", JSON.stringify(response.data));
-            }
             return response.data;
         });
 };
@@ -43,7 +39,7 @@ const updateUserInfo = async (userInfo : IUserInfo) => {
           const {email, nickname} = response.data;
           localStorage.setItem("user", JSON.stringify({...getCurrentUser(), email, nickname}));
         })
-        .catch(err => {
+        .catch((err : Error) => {
           console.log(err);
         })
 };

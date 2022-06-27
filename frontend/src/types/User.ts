@@ -3,5 +3,6 @@ export default interface IUserInfo {
   email?: string,
   nickname?: string,
   username?: string,
-  roles?: any
+  roles?: any,
+  accessToken?: any
 }

@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useLocalStorageReducer } from "../hook/useLocalStorageReducer";
+import userReducer from "../reducers/user.reducer";
 import IUserInfo from "../types/User";
+import { UserContext, UserDispatchContext } from "../contexts/user.context";
 import { Link } from "react-router-dom";
 import AuthService from "../service/auth.service";
 import NavbarB from "react-bootstrap/Navbar";
@@ -11,20 +14,19 @@ const Img_class = "d-inline-block mr-3";
 const nav_item = "nav-link text-secondary text-center";
 
 export default function Navbar() {
-  const [currentUser, setCurrentUser] = useState<IUserInfo | null>({username: undefined});
+  const currentUser = useContext(UserContext);
+  const userDispatch = useContext(UserDispatchContext);
   useEffect(() => {
-    var user;
-    try {
-      user = AuthService.getCurrentUser();
-    } catch {}
+    var user : (IUserInfo | null);
+    user = AuthService.getCurrentUser();
     if (user) {
-      setCurrentUser(user);
+      userDispatch?.({type: "UPDATE", ...user});
+      console.log(currentUser);
     }
   }, []);
 
   const logOut = () => {
-    AuthService.logout();
-    setCurrentUser(null);
+    userDispatch?.({type: "LOGOUT"});
   };
 
   const NoneUserNavItems = () => {

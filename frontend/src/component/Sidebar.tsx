@@ -21,12 +21,15 @@ export default function Sidebar(props: any) {
   }
 
   const retrievePostCategories = async () => {
-    PostCategoryService.findByUserId(currentUser?.id)
+    if (!currentUser) {
+      return;
+    }
+    PostCategoryService.findByUserId(currentUser?.id || "")
       .then(response => {
         console.log("post cate List: ", response.data);
         setPostCategories(response.data);
       })
-      .catch(e => {
+      .catch((e: Error) => {
         setPostCategories(undefined);
         console.log(e);
       });

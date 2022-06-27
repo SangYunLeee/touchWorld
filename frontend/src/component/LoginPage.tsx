@@ -1,6 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../service/auth.service";
+import { UserContext, UserDispatchContext } from "../contexts/user.context";
 import "./AuthPage.css";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
@@ -20,6 +21,7 @@ const required = (value : string) => {
 const Login = () => {
   let navigate = useNavigate();
 
+  const userDispatch = useContext(UserDispatchContext);
   const form = useRef<typeof Form>();
   const checkBtn = useRef<typeof CheckButton>();
 
@@ -48,9 +50,9 @@ const Login = () => {
 
     if (checkBtn.current?.context._errors.length === 0) {
       AuthService.login(username, password).then(
-        () => {
+        (userInfo) => {
+          userDispatch?.({type: "UPDATE", ...userInfo});
           navigate(`/?author=${username}`);
-          window.location.reload();
         },
         (error) => {
           const resMessage =

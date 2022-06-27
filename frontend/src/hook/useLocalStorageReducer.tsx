@@ -1,5 +1,5 @@
 import { useReducer, useEffect } from "react";
-function useLocalStorageReducer(key, defaultVal, reducer) {
+function useLocalStorageReducer(key, defaultVal, reducer) :[typeof reducer[0], typeof reducer[1]] {
   const [state, dispatch] = useReducer(reducer, defaultVal, () => {
     let value;
     try {
@@ -11,8 +11,13 @@ function useLocalStorageReducer(key, defaultVal, reducer) {
     }
     return value;
   });
+
   useEffect(() => {
-    window.localStorage.setItem(key, JSON.stringify(state));
+    if (state == undefined) {
+      window.localStorage.removeItem(key);
+    } else {
+      window.localStorage.setItem(key, JSON.stringify(state));
+    }
   }, [state]);
 
   return [state, dispatch];
