@@ -3,7 +3,7 @@ import { useLocalStorageReducer } from "../hook/useLocalStorageReducer";
 import userReducer from "../reducers/user.reducer";
 import IUserInfo from "../types/User";
 import { UserContext, UserDispatchContext } from "../contexts/user.context";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import AuthService from "../service/auth.service";
 import NavbarB from "react-bootstrap/Navbar";
 import catImg from "../asset/cat_navbar.png";
@@ -14,6 +14,8 @@ const Img_class = "d-inline-block mr-3";
 const nav_item = "nav-link text-secondary text-center";
 
 export default function Navbar() {
+  let params = useParams();
+  console.log("paramsparams: ", params);
   const currentUser = useContext(UserContext);
   const userDispatch = useContext(UserDispatchContext);
   useEffect(() => {
@@ -42,7 +44,7 @@ export default function Navbar() {
 
   const UserNavItems = () => {
     return <>
-      <Link key="username" className={`${nav_item}`} to="/profile">
+      <Link key="username" className={`${nav_item}`} to="/author/sororiri">
         {currentUser?.username}
       </Link>
       <Link key="profile" className={`${nav_item}`} to="/profile">

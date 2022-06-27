@@ -38,11 +38,17 @@ function App() {
       <div className="body">
         <UserInfoProvider>
           <HomeTitle />
-          <Navbar />
+          <Routes>
+            <Route path="author/:authorId" element={<Navbar />} />
+            <Route path="*" element={<Navbar />} />
+          </Routes>
           <Container fluid>
             <div className="row">
               <Container className="col-3 min-vh-100 d-none d-md-flex">
-                <Sidebar />
+                <Routes>
+                  <Route path="author/:authorId" element={<Sidebar />} />
+                  <Route path="*" element={<Sidebar />} />
+                </Routes>
               </Container>
               <Container
                 className="col-12 col-md-6 d-flex justify-content-center h-fit-content"
@@ -58,6 +64,15 @@ function App() {
                     path="profile/pwdupdate"
                     element={<ProfilePwdUpdatePage />}
                   />
+                  <Route path="author/:authorId">
+                    <Route index element={<Home />} />
+                    <Route
+                      path="new"
+                      element={<NewPost isEditMode={false} />}
+                    />
+                    <Route path="edit/:id" element={<PostEdit />} />
+                    <Route path=":id" element={<PostDetail />} />
+                  </Route>
                   <Route path="post">
                     <Route
                       path="new"

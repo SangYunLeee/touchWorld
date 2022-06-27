@@ -7,6 +7,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import Form from 'react-validation/build/form';
 import catImg from "../asset/cat_noimage.jpg";
+import { useSearchParams } from "react-router-dom";
 
 const required = (value : string) => {
   if (!value) {
@@ -20,6 +21,8 @@ const required = (value : string) => {
 
 const Login = () => {
   let navigate = useNavigate();
+
+  let [searchParams, setSearchParams] = useSearchParams();
 
   const userDispatch = useContext(UserDispatchContext);
   const form = useRef<typeof Form>();
@@ -52,7 +55,7 @@ const Login = () => {
       AuthService.login(username, password).then(
         (userInfo) => {
           userDispatch?.({type: "UPDATE", ...userInfo});
-          navigate(`/?author=${username}`);
+          navigate(`/author/${username}`);
         },
         (error) => {
           const resMessage =

@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from "react";
-import { useSearchParams } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../contexts/user.context";
+import { useSearchParams, useParams } from "react-router-dom";
 import IPostCagetory from "../types/PostCategory";
 import ListGroup from "react-bootstrap/ListGroup";
 import useInputState from "../hook/useInputState";
@@ -7,77 +8,80 @@ import useToggle from "../hook/useToggle";
 import PostCategoryService from "../service/postCategory.service";
 import AuthService from "../service/auth.service";
 import "./Sidebar.css";
-import CategoryItem from "./SidebarCategoryItem"
+import CategoryItem from "./SidebarCategoryItem";
 
 export default function Sidebar(props: any) {
   const [inputValue, handleInputChange, resetInputValue] = useInputState("");
   const [isEditMode, toggleIsEditMode] = useToggle(false);
   const [postCategories, setPostCategories] = useState<Array<IPostCagetory>>();
-  var currentUser = AuthService.getCurrentUser();
+  const currentUser = useContext(UserContext);
+  const [author, setAuthor] = useState<string | undefined>(undefined);
+  const { authorId } = useParams();
 
-  const deletePostCategory = async (categoryId : string) => {
+  const deletePostCategory = async (categoryId: string) => {
     await PostCategoryService.deleteOne(categoryId);
     retrievePostCategories();
-  }
+  };
 
   const retrievePostCategories = async () => {
-    if (!currentUser) {
-      return;
+    setAuthor(authorId);
+    if (!authorId) {
+      setPostCategories(undefined);
     }
-    PostCategoryService.findByUserId(currentUser?.id || "")
-      .then(response => {
-        console.log("post cate List: ", response.data);
+    PostCategoryService.findByUserId(authorId || "")
+      .then((response) => {
+        // console.log("post cate List: ", response.data);
         setPostCategories(response.data);
       })
       .catch((e: Error) => {
         setPostCategories(undefined);
-        console.log(e);
+        // console.log(e);
       });
   };
 
-  useEffect(() => {
-    console.log("currentUser: ", currentUser);
-    console.log("useEffect")
+  if (authorId != author) {
     retrievePostCategories();
-  },[]);
+  }
+
+  useEffect(() => {
+    // console.log("currentUser: ", currentUser);
+    // console.log("useEffect");
+    retrievePostCategories();
+  }, []);
 
   return (
-    <ListGroup
-      className={`${props.className} sidebar`}
-    >
+    <ListGroup className={`${props.className} sidebar`}>
       <CategoryItem
         key="all"
-        className='categoryAll category-list-item'
+        className="categoryAll category-list-item"
         isEditable={false}
         title="전체 게시글"
-      >
-      </CategoryItem>
+      ></CategoryItem>
       <>
-      {postCategories && postCategories.map((category, index) => (
-        <CategoryItem
-          isEditable={true}
-          category={category}
-          title={category.title}
-          key={category.id}
-          categoryId={category.id}
-          deletePostCategory={deletePostCategory}
-        />
-      ))}
+        {postCategories &&
+          postCategories.map((category, index) => (
+            <CategoryItem
+              isEditable={true}
+              category={category}
+              title={category.title}
+              key={category.id}
+              categoryId={category.id}
+              deletePostCategory={deletePostCategory}
+            />
+          ))}
       </>
       <>
-      {postCategories && postCategories.map((category, index) => (
-        console.log("category: ", category)
-      ))
-      }
+        {/* {postCategories &&
+          postCategories.map((category, index) =>
+            console.log("category: ", category)
+          )} */}
       </>
 
       {isEditMode ? (
         <ListGroup.Item className="addBtn" key="addEditBtn">
-          <div>
-            게시글 분류 추가
-          </div>
+          <div>게시글 분류 추가</div>
           <input
-            className='inputBtn'
+            className="inputBtn"
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -85,12 +89,12 @@ export default function Sidebar(props: any) {
             onChange={handleInputChange}
             value={inputValue}
           />
-          <div
-            className='btnList'
-          >
-            <button type="button" className="btn btn-success"
-              onClick={ async () => {
-                await PostCategoryService.create({title: inputValue});
+          <div className="btnList">
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={async () => {
+                await PostCategoryService.create({ title: inputValue });
                 retrievePostCategories();
                 resetInputValue();
                 toggleIsEditMode();
@@ -101,7 +105,7 @@ export default function Sidebar(props: any) {
             <button
               type="button"
               className="btn btn-secondary"
-              onClick= {() => {
+              onClick={() => {
                 resetInputValue();
                 toggleIsEditMode();
               }}

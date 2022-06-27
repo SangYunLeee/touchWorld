@@ -10,8 +10,8 @@ const create = (data : {title : string}) => {
   return rtn;
 };
 
-const findByUserId = (userId : string) => {
-  return http.get(`${serviceTarget}?userId=${userId}`);
+const findByUserId = (username : string) => {
+  return http.get(`${serviceTarget}?username=${username}`);
 };
 
 const deleteOne = (id : string) => {

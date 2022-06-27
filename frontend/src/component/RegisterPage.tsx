@@ -5,7 +5,7 @@ import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import AuthService from "../service/auth.service";
 import "./AuthPage.css";
-const catImg = "../asset/cat_noimage.jpg";
+import catImg from "../asset/cat_noimage.jpg";
 
 const required = (value) => {
   if (!value) {

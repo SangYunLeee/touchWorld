@@ -1,5 +1,6 @@
 const db = require("../model");
 const PostCategory = db.postCategory;
+const User = db.user;
 // Create and Save a new PostCategory
 
 var ctl = {
@@ -39,9 +40,15 @@ ctl.create = (req, res) => {
 
 // Find a single PostCategory with an id
   // pass
-    // query: userId
-ctl.findByUser = (req, res) => {
-  const {userId} = req.query;
+    // query: userId or username
+ctl.findByUser = async (req, res) => {
+  let {userId, username} = req.query;
+  if (username) {
+    await User.findOne({username})
+      .then(data => {
+        userId = data?._id;
+      })
+  }
   console.log("findByUser CALLED")
   console.log("userId: ", userId, req.query);
   PostCategory.find({author: userId})
