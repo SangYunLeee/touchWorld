@@ -24,8 +24,7 @@ export default function PostDetailPage(props) {
     description: "...",
     author: {
       id: null
-    },
-    published: false
+    }
   };
   const [post, setPost] = useState<IPostData>(initialPostState);
 

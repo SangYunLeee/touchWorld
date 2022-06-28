@@ -18,6 +18,7 @@ export default function Navbar() {
   console.log("paramsparams: ", params);
   const currentUser = useContext(UserContext);
   const userDispatch = useContext(UserDispatchContext);
+
   useEffect(() => {
     var user : (IUserInfo | null);
     user = AuthService.getCurrentUser();
@@ -71,11 +72,6 @@ export default function Navbar() {
           <Link className={`${nav_item} active`} to="/">
             Home
           </Link>
-          {currentUser && (
-            <Link className={`${nav_item}`} to="/post/new">
-              새 글 올리기
-            </Link>
-          )}
           <div className="me-auto"></div>
           {!currentUser && <NoneUserNavItems />}
           {currentUser && <UserNavItems />}

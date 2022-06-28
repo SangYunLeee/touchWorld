@@ -1,9 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { UserContext, UserDispatchContext } from "../contexts/user.context";
+import IPost from "../types/Post";
 import PostDataService from "../service/post.service";
 import PostItem from "./PostItem";
 
 export default function PostList() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<IPost[] | null>(null);
+  let { authorId } = useParams();
+  let navigate = useNavigate();
+  const currentUser = useContext(UserContext);
+
+  console.log("authorId in PostList: ", authorId);
 
   useEffect(() => {
     retrievePosts();
@@ -20,10 +28,31 @@ export default function PostList() {
   };
 
   return (
-    <div style={{width: "550px"}}>
-    {posts.map((post, index) => (
+    // 포스트 리스트
+    <div className="position-relative " style={{width: "550px"}}>
+    {posts?.map((post, index) => (
       <PostItem key={index} post={post} />
     ))}
+
+    {/* 새글 올리기 버튼*/}
+    {
+      currentUser && (
+      <button className="btn position-absolute"
+        style={{ right: "0px", border: "solid 1px rgba(0, 0, 255, 0.3)",
+                  backgroundColor: "rgba(50, 50, 50, 0.06)"
+        }}
+        onClick={() => {
+          if (authorId !== undefined) {
+            navigate(`/author/${authorId}/new`)
+          } else {
+            navigate("/post/new")
+          }
+        }}
+      >
+        새 글 올리기
+      </button>
+      )
+    }
     </div>
   )
 }

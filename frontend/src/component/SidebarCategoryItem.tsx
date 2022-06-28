@@ -3,12 +3,20 @@ import React from "react";
 import useToggle from "../hook/useToggle";
 
 export default function SidebarCategoryItem(props) {
-  const { title, deletePostCategory, category, isEditable } = props;
+  const { title, deletePostCategory, category, isEditable, hadleClicked } = props;
   const [isEditMode, toggleIsEditMode] = useToggle(false);
 
   return (
     <ListGroup.Item className="category-list-item d-flex">
-      <span className="category-text d-inline-block w-100 text-truncate">
+      <span className="category-text d-inline-block w-100 text-truncate"
+        onClick={
+          () => {
+            if (typeof hadleClicked === "function") {
+                hadleClicked(category.id)}
+            }
+          }
+
+      >
         {title}
       </span>
       <i
