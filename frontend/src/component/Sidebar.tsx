@@ -6,7 +6,8 @@ import ListGroup from "react-bootstrap/ListGroup";
 import useInputState from "../hook/useInputState";
 import useToggle from "../hook/useToggle";
 import PostCategoryService from "../service/postCategory.service";
-import AuthService from "../service/auth.service";
+import {ICategoryEnum} from "../reducers/categorylist.reducer";
+import {CategoriesContext, CategoriesDispatchContext} from "../contexts/categorylist.context"
 import { useQueryParam, StringParam } from 'use-query-params';
 import "./Sidebar.css";
 import CategoryItem from "./SidebarCategoryItem";
@@ -14,8 +15,13 @@ import CategoryItem from "./SidebarCategoryItem";
 export default function Sidebar(props: any) {
   const [inputValue, handleInputChange, resetInputValue] = useInputState("");
   const [isEditMode, toggleIsEditMode] = useToggle(false);
-  const [postCategories, setPostCategories] = useState<Array<IPostCagetory>>();
+
   const currentUser = useContext(UserContext);
+
+  // 카테고리 디스패치
+  const postCategories = useContext(CategoriesContext);
+  const categoriesDispatch = useContext(CategoriesDispatchContext);
+
   const [author, setAuthor] = useState<string | undefined>(undefined);
   let { authorId } = useParams();
   console.log("authorId: ", authorId);
@@ -29,15 +35,16 @@ export default function Sidebar(props: any) {
   const retrievePostCategories = async () => {
     setAuthor(authorId);
     if (!authorId) {
-      setPostCategories(undefined);
+      categoriesDispatch?.({type: ICategoryEnum.REMOVE_ALL});
     }
     PostCategoryService.findByUserId(authorId || "")
       .then((response) => {
         // console.log("post cate List: ", response.data);
-        setPostCategories(response.data);
+        categoriesDispatch?.({type: ICategoryEnum.UPDATE, list: response.data});
+
       })
       .catch((e: Error) => {
-        setPostCategories(undefined);
+        categoriesDispatch?.({type: ICategoryEnum.REMOVE_ALL});
         // console.log(e);
       });
   };

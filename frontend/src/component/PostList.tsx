@@ -5,27 +5,13 @@ import IPost from "../types/Post";
 import PostDataService from "../service/post.service";
 import PostItem from "./PostItem";
 
-export default function PostList() {
-  const [posts, setPosts] = useState<IPost[] | null>(null);
+export default function PostList(props : {posts}) {
+  const {posts} = props;
   let { authorId } = useParams();
   let navigate = useNavigate();
   const currentUser = useContext(UserContext);
 
   console.log("authorId in PostList: ", authorId);
-
-  useEffect(() => {
-    retrievePosts();
-  }, []);
-
-  const retrievePosts = () => {
-    PostDataService.getAll()
-      .then(response => {
-        setPosts(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
 
   return (
     // 포스트 리스트
