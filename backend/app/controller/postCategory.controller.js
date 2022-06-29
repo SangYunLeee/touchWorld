@@ -58,7 +58,6 @@ ctl.findByUser = async (req, res) => {
           .status(404)
           .send({ message: "Not found PostCategory with userId " + userId });
       else {
-        console.log("founded data: ", data);
         res.send(data);
       }
     })

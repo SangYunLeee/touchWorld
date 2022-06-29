@@ -1,43 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import ReactQuill from 'react-quill';
+import ReactQuill from "react-quill";
 import PostDataService from "../service/post.service";
-import 'react-quill/dist/quill.snow.css';
-const c_newPost_container_form = "border bg-gray p-3"
-const c_newPost_container_form_btn = "btn btn-success position-absolute"
+import "react-quill/dist/quill.snow.css";
+import {CategoriesContext} from "../contexts/categorylist.context"
+import IPost from "../types/Post"
+const c_newPost_container_form = "border bg-gray p-3";
+const c_newPost_container_form_btn = "btn btn-success position-absolute";
 
-export default function NewPost(props : any) {
-  const {postId, isEditMode} = props;
+export default function NewPost(props: any) {
+  const postCategories = useContext(CategoriesContext);
+  const { postId, isEditMode } = props;
   let navigate = useNavigate();
   const initialPostState = {
     id: null as any,
     title: "",
     description: "",
-    published: false
   };
-  const [post, setPost] = useState(initialPostState);
-  const handleInputChange = (event : React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+
+  const [post, setPost] = useState<IPost>(initialPostState);
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement|HTMLSelectElement>) => {
+    const { name="", value="" } = event.target;
     setPost({ ...post, [name]: value });
   };
 
-  const setEditorValue = (text : string) => {
+  const setEditorValue = (text: string) => {
     setPost({ ...post, description: text });
-  }
+  };
 
   const savePost = () => {
-    var data = {
-      title: post.title,
-      description: post.description
-    };
-    (isEditMode?  PostDataService.update(postId, data) :
-                  PostDataService.create(data)
+    (isEditMode
+      ? PostDataService.update(postId, post)
+      : PostDataService.create(post)
     )
-      .then((response : any) => {
+      .then((response: any) => {
         navigate(`/post/${response.data.id}`);
         window.location.reload();
       })
-      .catch((e : any) => {
+      .catch((e: Error) => {
         console.log(e);
       });
   };
@@ -45,30 +45,76 @@ export default function NewPost(props : any) {
   useEffect(() => {
     const retrievePosts = () => {
       PostDataService.get(postId)
-        .then(response => {
+        .then((response) => {
           setPost(response.data);
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         });
     };
 
-    if (isEditMode)
+    if (isEditMode) {
       retrievePosts();
+    }
   }, [isEditMode, postId]);
 
   return (
-            <div className={c_newPost_container_form} style={{width: "500px"}}>
-                <div className="mb-3">
-                    <input className="form-control sh-n" type="text" id="title" name="title" value={post.title} required onChange={handleInputChange} />
-                </div>
-                <div className="mb-3" >
-                <ReactQuill className='min-h-300' theme="snow" value={post.description} onChange={setEditorValue}/>
-                </div>
-                <p className='p-0 m-0 position-relative' style={{height: "2.0rem"}}>
-                    <button className={c_newPost_container_form_btn} style={{right: "0px"}}
-                    onClick={savePost}>저장이다냥</button>
-                </p>
-            </div>
-  )
+    <div
+      className={c_newPost_container_form}
+      style={{ width: "500px", textAlign: "center" }}
+    >
+      <h5 className="mb-3">{isEditMode ? "글 수정하기" : "새 글 쓰기"}</h5>
+
+      <div className="mb-3 input-group">
+        <input
+          className="form-control sh-n"
+          type="text"
+          id="title"
+          name="title"
+          value={post.title}
+          required
+          onChange={handleInputChange}
+        />
+      </div>
+
+      <div className="category-input-list input-group mb-3 ">
+        <label className="input-group-text sh-n" htmlFor="categoryList">
+          분류
+        </label>
+        <select
+          className="form-select sh-n py-0"
+          id="categoryList"
+          name='category'
+          onChange={(e) => {
+            handleInputChange(e)
+          }}
+        >
+          <option value="" key="defalut">전체 게시글</option>
+          {
+            postCategories?.map((category, index) => (
+              <option value={category.id} key={index}>{category.title}</option>
+            ))
+          }
+        </select>
+      </div>
+
+      <div className="mb-3">
+        <ReactQuill
+          className="min-h-300"
+          theme="snow"
+          value={post.description}
+          onChange={setEditorValue}
+        />
+      </div>
+      <p className="p-0 m-0 position-relative" style={{ height: "2.0rem" }}>
+        <button
+          className={c_newPost_container_form_btn}
+          style={{ right: "0px" }}
+          onClick={savePost}
+        >
+          저장이다냥
+        </button>
+      </p>
+    </div>
+  );
 }

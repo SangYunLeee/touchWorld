@@ -7,12 +7,11 @@ module.exports = mongoose => {
     {
       title: String,
       description: String,
-      published: Boolean,
       author: {
         type: Schema.Types.ObjectId,
         ref: 'User'
       },
-      PostCategory: {
+      category: {
         type: Schema.Types.ObjectId,
         ref: 'PostCategory'
       }

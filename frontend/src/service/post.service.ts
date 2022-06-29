@@ -3,7 +3,7 @@ import authHeader from "./auth.header";
 import IPostData from "../types/Post";
 
 const getAll = () => {
-  return http.get<Array<IPostData>>("/post");
+  return http.get<IPostData[]>("/post");
 };
 const get = (id : string) => {
   return http.get<IPostData>(`/post/${id}`);

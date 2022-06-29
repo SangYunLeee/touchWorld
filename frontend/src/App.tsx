@@ -1,4 +1,7 @@
-import { Routes, Route, useParams } from "react-router-dom";
+import * as React from 'react';
+
+import { Routes, Route, useParams, useNavigate, useLocation }
+from "react-router-dom";
 
 import Navbar from "./component/Navbar";
 import Home from "./component/Home";
@@ -13,8 +16,9 @@ import { UserInfoProvider } from "./contexts/user.context";
 import { CategoriesProvider } from "./contexts/categorylist.context";
 import Sidebar from "./component/Sidebar";
 import { Container } from "react-bootstrap";
-import { QueryParamProvider } from "use-query-params";
+import {QueryParamProvider} from 'use-query-params';
 
+// CSS
 import "./App.css";
 import "./public.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -38,7 +42,7 @@ function App() {
   return (
     <div className="App">
       <div className="body">
-        <QueryParamProvider>
+        <QueryParamProvider ReactRouterRoute={RouteAdapter}>
           <CategoriesProvider>
             <UserInfoProvider>
               <HomeTitle />
@@ -97,5 +101,24 @@ function App() {
     </div>
   );
 }
+
+const RouteAdapter = ({ children }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const adaptedHistory = React.useMemo(
+    () => ({
+      replace(location) {
+        navigate(location, { replace: true, state: location.state });
+      },
+      push(location) {
+        navigate(location, { replace: false, state: location.state });
+      },
+    }),
+    [navigate]
+  );
+  return children({ history: adaptedHistory, location });
+};
+
 
 export default App;

@@ -4,5 +4,6 @@ export default interface IPostData {
   description: string,
   author?: {
     id: string | null
-  }
+  },
+  category?: string
 }

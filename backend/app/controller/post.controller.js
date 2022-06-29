@@ -1,20 +1,28 @@
 const db = require("../model");
 const Post = db.post;
+const PostCategory = db.postCategory;
 const User = db.user;
 // Create and Save a new Post
 exports.create = (req, res) => {
+  const {title, description, category} = req.body;
+  console.log("req.body: ", req.body);
+
+  const author = req.userId;
   // Validate request
-  if (!req.body.title) {
+  if (!title || !description) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
   }
+
   // Create a Post
   const post = new Post({
-    title: req.body.title,
-    description: req.body.description,
-    published: req.body.published ? req.body.published : false,
-    author: req.userId
+    title,
+    description,
+    author,
+    category
   });
+
+
   // Save Post in the database
   post
     .save(post)
@@ -30,8 +38,7 @@ exports.create = (req, res) => {
 };
 // Retrieve all Posts from the database.
 exports.findAll = async (req, res) => {
-  const title = (req.query.title || "").toString();
-  const author = req.query.author || "";
+  const {title, author, category} = req.query;
 
   console.log("author: ", author);
   console.log("title: ", title);
