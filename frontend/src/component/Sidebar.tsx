@@ -24,7 +24,6 @@ export default function Sidebar(props: any) {
 
   const [author, setAuthor] = useState<string | undefined>(undefined);
   let { authorId } = useParams();
-  console.log("authorId: ", authorId);
   const [, setCurCategory] = useQueryParam('category', StringParam);
 
   const deletePostCategory = async (categoryId: string) => {

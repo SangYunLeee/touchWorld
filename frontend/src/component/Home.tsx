@@ -18,12 +18,12 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    console.log("curCategorycurCategory: ", curCategory);
+    console.log("category: ", curCategory);
     retrievePosts();
   }, [curCategory]);
 
   const retrievePosts = () => {
-    PostDataService.getAll({category: curCategory || ""})
+    PostDataService.getAll({category: curCategory || null})
       .then(response => {
         setPosts(response.data);
       })

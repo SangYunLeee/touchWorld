@@ -15,7 +15,7 @@ const nav_item = "nav-link text-secondary text-center";
 
 export default function Navbar() {
   let params = useParams();
-  console.log("paramsparams: ", params);
+  console.log("params: ", params);
   const currentUser = useContext(UserContext);
   const userDispatch = useContext(UserDispatchContext);
 

@@ -11,8 +11,6 @@ export default function PostList(props : {posts}) {
   let navigate = useNavigate();
   const currentUser = useContext(UserContext);
 
-  console.log("authorId in PostList: ", authorId);
-
   return (
     // 포스트 리스트
     <div className="position-relative " style={{width: "550px"}}>

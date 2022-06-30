@@ -16,13 +16,12 @@ export default function SidebarCategoryItem(props) {
       <span
         className="category-text d-inline-block w-100 text-truncate"
         onClick={() => {
+          if (authorId) {
+            navigate(`/author/${authorId}`);
+          } else {
+            navigate("/");
+          }
           if (typeof hadleClicked === "function") {
-            console.log("authorIdd: ", authorId);
-            if (authorId) {
-              navigate(`/author/${authorId}`);
-            } else {
-              navigate("/");
-            }
             hadleClicked(category.id);
           }
         }}
