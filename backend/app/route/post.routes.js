@@ -1,5 +1,5 @@
 const { authJwt } = require("../middleware");
-const postCtl = require("../controller/post.controller.js");
+const postCtl = require("../controller/post.controller.ts");
 var router = require("express").Router();
 
 module.exports = app => {
@@ -14,8 +14,6 @@ module.exports = app => {
   router.post("/", [authJwt.verifyToken], postCtl.create);
   // Retrieve all Tutorials
   router.get("/", postCtl.findAll);
-  // Retrieve all published Tutorials
-  router.get("/published", postCtl.findAllPublished);
   // Retrieve a single Post with id
   router.get("/:id", postCtl.findOne);
   // Update a Post with id

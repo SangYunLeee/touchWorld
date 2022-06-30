@@ -19,10 +19,11 @@ export default function Home() {
 
   useEffect(() => {
     console.log("curCategorycurCategory: ", curCategory);
+    retrievePosts();
   }, [curCategory]);
 
   const retrievePosts = () => {
-    PostDataService.getAll()
+    PostDataService.getAll({category: curCategory || ""})
       .then(response => {
         setPosts(response.data);
       })

@@ -1,31 +1,31 @@
 import ListGroup from "react-bootstrap/ListGroup";
 import React from "react";
 import useToggle from "../hook/useToggle";
-import {useNavigate, useParams} from "react-router-dom"
-import { UserContext} from "../contexts/user.context";
+import { useNavigate, useParams } from "react-router-dom";
+import { UserContext } from "../contexts/user.context";
 
 export default function SidebarCategoryItem(props) {
-  const { title, deletePostCategory, category, isEditable, hadleClicked } = props;
+  const { title, deletePostCategory, category, isEditable, hadleClicked } =
+    props;
   const [isEditMode, toggleIsEditMode] = useToggle(false);
   const navigate = useNavigate();
   let { authorId } = useParams();
 
-
   return (
     <ListGroup.Item className="category-list-item d-flex">
-      <span className="category-text d-inline-block w-100 text-truncate"
-        onClick={
-          () => {
-            if (typeof hadleClicked === "function") {
-              if (authorId) {
-                navigate(`/author/${authorId}`)
-              } else {
-                navigate("/")
-              }
-              hadleClicked(category.id)}
+      <span
+        className="category-text d-inline-block w-100 text-truncate"
+        onClick={() => {
+          if (typeof hadleClicked === "function") {
+            console.log("authorIdd: ", authorId);
+            if (authorId) {
+              navigate(`/author/${authorId}`);
+            } else {
+              navigate("/");
             }
+            hadleClicked(category.id);
           }
-
+        }}
       >
         {title}
       </span>
@@ -37,8 +37,7 @@ export default function SidebarCategoryItem(props) {
           }
         }}
       ></i>
-      {
-        isEditMode && (
+      {isEditMode && (
         <div className="btnList">
           <button
             type="button"
@@ -61,8 +60,7 @@ export default function SidebarCategoryItem(props) {
             취소
           </button>
         </div>
-        )
-      }
+      )}
     </ListGroup.Item>
   );
 }

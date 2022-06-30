@@ -3,7 +3,8 @@ export default interface IPostData {
   title: string,
   description: string,
   author?: {
-    id: string | null
+    id: string,
+    name?: string
   },
   category?: string
 }

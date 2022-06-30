@@ -38,13 +38,15 @@ exports.create = (req, res) => {
 };
 // Retrieve all Posts from the database.
 exports.findAll = async (req, res) => {
-  const {title, author, category} = req.query;
-
+  console.log("findAll CALLED");
+  let {title, author, category} = req.query;
+  console.log(req.query);
   console.log("author: ", author);
   console.log("title: ", title);
+  console.log("category: ", category);
 
-  const titleFilter = title ? { $regex: new RegExp(title), $options: "i" } : {};
-  var authorFilter = {};
+  const titleFilter = title ? { $regex: new RegExp(title), $options: "i" } : undefined;
+  var authorFilter = undefined;
   author && await User.findOne({username: author})
     .then(data => {
       if (data) {
@@ -55,17 +57,22 @@ exports.findAll = async (req, res) => {
     .catch(err => {
       console.log(err.message);
     });
-    console.log("TEST 2");
-  var condition = title ? {
-      title: titleFilter,
-      author: authorFilter
-    } : {};
+  console.log("TEST 2");
+  var condition = {
+      // title: titleFilter,
+      // author: authorFilter,
+      category
+  };
+
+  console.log("condition: ", condition);
+
   Post.find(condition)
     .then(data => {
-      console.log("data: ", data);
+      console.log("findAll (SUCESS) DB: ", data);
       res.send(data);
     })
     .catch(err => {
+      console.log(err.message);
       res.status(500).send({
         message:
           err.message || "Some error occurred while retrieving tutorials."
@@ -149,19 +156,6 @@ exports.deleteAll = (req, res) => {
     res.status(500).send({
       message:
         err.message || "Some error occurred while removing all tutorials."
-    });
-  });
-};
-// Find all published Posts
-exports.findAllPublished = (req, res) => {
-  Post.find({ published: true })
-  .then(data => {
-    res.send(data);
-  })
-  .catch(err => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while retrieving tutorials."
     });
   });
 };

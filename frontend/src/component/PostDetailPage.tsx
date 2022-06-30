@@ -21,10 +21,7 @@ export default function PostDetailPage(props) {
   const initialPostState : IPostData = {
     id: "",
     title: "...",
-    description: "...",
-    author: {
-      id: null
-    }
+    description: "..."
   };
   const [post, setPost] = useState<IPostData>(initialPostState);
 

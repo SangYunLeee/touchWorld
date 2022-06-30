@@ -2,9 +2,12 @@ import http from "../http-common";
 import authHeader from "./auth.header";
 import IPostData from "../types/Post";
 
-const getAll = () => {
-  return http.get<IPostData[]>("/post");
+function getAll(post? : {author?, title?, category?}) {
+  const params = new URLSearchParams(post).toString();
+  console.log("params: ", params);
+  return http.get<IPostData[]>(`/post?${params}`);
 };
+
 const get = (id : string) => {
   return http.get<IPostData>(`/post/${id}`);
 };
