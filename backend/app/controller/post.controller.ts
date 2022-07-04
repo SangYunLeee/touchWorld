@@ -50,20 +50,16 @@ exports.findAll = async (req, res) => {
   author && await User.findOne({username: author})
     .then(data => {
       if (data) {
-        console.log("TEST 1", data);
         authorFilter = data.id;
       }
     })
     .catch(err => {
       console.log(err.message);
     });
-  console.log("TEST 2");
-  var condition = {
-      // title: titleFilter,
-      // author: authorFilter,
-      category
-  };
+  let condition = {};
 
+  if (category)
+    condition["category"] = category;
   console.log("condition: ", condition);
 
   Post.find(condition)
