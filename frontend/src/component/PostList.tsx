@@ -14,7 +14,7 @@ export default function PostList(props : {posts}) {
   return (
     // 포스트 리스트
     <div className="position-relative " style={{width: "550px"}}>
-    {posts?.map((post, index) => (
+    {Array.isArray(posts) && posts?.map((post, index) => (
       <PostItem key={index} post={post} />
     ))}
 

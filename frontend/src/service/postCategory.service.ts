@@ -1,22 +1,31 @@
-import http from "../http-common";
+// import axios from "../axios-common";
+import axios from "axios";
 import authHeader from "./auth.header";
 
-const serviceTarget = "/postCategory"
+
+const isLocalhost = (process.env.NODE_ENV == "production")? false : true;
+
+const axiosDefault = axios.create({
+  baseURL : (isLocalhost? "http://localhost:5000/" : "/") +
+    "api/postCategory"
+});
+
+const API_URL = `${axios.defaults.baseURL}/api/postCategory`
 
 const create = (data : {title : string}) => {
-  console.log(serviceTarget, data);
-  var rtn = http.post(serviceTarget, data, {headers: authHeader()});
+  console.log(API_URL, data);
+  var rtn = axiosDefault.post("/", data, {headers: authHeader()});
   console.log("get end");
   return rtn;
 };
 
 const findByUserId = (username : string) => {
-  return http.get(`${serviceTarget}?username=${username}`);
+  return axiosDefault.get(`/?username=${username}`);
 };
 
 const deleteOne = (id : string) => {
-  console.log(serviceTarget, id);
-  var rtn = http.delete(serviceTarget + `/${id}`, {headers: authHeader()});
+  console.log(API_URL, id);
+  var rtn = axiosDefault.delete(`/${id}`, {headers: authHeader()});
   console.log("get end");
   return rtn;
 };

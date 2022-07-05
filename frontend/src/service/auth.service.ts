@@ -1,22 +1,36 @@
 import axios from "axios";
 import authHeader from "./auth.header";
 import IUserInfo from "../types/User";
-const API_URL = "http://localhost:8080/api/auth/";
+
+const isLocalhost = (process.env.NODE_ENV == "production")? false : true;
+
+console.log("process.env.NODE_ENV: ", process.env.NODE_ENV);
+
+const axiosDefault = axios.create({
+  baseURL : (isLocalhost? "http://localhost:5000/" : "/") +
+    "api/auth"
+});
+
+console.log("process.env.baseURL: ", process.env.baseURL);
 
 const register = (username : string, email: string, password: string) => {
-    return axios.post(API_URL + "signup", {
+    return axiosDefault.post("/signup", {
         username,
         email,
         password,
     });
 };
 const login = async (username : string, password : string) => {
-    return axios
-        .post(API_URL + "signin", {
+    return axiosDefault
+        .post("/signin", {
             username,
             password,
         })
         .then((response) => {
+            if (response.data.accessToken) {
+              console.log(JSON.stringify(response.data));
+                localStorage.setItem("user", JSON.stringify(response.data));
+            }
             return response.data;
         });
 };
@@ -33,8 +47,8 @@ const getCurrentUser = () : (IUserInfo | null) => {
 };
 
 const updateUserInfo = async (userInfo : IUserInfo) => {
-  return axios
-      .put(API_URL + "userinfo", userInfo, {headers: authHeader()})
+  return axiosDefault
+      .put("/userinfo", userInfo, {headers: authHeader()})
         .then((response) => {
           const {email, nickname} = response.data;
           localStorage.setItem("user", JSON.stringify({...getCurrentUser(), email, nickname}));
@@ -50,8 +64,8 @@ interface PasswordSet {
 }
 
 const updatePassword = async (passwordSet : PasswordSet) => {
-  return axios
-      .put(API_URL + "password", {
+  return axiosDefault
+      .put("/password", {
         oldPassword : passwordSet.oldPassword,
         newPassword : passwordSet.newPassword
       }, {headers: authHeader()});

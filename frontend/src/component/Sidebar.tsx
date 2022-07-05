@@ -67,7 +67,7 @@ export default function Sidebar(props: any) {
         title="전체 게시글"
       ></CategoryItem>
       <>
-        {postCategories &&
+        {Array.isArray(postCategories) &&
           postCategories.map((category, index) => (
             <CategoryItem
               isEditable={true}

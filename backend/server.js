@@ -1,10 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 const dbConfig = require("./app/config/db.config");
-require('dotenv').config();
+require("dotenv").config();
+const path = require('path');
 const app = express();
 var corsOptions = {
-  origin: true
+  origin: true,
 };
 app.use(cors(corsOptions));
 // parse requests of content-type - application/json
@@ -18,30 +19,40 @@ let mongodbUrl = process.env.MONGO_URL;
 db.mongoose
   .connect(mongodbUrl, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then(() => {
     console.log("Successfully connect to MongoDB.");
     initial();
   })
-  .catch(err => {
+  .catch((err) => {
     console.error("Connection error", err);
     process.exit();
   });
+
+  // routes
+require("./app/route/auth.routes")(app);
+require("./app/route/user.routes")(app);
+require("./app/route/post.routes")(app);
+require("./app/route/postCategory.routes")(app);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("frontend/build"));
+  // index.html for all page routes    html or routing and naviagtion
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../frontend", "build", "index.html"));
+  });
+} else {
+
+}
 
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
-// routes
-require('./app/route/auth.routes')(app);
-require('./app/route/user.routes')(app);
-require('./app/route/post.routes')(app);
-require('./app/route/postCategory.routes')(app);
-
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
@@ -50,24 +61,24 @@ function initial() {
   Role.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
       new Role({
-        name: "user"
-      }).save(err => {
+        name: "user",
+      }).save((err) => {
         if (err) {
           console.log("error", err);
         }
         console.log("added 'user' to roles collection");
       });
       new Role({
-        name: "moderator"
-      }).save(err => {
+        name: "moderator",
+      }).save((err) => {
         if (err) {
           console.log("error", err);
         }
         console.log("added 'moderator' to roles collection");
       });
       new Role({
-        name: "admin"
-      }).save(err => {
+        name: "admin",
+      }).save((err) => {
         if (err) {
           console.log("error", err);
         }
@@ -76,3 +87,11 @@ function initial() {
     }
   });
 }
+
+// Serve static assets if in production
+// if (process.env.NODE_ENV === "production") {
+
+// Set static folder
+// All the javascript and css files will be read and served from this folder
+
+// }

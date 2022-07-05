@@ -1,0 +1,30 @@
+{
+  "name": "touchworld",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engine": {
+    "node": "14.19.x",
+    "npm": "8.5.x"
+  },
+  "scripts": {
+    "start": "node backend/server.js",
+    "backend": "nodemon backend/server.js",
+    "frontend": "npm run start --prefix frontend",
+    "dev": "concurrently \"npm run backend\" \"npm run start --prefix frontend\"",
+    "heroku-postbuild": "npm i --prefix backend && npm i -f --prefix frontend && npm run build --prefix frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SangYunLeee/touchWorld.git"
+  },
+  "author": "sangyunLee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SangYunLeee/touchWorld/issues"
+  },
+  "homepage": "https://github.com/SangYunLeee/touchWorld#readme",
+  "dependencies": {
+    "concurrently": "^7.2.2"
+  }
+}

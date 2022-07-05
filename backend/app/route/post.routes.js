@@ -22,5 +22,5 @@ module.exports = app => {
   router.delete("/:id", [authJwt.verifyToken], postCtl.delete);
   // Create a new Post
   router.delete("/", [authJwt.verifyToken], postCtl.deleteAll);
-  app.use('/post', router);
+  app.use('/api/post', router);
 };

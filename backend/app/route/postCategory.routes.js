@@ -16,5 +16,5 @@ module.exports = app => {
   router.get("/", ctl.findByUser);
   // Delete a PostCategory with id
   router.delete("/:id", [authJwt.verifyToken], ctl.delete);
-  app.use('/postCategory', router);
+  app.use('/api/postCategory', router);
 };
