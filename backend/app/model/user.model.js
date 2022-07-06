@@ -14,7 +14,8 @@ module.exports = mongoose => {
     },
     nickname: {
       type: String,
-      unique: true
+      unique: false,
+      sparse: true,
     },
     roles: [
       {
