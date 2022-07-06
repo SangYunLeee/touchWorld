@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { UserContext, UserDispatchContext } from "../contexts/user.context";
 import IPost from "../types/Post";
 import PostDataService from "../service/post.service";
@@ -9,6 +9,7 @@ export default function PostList(props : {posts}) {
   const {posts} = props;
   let { authorId } = useParams();
   let navigate = useNavigate();
+  const location = useLocation();
   const currentUser = useContext(UserContext);
 
   return (
@@ -26,11 +27,7 @@ export default function PostList(props : {posts}) {
                   backgroundColor: "rgba(50, 50, 50, 0.06)"
         }}
         onClick={() => {
-          if (authorId !== undefined) {
-            navigate(`/author/${authorId}/new`)
-          } else {
-            navigate("/post/new")
-          }
+          navigate(`${location.pathname}/post/new${location.search}`);
         }}
       >
         새 글 올리기

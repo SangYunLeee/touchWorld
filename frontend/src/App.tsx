@@ -1,7 +1,14 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { Routes, Route, useParams, useNavigate, useLocation }
-from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useParams,
+  useNavigate,
+  useLocation,
+  useRoutes,
+} from "react-router-dom";
+import type { RouteObject } from "react-router-dom";
 
 import Navbar from "./component/Navbar";
 import Home from "./component/Home";
@@ -16,7 +23,7 @@ import { UserInfoProvider } from "./contexts/user.context";
 import { CategoriesProvider } from "./contexts/categorylist.context";
 import Sidebar from "./component/Sidebar";
 import { Container } from "react-bootstrap";
-import {QueryParamProvider} from 'use-query-params';
+import { QueryParamProvider } from "use-query-params";
 
 // CSS
 import "./App.css";
@@ -39,6 +46,55 @@ const ProfileEdit = () => {
 };
 
 function App() {
+  let routes: RouteObject[];
+  routes = [
+    {
+      children: [
+        { path: "/author/:authorId/*", element: <MainContext /> },
+        { path: "/*", element: <MainContext /> },
+      ],
+    },
+  ];
+
+  let element = useRoutes(routes);
+
+  function MainContext() {
+    return (
+      <>
+        <Navbar />
+        <Container fluid>
+          <div className="row">
+            <Container className="col-3 min-vh-100 d-none d-md-flex">
+            <Sidebar />
+            </Container>
+            <Container
+              className="col-12 col-md-6 d-flex justify-content-center h-fit-content"
+              fluid
+            >
+              <Routes>
+                <Route index element={<Home />} />
+                <Route path="login" element={<LoginPage />} />
+                <Route path="register" element={<RegisterPage />} />
+                <Route path="profile" element={<ProfilePage />} />
+                <Route path="profile/edit" element={<ProfileEdit />} />
+                <Route
+                  path="profile/pwdupdate"
+                  element={<ProfilePwdUpdatePage />}
+                />
+                <Route path="post">
+                  <Route path="new" element={<NewPost isEditMode={false} />} />
+                  <Route path="edit/:id" element={<PostEdit />} />
+                  <Route path=":id" element={<PostDetail />} />
+                </Route>
+              </Routes>
+            </Container>
+            <Container className="col-3 d-none d-md-block"></Container>
+          </div>
+        </Container>
+      </>
+    );
+  }
+
   return (
     <div className="App">
       <div className="body">
@@ -46,54 +102,7 @@ function App() {
           <CategoriesProvider>
             <UserInfoProvider>
               <HomeTitle />
-              <Routes>
-                <Route path="author/:authorId/*" element={<Navbar />} />
-                <Route path="*" element={<Navbar />} />
-              </Routes>
-              <Container fluid>
-                <div className="row">
-                  <Container className="col-3 min-vh-100 d-none d-md-flex">
-                    <Routes>
-                      <Route path="author/:authorId/*" element={<Sidebar />} />
-                      <Route path="*" element={<Sidebar />} />
-                    </Routes>
-                  </Container>
-                  <Container
-                    className="col-12 col-md-6 d-flex justify-content-center h-fit-content"
-                    fluid
-                  >
-                    <Routes>
-                      <Route index element={<Home />} />
-                      <Route path="login" element={<LoginPage />} />
-                      <Route path="register" element={<RegisterPage />} />
-                      <Route path="profile" element={<ProfilePage />} />
-                      <Route path="profile/edit" element={<ProfileEdit />} />
-                      <Route
-                        path="profile/pwdupdate"
-                        element={<ProfilePwdUpdatePage />}
-                      />
-                      <Route path="author/:authorId/*">
-                        <Route index element={<Home />} />
-                        <Route
-                          path="new"
-                          element={<NewPost isEditMode={false} />}
-                        />
-                        <Route path="edit/:id" element={<PostEdit />} />
-                        <Route path=":id" element={<PostDetail />} />
-                      </Route>
-                      <Route path="post">
-                        <Route
-                          path="new"
-                          element={<NewPost isEditMode={false} />}
-                        />
-                        <Route path="edit/:id" element={<PostEdit />} />
-                        <Route path=":id" element={<PostDetail />} />
-                      </Route>
-                    </Routes>
-                  </Container>
-                  <Container className="col-3 d-none d-md-block"></Container>
-                </div>
-              </Container>
+              {element}
             </UserInfoProvider>
           </CategoriesProvider>
         </QueryParamProvider>
@@ -119,6 +128,5 @@ const RouteAdapter = ({ children }) => {
   );
   return children({ history: adaptedHistory, location });
 };
-
 
 export default App;

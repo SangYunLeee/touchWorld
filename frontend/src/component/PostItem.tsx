@@ -1,8 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import "./PostItem.css";
 import {stripTags} from '../helper';
 import catImg from "../asset/cat_noimage.jpg";
+import { useQueryParam, StringParam } from 'use-query-params';
 
 const c_postitem = "postitem mb-2 mx-auto myCursor normal-max-width";
 const c_postitem_item = "d-flex justify-content-center";
@@ -13,9 +14,11 @@ const c_postitem_item_imgContainer_img = "img-fluid text-center";
 
 export default function PostItem(props) {
   let navigate = useNavigate();
+  const location = useLocation();
+
   const {title, description, id} = props.post;
   let handleClick = () => {
-    navigate(`/post/${id}`);
+    navigate(`${location.pathname}/post/${id}${location.search}`);
   };
   return (
     <div

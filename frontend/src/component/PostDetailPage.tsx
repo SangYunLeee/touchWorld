@@ -59,7 +59,7 @@ export default function PostDetailPage(props) {
 
   return (
         <div className={c_newPost_container} style={{width:'500px'}}>
-          <h4 className={c_newPost_container_title}>{post.title}</h4>
+          <h5 className={c_newPost_container_title}>{post.title}</h5>
           <div className={c_newPost_container_form}>
             <div className="mb-3" >
               <ReactQuill readOnly={true} modules={moduleConfig} className='min-h-300' theme="snow" value={post.description} />
