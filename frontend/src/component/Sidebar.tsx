@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../contexts/user.context";
-import { useSearchParams, useParams } from "react-router-dom";
-import IPostCagetory from "../types/PostCategory";
+import { useParams } from "react-router-dom";
 import ListGroup from "react-bootstrap/ListGroup";
 import useInputState from "../hook/useInputState";
 import useToggle from "../hook/useToggle";
 import PostCategoryService from "../service/postCategory.service";
 import {ICategoryEnum} from "../reducers/categorylist.reducer";
 import {CategoriesContext, CategoriesDispatchContext} from "../contexts/categorylist.context"
-import { useQueryParam, StringParam } from 'use-query-params';
 import "./Sidebar.css";
 import CategoryItem from "./SidebarCategoryItem";
 
@@ -24,7 +22,6 @@ export default function Sidebar(props: any) {
 
   const [author, setAuthor] = useState<string | undefined>(undefined);
   let { authorId } = useParams();
-  const [, setCurCategory] = useQueryParam('category', StringParam);
 
   const deletePostCategory = async (categoryId: string) => {
     await PostCategoryService.deleteOne(categoryId);
@@ -48,13 +45,11 @@ export default function Sidebar(props: any) {
       });
   };
 
-  if (authorId != author) {
+  if (authorId !== author) {
     retrievePostCategories();
   }
 
   useEffect(() => {
-    // console.log("currentUser: ", currentUser);
-    // console.log("useEffect");
     retrievePostCategories();
   }, []);
 
@@ -76,7 +71,6 @@ export default function Sidebar(props: any) {
               key={category.id}
               categoryId={category.id}
               deletePostCategory={deletePostCategory}
-              hadleClicked={setCurCategory}
             />
           ))}
       </>
@@ -87,7 +81,7 @@ export default function Sidebar(props: any) {
           )} */}
       </>
 
-      { currentUser && (currentUser.username == authorId ) ?
+      { currentUser && (currentUser.username === authorId ) ?
           isEditMode ? (
           <ListGroup.Item className="addBtn" key="addEditBtn">
             <div>게시글 분류 추가</div>
