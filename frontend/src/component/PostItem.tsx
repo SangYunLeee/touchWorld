@@ -18,6 +18,9 @@ export default function PostItem(props) {
 
   const {title, description, id} = props.post;
   let handleClick = () => {
+    if (location.pathname == "/") {
+      location.pathname = ""
+    }
     navigate(`${location.pathname}/post/${id}${location.search}`);
   };
   return (

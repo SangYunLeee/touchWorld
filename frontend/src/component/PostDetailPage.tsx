@@ -7,7 +7,7 @@ import AuthService from "../service/auth.service";
 import "./QuillEditor.css";
 import IPostData from "../types/Post";
 
-const c_newPost_container = "border bg-gray p-3"
+const c_newPost_container = "border bg-gray p-3 DefaultMainContext"
 const c_newPost_container_title = "d-block text-center"
 const c_newPost_container_form = "w-100 position-relative"
 const c_newPost_container_form_update_btn = "btn btn-success position-absolute"
@@ -58,7 +58,7 @@ export default function PostDetailPage(props) {
   }
 
   return (
-        <div className={c_newPost_container} style={{width:'500px'}}>
+        <div className={c_newPost_container}>
           <h5 className={c_newPost_container_title}>{post.title}</h5>
           <div className={c_newPost_container_form}>
             <div className="mb-3" >
