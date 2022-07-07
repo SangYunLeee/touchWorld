@@ -12,7 +12,7 @@ import PostList from './PostList';
 export default function Home() {
   const [posts, setPosts] = useState<IPost[] | null>(null);
   const [curCategory,] = useQueryParam('category', StringParam);
-
+  let { authorId } = useParams();
   useEffect(() => {
     retrievePosts();
   }, []);
@@ -23,7 +23,15 @@ export default function Home() {
   }, [curCategory]);
 
   const retrievePosts = () => {
-    PostDataService.getAll({category: curCategory || null})
+    console.log("authorId: ", authorId);
+    let queryParams = {};
+    if (curCategory) {
+      queryParams["category"] = curCategory;
+    }
+    if (authorId) {
+      queryParams["author"] = authorId;
+    }
+    PostDataService.getAll(queryParams)
       .then(response => {
         setPosts(response.data);
       })

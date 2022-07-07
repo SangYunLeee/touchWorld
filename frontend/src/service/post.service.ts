@@ -2,7 +2,9 @@ import http from "../http-common";
 import axios from "axios";
 import authHeader from "./auth.header";
 import IPostData from "../types/Post";
-
+import {
+  createSearchParams
+} from "react-router-dom";
 
 const isLocalhost = (process.env.NODE_ENV == "production")? false : true;
 
@@ -12,12 +14,10 @@ const axiosDefault = axios.create({
 });
 
 function getAll(post : {author?, title?, category?}) {
-  if (!post?.category) {
-    post = {};
-  }
+  const query = createSearchParams(post);
   const params = new URLSearchParams(post).toString();
-  console.log("getDB by params: ", params);
-  return axiosDefault.get<IPostData[]>(`/?${params}`);
+  console.log("getDB by params: ", post);
+  return axiosDefault.get<IPostData[]>(`/?${query}`);
 };
 
 const get = (id : string) => {

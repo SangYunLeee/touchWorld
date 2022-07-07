@@ -40,10 +40,7 @@ exports.create = (req, res) => {
 exports.findAll = async (req, res) => {
   console.log("findAll CALLED");
   let {title, author, category} = req.query;
-  console.log(req.query);
-  console.log("author: ", author);
-  console.log("title: ", title);
-  console.log("category: ", category);
+  console.log("query: ", req.query);
 
   const titleFilter = title ? { $regex: new RegExp(title), $options: "i" } : undefined;
   var authorFilter = undefined;
@@ -60,11 +57,14 @@ exports.findAll = async (req, res) => {
 
   if (category)
     condition["category"] = category;
+  if (authorFilter) {
+    condition["author"] = authorFilter;
+  }
   console.log("condition: ", condition);
 
   Post.find(condition)
     .then(data => {
-      console.log("findAll (SUCESS) DB: ", data);
+      console.log("findAll (SUCESS) DB");
       res.send(data);
     })
     .catch(err => {
