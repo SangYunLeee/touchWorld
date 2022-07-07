@@ -1,9 +1,10 @@
 import React from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-import "./PostItem.css";
 import {stripTags} from '../helper';
+import IPostData from "../types/Post"
 import catImg from "../asset/cat_noimage.jpg";
 import { useQueryParam, StringParam } from 'use-query-params';
+import "./PostItem.css";
 
 const c_postitem = "postitem mb-2 mx-auto myCursor normal-max-width";
 const c_postitem_item = "d-flex justify-content-center";
@@ -15,13 +16,18 @@ const c_postitem_item_imgContainer_img = "img-fluid text-center";
 export default function PostItem(props) {
   let navigate = useNavigate();
   const location = useLocation();
-  const {title, description, id} = props.post;
+  const post : IPostData = props.post;
+  const {title, description, id, author} = post;
 
   let handleClick = () => {
+    let prefix = location.pathname;
     if (location.pathname == "/") {
-      location.pathname = ""
+      prefix = ""
     }
-    navigate(`${location.pathname}/post/${id}${location.search}`);
+    if (author?.username) {
+      prefix = `/author/${author.username}`
+    }
+    navigate(`${prefix}/post/${id}${location.search}`);
   };
   return (
     <div
@@ -32,11 +38,11 @@ export default function PostItem(props) {
       <div className={c_postitem_item}>
         <div
           className={c_postitem_item_imgContainer}
-          style={{ maxWidth: "120px" }}
+          style={{ maxWidth: "120px", borderRadius: "5px" }}
         >
           <img
             className={c_postitem_item_imgContainer_img}
-            style={{ width: "auto", maxHeight: "60px" }}
+            style={{ width: "auto", maxHeight: "60px"}}
             src={catImg}
             alt="Card cap"
           />

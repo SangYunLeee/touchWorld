@@ -4,8 +4,8 @@ import AuthService from "../service/auth.service";
 import "./ProfilePage.css";
 
 const c_userInfo_container =
-  "profilepage border bg-gray";
-const c_userInfo_edit_btn = "btn bg-secondary position-absolute text-light";
+  "profilepage border bg-gray w-100";
+const c_userInfo_edit_btn = "btn bg-secondary position-absolute text-light btn-sm";
 
 const Profile = (props) => {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ const Profile = (props) => {
   }
 
   return (
-    <div className={`${c_userInfo_container} profileForm p-3 position-relative`} style={{width: '450px'}}>
+    <div className={`${c_userInfo_container} profileForm p-3 position-relative`} style={{maxWidth: '450px', borderRadius: "8px"}}>
       <header className="jumbotron">
         <h3>{editMode? "내 정보 변경" : "내 정보" }</h3>
         <hr className="solid"></hr>
