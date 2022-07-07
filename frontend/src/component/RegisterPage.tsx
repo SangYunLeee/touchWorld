@@ -11,7 +11,7 @@ const required = (value) => {
   if (!value) {
     return (
       <div className="alert alert-danger" role="alert">
-        This field is required!
+        비어있는 칸이 있어요~!
       </div>
     );
   }
@@ -20,7 +20,7 @@ const validEmail = (value) => {
   if (!isEmail(value)) {
     return (
       <div className="alert alert-danger" role="alert">
-        This is not a valid email.
+        이메일이 잘못 적힌 것 같아요
       </div>
     );
   }
@@ -29,16 +29,16 @@ const vusername = (value) => {
   if (value.length < 3 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
-        The username must be between 3 and 20 characters.
+        아이디를 3~20칸 사이로 적어주세요
       </div>
     );
   }
 };
 const vpassword = (value) => {
-  if (value.length < 6 || value.length > 40) {
+  if (value.length < 0 || value.length > 40) {
     return (
       <div className="alert alert-danger" role="alert">
-        The password must be between 6 and 40 characters.
+        비밀번호는 1~ 40 자리 사이로 적어주세요
       </div>
     );
   }
@@ -71,7 +71,7 @@ const Register = () => {
     if (checkBtn.current?.context._errors.length === 0) {
       AuthService.register(username, email, password).then(
         (response) => {
-          setMessage(response.data.message);
+          setMessage("회원가입이 되었습니다~! \n로그인 페이지로 이동해주세요");
           setSuccessful(true);
         },
         (error) => {
@@ -142,6 +142,7 @@ const Register = () => {
               <div
                 className={ successful ? "alert alert-success" : "alert alert-danger" }
                 role="alert"
+                style={{whiteSpace: "pre-wrap"}}
               >
                 {message}
               </div>
