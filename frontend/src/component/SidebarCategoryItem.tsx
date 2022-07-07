@@ -1,15 +1,10 @@
 import ListGroup from "react-bootstrap/ListGroup";
 import React from "react";
 import useToggle from "../hook/useToggle";
-import {
-  useNavigate,
-  useParams,
-  createSearchParams
-} from "react-router-dom";
+import { useNavigate, useParams, createSearchParams } from "react-router-dom";
 
 export default function SidebarCategoryItem(props) {
-  const { title, deletePostCategory, category, isEditable } =
-    props;
+  const { title, deletePostCategory, category, isEditable } = props;
   const [isEditMode, toggleIsEditMode] = useToggle(false);
   const navigate = useNavigate();
   let { authorId } = useParams();
@@ -22,13 +17,12 @@ export default function SidebarCategoryItem(props) {
           let params = {};
           let pathname = "/";
           if (category) {
-            params["category"] = category.id
+            params["category"] = category.id;
           }
           if (authorId) {
             pathname = `/author/${authorId}`;
           }
-          navigate({pathname,
-            search: `?${createSearchParams(params)}`});
+          navigate({ pathname, search: `?${createSearchParams(params)}` });
         }}
       >
         {title}

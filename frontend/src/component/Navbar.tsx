@@ -14,45 +14,48 @@ const Img_class = "d-inline-block mr-3";
 const nav_item = "nav-link text-secondary text-center";
 
 export default function Navbar() {
-  let params = useParams();
   const currentUser = useContext(UserContext);
   const userDispatch = useContext(UserDispatchContext);
 
   useEffect(() => {
-    var user : (IUserInfo | null);
+    var user: IUserInfo | null;
     user = AuthService.getCurrentUser();
     if (user) {
-      userDispatch?.({type: "UPDATE", ...user});
+      userDispatch?.({ type: "UPDATE", ...user });
     }
   }, []);
 
   const logOut = () => {
-    userDispatch?.({type: "LOGOUT"});
+    userDispatch?.({ type: "LOGOUT" });
   };
 
   const NoneUserNavItems = () => {
-    return <>
-      <Link key="login" className={`${nav_item}`} to="/login">
-        로그인쓰
-      </Link>
-      <Link key="regist" className={`${nav_item}`} to="/register">
-        회원가입
-      </Link>
-    </>;
+    return (
+      <>
+        <Link key="login" className={`${nav_item}`} to="/login">
+          로그인쓰
+        </Link>
+        <Link key="regist" className={`${nav_item}`} to="/register">
+          회원가입
+        </Link>
+      </>
+    );
   };
 
   const UserNavItems = () => {
-    return <>
-      <Link key="username" className={`${nav_item}`} to="/author/sororiri">
-        {currentUser?.username}
-      </Link>
-      <Link key="profile" className={`${nav_item}`} to="/profile">
-        내 정보
-      </Link>
-      <Link key="logout" className={`${nav_item}`} to="/" onClick={logOut}>
-        로그 아웃
-      </Link>
-    </>;
+    return (
+      <>
+        <Link key="username" className={`${nav_item}`} to="/author/sororiri">
+          {currentUser?.username}
+        </Link>
+        <Link key="profile" className={`${nav_item}`} to="/profile">
+          내 정보
+        </Link>
+        <Link key="logout" className={`${nav_item}`} to="/" onClick={logOut}>
+          로그 아웃
+        </Link>
+      </>
+    );
   };
 
   return (
@@ -64,7 +67,6 @@ export default function Navbar() {
         style={{ maxWidth: "800px" }}
       >
         <img height="40" className={Img_class} src={catImg} alt="" />
-
         <NavbarB.Toggle aria-controls="basic-navbar-nav" />
         <NavbarB.Collapse id="basic-navbar-nav">
           <Link className={`${nav_item} active`} to="/">

@@ -1,15 +1,15 @@
 .addPost .list {
-    text-align: left;
-    max-width: 750px;
-    margin: auto;
+  text-align: left;
+  max-width: 750px;
+  margin: auto;
 }
 
 .addPost .submit-form {
-    max-width: 300px;
-    margin: auto;
+  max-width: 300px;
+  margin: auto;
 }
 
 .addPost .edit-form {
-    max-width: 300px;
-    margin: auto;
+  max-width: 300px;
+  margin: auto;
 }

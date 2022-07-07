@@ -3,16 +3,15 @@ import { useNavigate } from "react-router-dom";
 import AuthService from "../service/auth.service";
 import "./ProfilePwdUpdatePage.css";
 
-const c_profilePwdUpdatePage =
-  "profilePwdUpdatePage border bg-gray";
+const c_profilePwdUpdatePage = "profilePwdUpdatePage border bg-gray";
 const c_userInfo_edit_btn = "btn bg-secondary position-absolute text-light";
 
 const ProfilePwdUpdatePage = (props) => {
   const navigate = useNavigate();
   var currentUser = AuthService.getCurrentUser();
-  let newPassword : string = "";
-  let oldPassword : string = "";
-  let oldPassword2 : string = "";
+  let newPassword: string = "";
+  let oldPassword: string = "";
+  let oldPassword2: string = "";
 
   const [user, setUser] = useState(currentUser);
   const [warningMessage, setWarningMessage] = useState("");
@@ -25,25 +24,26 @@ const ProfilePwdUpdatePage = (props) => {
   const onClickedUpdatePwdBtn = () => {
     console.log("test onClickedUpdatePwdBtn");
     if (oldPassword !== oldPassword2) {
-
     }
     AuthService.updatePassword({
       oldPassword,
-      newPassword
+      newPassword,
     })
       .then(() => {
-      navigate("/profile");
-      window.location.reload();
-    })
-      .catch((err) => {
-        const msg = "변경에 실패했습니다"
-        setWarningMessage(msg);
+        navigate("/profile");
+        window.location.reload();
       })
-    ;
+      .catch((err) => {
+        const msg = "변경에 실패했습니다";
+        setWarningMessage(msg);
+      });
   };
 
   return (
-    <div className={`${c_profilePwdUpdatePage} profileForm p-3 position-relative`} style={{width: '450px'}}>
+    <div
+      className={`${c_profilePwdUpdatePage} profileForm p-3 position-relative`}
+      style={{ width: "450px" }}
+    >
       <header className="jumbotron">
         <h3>비밀번호 변경</h3>
         <hr className="solid"></hr>
@@ -51,38 +51,32 @@ const ProfilePwdUpdatePage = (props) => {
       <div>
         <label className="me-2">기존 비빌번호 입력</label>
         <input
-          type='password'
+          type="password"
           placeholder="기존 비밀번호를 입력해주세요"
           onChange={setInputValue}
           name="oldPassword"
         />
       </div>
       <p>
-        <label className="me-2 mt-2">
-          기존 비빌번호 재입력
-        </label>
+        <label className="me-2 mt-2">기존 비빌번호 재입력</label>
         <input
-          type='password'
+          type="password"
           placeholder="다시 입력해주세요"
           onChange={setInputValue}
           name="oldPassword2"
         />
       </p>
       <p>
-        <label className='me-2 mt-2'>변경 비밀번호</label>
+        <label className="me-2 mt-2">변경 비밀번호</label>
         <input
           placeholder="변경할 비밀번호를 입력해주세요"
           onChange={setInputValue}
           name="newPassword"
-          type='password'
+          type="password"
           className="mt-2"
         />
       </p>
-      {
-        warningMessage && (
-          <div> {warningMessage} </div>
-        )
-      }
+      {warningMessage && <div> {warningMessage} </div>}
       <p className="p-0 m-0" style={{ height: "4.0rem" }}>
         <button
           className={c_userInfo_edit_btn}

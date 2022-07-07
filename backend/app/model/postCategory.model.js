@@ -1,25 +1,24 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-module.exports = mongoose => {
-
+module.exports = (mongoose) => {
   var schema = mongoose.Schema({
     title: {
       type: String,
-      required: true
+      required: true,
     },
     author: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: 'User'
-    }
+      ref: "User",
+    },
   });
 
-  schema.virtual('id').get(function() {
+  schema.virtual("id").get(function () {
     return this._id;
   });
 
-  schema.method("toJSON", function() {
+  schema.method("toJSON", function () {
     const { __v, _id, ...object } = this.toObject();
     object.id = _id;
     return object;

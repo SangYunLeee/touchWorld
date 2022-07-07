@@ -74,13 +74,6 @@ export default function Sidebar(props: any) {
             />
           ))}
       </>
-      <>
-        {/* {postCategories &&
-          postCategories.map((category, index) =>
-            console.log("category: ", category)
-          )} */}
-      </>
-
       { currentUser && (currentUser.username === authorId ) ?
           isEditMode ? (
           <ListGroup.Item className="addBtn" key="addEditBtn">

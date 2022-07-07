@@ -19,14 +19,12 @@ const Profile = (props) => {
   var initEditMode = props.editMode;
   const [editMode, setEditMode] = useState(initEditMode);
 
-
   useEffect(() => {
     console.log('useEffect');
     setEditMode(props.editMode);
     setUser(currentUser);
     // eslint-disable-next-line
   }, []);
-
 
   const setInputValue = (event: { target: HTMLInputElement; }) => {
     const { name, value } = event.target;

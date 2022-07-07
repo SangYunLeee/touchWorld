@@ -1,28 +1,27 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-module.exports = mongoose => {
-
+module.exports = (mongoose) => {
   var schema = mongoose.Schema(
     {
       title: String,
       description: String,
       author: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: "User",
       },
       category: {
         type: Schema.Types.ObjectId,
-        ref: 'PostCategory'
-      }
+        ref: "PostCategory",
+      },
     },
     { timestamps: true }
   );
-  schema.virtual('id').get(function() {
+  schema.virtual("id").get(function () {
     return this._id;
   });
 
-  schema.method("toJSON", function() {
+  schema.method("toJSON", function () {
     const { __v, _id, ...object } = this.toObject();
     object.id = _id;
     return object;

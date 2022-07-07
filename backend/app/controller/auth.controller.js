@@ -6,17 +6,17 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 var ctl = {
-  signup : null,
-  signin : null,
-  updateUser : null,
-  updatePwd: null
-}
+  signup: null,
+  signin: null,
+  updateUser: null,
+  updatePwd: null,
+};
 
 ctl.signup = (req, res) => {
   const user = new User({
     username: req.body.username,
     email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8)
+    password: bcrypt.hashSync(req.body.password, 8),
   });
   user.save((err, user) => {
     if (err) {
@@ -26,15 +26,15 @@ ctl.signup = (req, res) => {
     if (req.body.roles) {
       Role.find(
         {
-          name: { $in: req.body.roles }
+          name: { $in: req.body.roles },
         },
         (err, roles) => {
           if (err) {
             res.status(500).send({ message: err });
             return;
           }
-          user.roles = roles.map(role => role._id);
-          user.save(err => {
+          user.roles = roles.map((role) => role._id);
+          user.save((err) => {
             if (err) {
               res.status(500).send({ message: err });
               return;
@@ -50,7 +50,7 @@ ctl.signup = (req, res) => {
           return;
         }
         user.roles = [role._id];
-        user.save(err => {
+        user.save((err) => {
           if (err) {
             res.status(500).send({ message: err });
             return;
@@ -63,7 +63,7 @@ ctl.signup = (req, res) => {
 };
 ctl.signin = (req, res) => {
   User.findOne({
-    username: req.body.username
+    username: req.body.username,
   })
     .populate("roles", "-__v")
     .exec((err, user) => {
@@ -81,12 +81,11 @@ ctl.signin = (req, res) => {
       if (!passwordIsValid) {
         return res.status(401).send({
           accessToken: null,
-
-          message: "Invalid Password!"
+          message: "Invalid Password!",
         });
       }
       var token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400 // 24 hours
+        expiresIn: 86400, // 24 hours
       });
       var authorities = [];
       for (let i = 0; i < user.roles.length; i++) {
@@ -98,37 +97,35 @@ ctl.signin = (req, res) => {
         email: user.email,
         nickname: user.nickname,
         roles: authorities,
-        accessToken: token
+        accessToken: token,
       });
     });
 };
 
 ctl.updateUser = (req, res) => {
   User.findOne({
-    id: req.userId
+    id: req.userId,
   })
-    .then(user => {
+    .then((user) => {
       user.email = req.body.email;
       user.nickname = req.body.nickname;
-      user.save()
-        .then(user => {
-          res.status(200).send({
-            ...user.toJSON()
-          })
-        })
+      user.save().then((user) => {
+        res.status(200).send({
+          ...user.toJSON(),
+        });
+      });
     })
-    .catch(err => {
-      res.status(500).send({message: err});
-    })
-}
+    .catch((err) => {
+      res.status(500).send({ message: err });
+    });
+};
 
 ctl.updatePwd = (req, res) => {
   User.findOne({
-    id: req.userId
+    id: req.userId,
   })
-    .then(user => {
+    .then((user) => {
       if (!user) {
-
         return res.status(404).send({ message: "User Not found." });
       }
       console.log("body: ", req.body);
@@ -140,21 +137,20 @@ ctl.updatePwd = (req, res) => {
       if (!passwordIsValid) {
         return res.status(401).send({
           accessToken: null,
-          message: "Invalid Password!"
+          message: "Invalid Password!",
         });
       }
       user.password = bcrypt.hashSync(req.body.newPassword, 8);
-      user.save()
-        .then((user) => {
-          res.status(200).send({
-            message: "password changed"
-          });
-        })
+      user.save().then((user) => {
+        res.status(200).send({
+          message: "password changed",
+        });
+      });
     })
-    .catch(err => {
-      console.log("rr:" , err);
-      res.status(500).send({message: err});
-    })
-}
+    .catch((err) => {
+      console.log("rr:", err);
+      res.status(500).send({ message: err });
+    });
+};
 
 module.exports = ctl;

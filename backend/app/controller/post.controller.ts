@@ -22,7 +22,6 @@ exports.create = (req, res) => {
     category
   });
 
-
   // Save Post in the database
   post
     .save(post)

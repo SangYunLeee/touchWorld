@@ -1,45 +1,45 @@
-module.exports = mongoose => {
-  mongoose.set('toJSON', { virtuals: true });
-  var schema = mongoose.Schema({
-    username: {
-      type: String,
-      required: true,
-      unique: true
+module.exports = (mongoose) => {
+  mongoose.set("toJSON", { virtuals: true });
+  var schema = mongoose.Schema(
+    {
+      username: {
+        type: String,
+        required: true,
+        unique: true,
+      },
+      email: String,
+      password: {
+        type: String,
+        required: true,
+        unique: true,
+      },
+      nickname: {
+        type: String,
+        unique: false,
+        sparse: true,
+      },
+      roles: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Role",
+        },
+      ],
+      postCategory: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "postCategory",
+        },
+      ],
     },
-    email: String,
-    password: {
-      type: String,
-      required: true,
-      unique: true
-    },
-    nickname: {
-      type: String,
-      unique: false,
-      sparse: true,
-    },
-    roles: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Role"
-      }
-    ],
-    postCategory: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "postCategory"
-      }
-    ],
-  }, {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true }
-  });
-  schema.virtual('id').get(function() {
+    {
+      toJSON: { virtuals: true },
+      toObject: { virtuals: true },
+    }
+  );
+  schema.virtual("id").get(function () {
     return this._id;
   });
 
-  const User = mongoose.model(
-    "User",
-    schema
-  );
+  const User = mongoose.model("User", schema);
   return User;
-}
+};

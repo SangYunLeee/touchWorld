@@ -15,8 +15,8 @@ const c_postitem_item_imgContainer_img = "img-fluid text-center";
 export default function PostItem(props) {
   let navigate = useNavigate();
   const location = useLocation();
-
   const {title, description, id} = props.post;
+
   let handleClick = () => {
     if (location.pathname == "/") {
       location.pathname = ""

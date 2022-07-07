@@ -2,16 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { UserContext, UserDispatchContext } from "../contexts/user.context";
 
-import { useQueryParam, StringParam } from 'use-query-params';
+import { useQueryParam, StringParam } from "use-query-params";
 
 import PostDataService from "../service/post.service";
 import IPost from "../types/Post";
-import PostList from './PostList';
-
+import PostList from "./PostList";
 
 export default function Home() {
   const [posts, setPosts] = useState<IPost[] | null>(null);
-  const [curCategory,] = useQueryParam('category', StringParam);
+  const [curCategory] = useQueryParam("category", StringParam);
   let { authorId } = useParams();
   useEffect(() => {
     retrievePosts();
@@ -32,15 +31,13 @@ export default function Home() {
       queryParams["author"] = authorId;
     }
     PostDataService.getAll(queryParams)
-      .then(response => {
+      .then((response) => {
         setPosts(response.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
 
-  return (
-    <PostList posts={posts} />
-  )
+  return <PostList posts={posts} />;
 }
