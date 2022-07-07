@@ -22,7 +22,7 @@ export default function PostList(props : {posts}) {
     {/* 새글 올리기 버튼*/}
     {
       currentUser && (
-      <button className="btn position-absolute"
+      <button className="btn position-absolute btn-sm"
         style={{ right: "0px", border: "solid 1px rgba(0, 0, 255, 0.3)",
                   backgroundColor: "rgba(50, 50, 50, 0.06)"
         }}
