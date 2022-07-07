@@ -12,7 +12,7 @@ module.exports = (mongoose) => {
       },
       category: {
         type: Schema.Types.ObjectId,
-        ref: "PostCategory",
+        ref: "postCategory",
       },
     },
     { timestamps: true }

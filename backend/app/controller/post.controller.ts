@@ -62,6 +62,7 @@ exports.findAll = async (req, res) => {
   console.log("condition: ", condition);
 
   Post.find(condition)
+    .populate("author category")
     .then(data => {
       console.log("findAll (SUCESS) DB");
       res.send(data);
@@ -77,7 +78,7 @@ exports.findAll = async (req, res) => {
 // Find a single Post with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
-  Post.findById(id).populate('author')
+  Post.findById(id).populate("author category")
     .then(data => {
       if (!data)
         res.status(404).send({ message: "Not found Post with id " + id });
