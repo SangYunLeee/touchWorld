@@ -45,7 +45,7 @@ export default function Navbar() {
   const UserNavItems = () => {
     return (
       <>
-        <Link key="username" className={`${nav_item}`} to="/author/sororiri">
+        <Link key="username" className={`${nav_item}`} to={`/author/${currentUser?.username}`}>
           {currentUser?.username}
         </Link>
         <Link key="profile" className={`${nav_item}`} to="/profile">

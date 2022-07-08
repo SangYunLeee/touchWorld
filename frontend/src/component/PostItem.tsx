@@ -6,7 +6,7 @@ import catImg from "../asset/cat_noimage.jpg";
 import { useQueryParam, StringParam } from 'use-query-params';
 import "./PostItem.css";
 
-const c_postitem = "postitem mb-2 mx-auto myCursor normal-max-width";
+const c_postitem = "postitem mb-2 myCursor normal-max-width";
 const c_postitem_item = "d-flex justify-content-center";
 const c_postitem_item_textArea = "hover-grey card col-xs-10 col-md-10 col-9";
 const c_postitem_item_imgContainer =
