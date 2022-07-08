@@ -12,20 +12,20 @@ export default function NewPost(props: any) {
   const postCategories = useContext(CategoriesContext);
   const { postId, isEditMode } = props;
   let navigate = useNavigate();
-  const initialPostState = {
+  const initialPostState = new IPost({
     id: null as any,
     title: "",
     description: "",
-  };
+  });
 
   const [post, setPost] = useState<IPost>(initialPostState);
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement|HTMLSelectElement>) => {
     const { name="", value="" } = event.target;
-    setPost({ ...post, [name]: value });
+    setPost(new IPost({ ...post, [name]: value }));
   };
 
   const setEditorValue = (text: string) => {
-    setPost({ ...post, description: text });
+    setPost(new IPost({ ...post, description: text }));
   };
 
   const savePost = () => {

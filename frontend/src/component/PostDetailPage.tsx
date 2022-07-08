@@ -19,7 +19,7 @@ export default function PostDetailPage(props) {
   let navigate = useNavigate();
   const currentUser = AuthService.getCurrentUser();
   const { postId } = props;
-  const initialPostState: IPostData = {
+  const initialPostState: IPostData = new IPostData({
     id: "",
     title: "...",
     description: "...",
@@ -27,7 +27,8 @@ export default function PostDetailPage(props) {
       id: "...",
       username: "..."
     }
-  };
+  });
+
   const [post, setPost] = useState<IPostData>(initialPostState);
 
   const moduleConfig = {
@@ -39,7 +40,7 @@ export default function PostDetailPage(props) {
     const retrievePosts = () => {
       PostDataService.get(postId)
         .then((response) => {
-          setPost(response.data);
+          setPost(new IPostData(response.data));
         })
         .catch((e) => {
           console.log(e);
@@ -66,7 +67,7 @@ export default function PostDetailPage(props) {
     <div className={c_newPost_container}>
       <h5 className={c_newPost_container_title}>{post.title}</h5>
       <div className='mb-1 ms-1'> <i className="bi bi-person-fill"> </i>
-        {post.author?.username} </div>
+        {post.author?.username} <i className="bi bi-calendar-week ms-3"> {post.localTime()}</i></div>
       <div className={c_newPost_container_form}>
         <div className="mb-3">
           <ReactQuill
