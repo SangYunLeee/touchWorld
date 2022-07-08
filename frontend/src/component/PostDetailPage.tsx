@@ -12,8 +12,10 @@ import "./DefaultPost.css";
 const c_newPost_container = "PostLayout border bg-gray p-3 DefaultMainContext";
 const c_newPost_container_title = "d-block text-center";
 const c_newPost_container_form = "w-100 position-relative";
-const c_newPost_container_form_update_btn = "btn btn-secondary position-absolute btn-sm";
-const c_newPost_container_form_delete_btn = "btn btn-danger position-absolute btn-sm";
+const c_newPost_container_form_update_btn =
+  "btn btn-secondary position-absolute btn-sm";
+const c_newPost_container_form_delete_btn =
+  "btn btn-danger position-absolute btn-sm";
 
 export default function PostDetailPage(props) {
   let navigate = useNavigate();
@@ -25,8 +27,8 @@ export default function PostDetailPage(props) {
     description: "...",
     author: {
       id: "...",
-      username: "..."
-    }
+      username: "...",
+    },
   });
 
   const [post, setPost] = useState<IPostData>(initialPostState);
@@ -66,8 +68,25 @@ export default function PostDetailPage(props) {
   return (
     <div className={c_newPost_container}>
       <h5 className={c_newPost_container_title}>{post.title}</h5>
-      <div className='mb-1 ms-1'> <i className="bi bi-person-fill"> </i>
-        {post.author?.username} <i className="bi bi-calendar-week ms-3"> {post.localTime()}</i></div>
+
+
+
+      <div className="mb-1 ms-1">
+        <i className="bi bi-person-fill"> {post.author?.username} </i>
+        <i className="bi bi-calendar-week ms-3 small"> {post.localTime()}</i>
+      </div>
+
+      <div className="input-group mb-3 input-group-sm">
+        <span className="input-group-text">
+          분류
+        </span>
+        <span
+          className="form-control"
+        >
+          {post?.category?.title || "전체 게시글"}
+        </span>
+      </div>
+
       <div className={c_newPost_container_form}>
         <div className="mb-3">
           <ReactQuill

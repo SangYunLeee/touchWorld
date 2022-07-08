@@ -12,7 +12,10 @@ export default class IPostData {
     id: string,
     username?: string
   };
-  category?: string;
+  category?: {
+    author?: string;
+    title?: string;
+  };
   createdAt?: string;
   updatedAt?: string;
   localTime(): string {

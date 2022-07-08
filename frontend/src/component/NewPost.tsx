@@ -89,9 +89,9 @@ export default function NewPost(props: any) {
             handleInputChange(e)
           }}
         >
-          <option value="" key="defalut">전체 게시글</option>
+          <option value="" key="defalut">{(post.category && post.category!.title) || "전체 게시글"}</option>
           {
-            postCategories?.map((category, index) => (
+            !isEditMode && postCategories?.map((category, index) => (
               <option value={category.id} key={index}>{category.title}</option>
             ))
           }
