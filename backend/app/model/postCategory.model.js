@@ -24,6 +24,6 @@ module.exports = (mongoose) => {
     return object;
   });
 
-  const PostCategory = mongoose.model("postCategory", schema);
+  const PostCategory = mongoose.model("PostCategory", schema);
   return PostCategory;
 };

@@ -12,7 +12,7 @@ module.exports = (mongoose) => {
       },
       category: {
         type: Schema.Types.ObjectId,
-        ref: "postCategory",
+        ref: "PostCategory",
       },
     },
     { timestamps: true }
@@ -27,6 +27,6 @@ module.exports = (mongoose) => {
     return object;
   });
 
-  const Post = mongoose.model("post", schema);
+  const Post = mongoose.model("Post", schema);
   return Post;
 };

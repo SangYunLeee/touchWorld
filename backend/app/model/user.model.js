@@ -27,7 +27,7 @@ module.exports = (mongoose) => {
       postCategory: [
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "postCategory",
+          ref: "PostCategory",
         },
       ],
     },
