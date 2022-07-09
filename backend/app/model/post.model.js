@@ -1,32 +1,37 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+var Post = new Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'PostCategory'
+  }
+}, {
+  timestamps: true
+});
+
+Post.virtual("id").get(function () {
+  return this._id;
+});
+
+Post.method("toJSON", function () {
+  const { __v, _id, ...object } = this.toObject();
+  object.id = _id;
+  return object;
+});
+
 module.exports = (mongoose) => {
-  var schema = mongoose.Schema(
-    {
-      title: String,
-      description: String,
-      author: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-      },
-      category: {
-        type: Schema.Types.ObjectId,
-        ref: "PostCategory",
-      },
-    },
-    { timestamps: true }
-  );
-  schema.virtual("id").get(function () {
-    return this._id;
-  });
-
-  schema.method("toJSON", function () {
-    const { __v, _id, ...object } = this.toObject();
-    object.id = _id;
-    return object;
-  });
-
-  const Post = mongoose.model("Post", schema);
-  return Post;
+  return mongoose.model("Post", Post);
 };
