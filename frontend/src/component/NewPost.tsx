@@ -5,27 +5,28 @@ import PostDataService from "../service/post.service";
 import "react-quill/dist/quill.snow.css";
 import {CategoriesContext} from "../contexts/categorylist.context"
 import IPost from "../types/Post"
+import useNavigateDefault from "../helper/useNavigateDefault";
 const c_newPost_container_form = "border bg-gray p-3";
 const c_newPost_container_form_btn = "btn btn-success position-absolute";
 
 export default function NewPost(props: any) {
   const postCategories = useContext(CategoriesContext);
   const { postId, isEditMode } = props;
-  let navigate = useNavigate();
+  let navigateDefault = useNavigateDefault();
   const initialPostState = new IPost({
     id: null as any,
     title: "",
     description: "",
   });
-
   const [post, setPost] = useState<IPost>(initialPostState);
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement|HTMLSelectElement>) => {
     const { name="", value="" } = event.target;
     setPost(new IPost({ ...post, [name]: value }));
   };
 
   const setEditorValue = (text: string) => {
-    setPost(new IPost({ ...post, description: text }));
+    post.description = text;
   };
 
   const savePost = () => {
@@ -34,8 +35,7 @@ export default function NewPost(props: any) {
       : PostDataService.create(post)
     )
       .then((response: any) => {
-        navigate(`/post/${response.data.id}`);
-        window.location.reload();
+        navigateDefault(`/post/${response.data.id}`)();
       })
       .catch((e: Error) => {
         console.log(e);
@@ -56,7 +56,7 @@ export default function NewPost(props: any) {
     if (isEditMode) {
       retrievePosts();
     }
-  }, [isEditMode, postId]);
+  }, []);
 
   return (
     <div

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ReactQuill from "react-quill";
 import PostDataService from "../service/post.service";
 import AuthService from "../service/auth.service";
 import IPostData from "../types/Post";
+import useNavigateDefault from "../helper/useNavigateDefault";
 
 import "react-quill/dist/quill.snow.css";
 import "./QuillEditor.css";
@@ -19,6 +20,7 @@ const c_newPost_container_form_delete_btn =
 
 export default function PostDetailPage(props) {
   let navigate = useNavigate();
+  const location = useLocation();
   const currentUser = AuthService.getCurrentUser();
   const { postId } = props;
   const initialPostState: IPostData = new IPostData({
@@ -32,6 +34,7 @@ export default function PostDetailPage(props) {
   });
 
   const [post, setPost] = useState<IPostData>(initialPostState);
+  const navigateDefault = useNavigateDefault();
 
   const moduleConfig = {
     toolbar: false,
@@ -54,15 +57,11 @@ export default function PostDetailPage(props) {
   const handleDelete = () => {
     PostDataService.remove(post.id)
       .then((response: any) => {
-        navigate("/");
+        navigateDefault("/")();
       })
       .catch((e) => {
         console.log(e);
       });
-  };
-
-  const handleEdit = () => {
-    navigate(`/post/edit/${post.id}`);
   };
 
   return (
@@ -105,7 +104,7 @@ export default function PostDetailPage(props) {
             <button
               className={c_newPost_container_form_update_btn}
               style={{ right: "0px" }}
-              onClick={handleEdit}
+              onClick= {navigateDefault(`/post/edit/${post.id}`)}
               key="update"
             >
               수정하기

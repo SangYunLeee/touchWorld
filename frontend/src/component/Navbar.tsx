@@ -4,6 +4,7 @@ import userReducer from "../reducers/user.reducer";
 import IUserInfo from "../types/User";
 import { UserContext, UserDispatchContext } from "../contexts/user.context";
 import { Link, useParams } from "react-router-dom";
+import useNavigateDefault from "../helper/useNavigateDefault";
 import AuthService from "../service/auth.service";
 import NavbarB from "react-bootstrap/Navbar";
 import catImg from "../asset/cat_navbar.png";
@@ -16,6 +17,7 @@ const nav_item = "nav-link text-secondary text-center";
 export default function Navbar() {
   const currentUser = useContext(UserContext);
   const userDispatch = useContext(UserDispatchContext);
+  const navigateDefault = useNavigateDefault();
 
   useEffect(() => {
     var user: IUserInfo | null;
@@ -48,12 +50,17 @@ export default function Navbar() {
         <Link key="username" className={`${nav_item}`} to={`/author/${currentUser?.username}`}>
           {currentUser?.username}
         </Link>
-        <Link key="profile" className={`${nav_item}`} to="/profile">
+        <button key="profile" className={`${nav_item}`}
+          onClick={navigateDefault("/profile")}
+        >
           내 정보
-        </Link>
-        <Link key="logout" className={`${nav_item}`} to="/" onClick={logOut}>
+        </button>
+        <button key="logout" className={`${nav_item}`} onClick={() => {
+          logOut();
+          navigateDefault("/");
+        }}>
           로그 아웃
-        </Link>
+        </button>
       </>
     );
   };
