@@ -1,3 +1,4 @@
+export {}
 const db = require("../model");
 const PostCategory = db.postCategory;
 const User = db.user;
@@ -80,7 +81,7 @@ ctl.findByUser = async (req, res) => {
           console.log("deleting...");
           res
             .status(404)
-            .send({ message: "Not found PostCategory with userId " + userId });
+            .send({ message: "Not found PostCategory with userId " + req.userId });
         }
         else {
           console.log("deleted data: ", data);
@@ -90,7 +91,7 @@ ctl.findByUser = async (req, res) => {
       .catch(err => {
         res
           .status(500)
-          .send({ message: "Error retrieving PostCategory with userId=" + userId });
+          .send({ message: "Error retrieving PostCategory with userId=" + req.userId });
       });
   };
 

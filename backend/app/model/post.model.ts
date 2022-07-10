@@ -1,4 +1,8 @@
+export {}
+
 const mongoose = require("mongoose");
+const {Comment} = require("./comment.model");
+
 const Schema = mongoose.Schema;
 
 var Post = new Schema({
@@ -17,7 +21,11 @@ var Post = new Schema({
   category: {
     type: Schema.Types.ObjectId,
     ref: 'PostCategory'
-  }
+  },
+  comments: [{
+    type: Comment,
+    ref: 'Comment'
+  }]
 }, {
   timestamps: true
 });

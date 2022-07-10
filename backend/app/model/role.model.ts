@@ -1,3 +1,5 @@
+export {}
+
 module.exports = mongoose => {
   const Rule = mongoose.model(
     "Role",

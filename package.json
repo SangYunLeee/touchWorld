@@ -8,8 +8,8 @@
     "npm": "8.5.x"
   },
   "scripts": {
-    "start": "node backend/server.js",
-    "backend": "nodemon backend/server.js",
+    "start": "node backend/server.ts",
+    "backend": "nodemon backend/server.ts",
     "frontend": "npm run start --prefix frontend",
     "dev": "concurrently \"npm run backend\" \"npm run start --prefix frontend\"",
     "heroku-postbuild": "npm i --prefix backend && npm i -f --prefix frontend && npm run build --prefix frontend"
@@ -28,6 +28,7 @@
     "concurrently": "^7.2.2"
   },
   "devDependencies": {
+    "@types/express": "^4.17.13",
     "@types/node": "^18.0.3"
   }
 }

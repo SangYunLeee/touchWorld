@@ -1,3 +1,5 @@
+export {}
+
 const { authJwt } = require("../middleware");
 const postCtl = require("../controller/post.controller.ts");
 var router = require("express").Router();

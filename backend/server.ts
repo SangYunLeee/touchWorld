@@ -4,6 +4,7 @@ const dbConfig = require("./app/config/db.config");
 require("dotenv").config();
 const path = require('path');
 const app = express();
+const db = require("./app/model");
 var corsOptions = {
   origin: true,
 };
@@ -13,7 +14,6 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 // connect to DB
-const db = require("./app/model");
 const Role = db.role;
 let mongodbUrl = process.env.MONGO_URL;
 db.mongoose

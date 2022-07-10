@@ -1,3 +1,4 @@
+export {}
 const db = require("../model");
 const Post = db.post;
 const PostCategory = db.postCategory;

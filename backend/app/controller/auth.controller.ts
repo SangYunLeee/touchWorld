@@ -1,3 +1,5 @@
+export {}
+
 const config = require("../config/auth.config");
 const db = require("../model");
 const User = db.user;

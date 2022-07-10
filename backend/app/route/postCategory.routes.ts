@@ -1,5 +1,7 @@
+export {}
+
 const { authJwt } = require("../middleware");
-const ctl = require("../controller/postCategory.controller.js");
+const ctl = require("../controller/postCategory.controller");
 var router = require("express").Router();
 
 module.exports = app => {
