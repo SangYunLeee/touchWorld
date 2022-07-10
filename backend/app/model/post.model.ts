@@ -1,11 +1,10 @@
-export {}
-
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import express from "express";
 const {Comment} = require("./comment.model");
 
 const Schema = mongoose.Schema;
 
-var Post = new Schema({
+export var Post = new Schema({
   title: {
     type: String,
     required: true
@@ -40,6 +39,6 @@ Post.method("toJSON", function () {
   return object;
 });
 
-module.exports = (mongoose) => {
+export default (mongoose) => {
   return mongoose.model("Post", Post);
 };

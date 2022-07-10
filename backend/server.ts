@@ -1,10 +1,10 @@
-const express = require("express");
-const cors = require("cors");
-const dbConfig = require("./app/config/db.config");
+import express from "express";
+import cors from "cors";
+import dbConfig from "./app/config/db.config";
+import path from "path";
+import db from "./app/model";
 require("dotenv").config();
-const path = require('path');
 const app = express();
-const db = require("./app/model");
 var corsOptions = {
   origin: true,
 };
@@ -31,10 +31,10 @@ db.mongoose
   });
 
   // routes
-require("./app/route/auth.routes")(app);
-require("./app/route/user.routes")(app);
-require("./app/route/post.routes")(app);
-require("./app/route/postCategory.routes")(app);
+require("./app/route/auth.routes").default(app);
+require("./app/route/user.routes").default(app);
+require("./app/route/post.routes").default(app);
+require("./app/route/postCategory.routes").default(app);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("frontend/build"));
@@ -47,7 +47,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // simple route
-app.get("/", (req, res) => {
+app.get("/", (req, res : express.Response) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 

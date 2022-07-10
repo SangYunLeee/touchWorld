@@ -1,10 +1,9 @@
-export {}
-const db = require("../model");
+import db from "../model";
 const Post = db.post;
 const PostCategory = db.postCategory;
 const User = db.user;
 // Create and Save a new Post
-exports.create = (req, res) => {
+export const create = (req, res) => {
   const {title, description, category} = req.body;
   console.log("req.body: ", req.body);
 
@@ -37,7 +36,7 @@ exports.create = (req, res) => {
     });
 };
 // Retrieve all Posts from the database.
-exports.findAll = async (req, res) => {
+export const findAll = async (req, res) => {
   console.log("findAll CALLED");
   let {title, author, category} = req.query;
   console.log("query: ", req.query);
@@ -77,7 +76,7 @@ exports.findAll = async (req, res) => {
     });
 };
 // Find a single Post with an id
-exports.findOne = (req, res) => {
+export const findOne = (req, res) => {
   const id = req.params.id;
   Post.findById(id).populate("author category")
     .then(data => {
@@ -94,7 +93,7 @@ exports.findOne = (req, res) => {
     });
 };
 // Update a Post by the id in the request
-exports.update = (req, res) => {
+export const update = (req, res) => {
   if (!req.body) {
     return res.status(400).send({
       message: "Data to update can not be empty!"
@@ -116,7 +115,7 @@ exports.update = (req, res) => {
     });
 };
 // Delete a Post with the specified id in the request
-exports.delete = (req, res) => {
+export const deleteOne = (req, res) => {
   const id = req.params.id;
   Post.findById(id)
     .then(post => {
@@ -142,7 +141,7 @@ exports.delete = (req, res) => {
     });
 };
 // Delete all Posts from the database.
-exports.deleteAll = (req, res) => {
+export const deleteAll = (req, res) => {
   Post.deleteMany({})
   .then(data => {
     res.send({

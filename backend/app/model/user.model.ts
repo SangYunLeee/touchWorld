@@ -1,5 +1,3 @@
-export {}
-
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 mongoose.set("toJSON", { virtuals: true });
@@ -38,6 +36,6 @@ User.virtual("id").get(function () {
   return this._id;
 });
 
-module.exports = (mongoose) => {
+export default (mongoose) => {
   return mongoose.model("User", User);
 };

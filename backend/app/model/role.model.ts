@@ -1,6 +1,4 @@
-export {}
-
-module.exports = mongoose => {
+export default mongoose => {
   const Rule = mongoose.model(
     "Role",
     new mongoose.Schema({

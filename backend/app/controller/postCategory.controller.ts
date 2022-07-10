@@ -1,16 +1,9 @@
-export {}
-const db = require("../model");
+import db from "../model";
 const PostCategory = db.postCategory;
 const User = db.user;
 // Create and Save a new PostCategory
 
-var ctl = {
-  create : null,
-  findByUser: null,
-  delete : null
-}
-
-ctl.create = (req, res) => {
+export const create = (req, res) => {
   // expect
     // body. {title}
     // login
@@ -42,7 +35,7 @@ ctl.create = (req, res) => {
 // Find a single PostCategory with an id
   // pass
     // query: userId or username
-ctl.findByUser = async (req, res) => {
+export const findByUser = async (req, res) => {
   let {userId, username} = req.query;
   if (username) {
     await User.findOne({username})
@@ -72,7 +65,7 @@ ctl.findByUser = async (req, res) => {
 // delete a single PostCategory with an id
 // pass
   // param: id
-  ctl.delete = (req, res) => {
+  export const deleteOne = (req, res) => {
     const categoryId = req.params.id;
     console.log("delete CALLED")
     PostCategory.deleteOne({_id: categoryId, author: req.userId})
@@ -94,5 +87,3 @@ ctl.findByUser = async (req, res) => {
           .send({ message: "Error retrieving PostCategory with userId=" + req.userId });
       });
   };
-
-module.exports = ctl;

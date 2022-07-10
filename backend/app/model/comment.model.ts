@@ -1,9 +1,7 @@
-export default {}
-
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-var Comment = new Schema({
+export var Comment = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'
@@ -22,9 +20,7 @@ var Comment = new Schema({
   }
 });
 
-module.exports = (mongoose) => {
+export default (mongoose) => {
   const CommentScheme = mongoose.model("Comment", Comment);
   return CommentScheme;
 };
-
-module.exports.Comment = Comment;

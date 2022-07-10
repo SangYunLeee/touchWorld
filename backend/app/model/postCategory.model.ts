@@ -1,8 +1,5 @@
-export {}
-
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
 
 var PostCategory = mongoose.Schema({
   title: {
@@ -26,6 +23,6 @@ PostCategory.method("toJSON", function () {
   return object;
 });
 
-module.exports = (mongoose) => {
+export default (mongoose) => {
   return mongoose.model("PostCategory", PostCategory);
 };

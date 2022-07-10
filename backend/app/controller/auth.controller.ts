@@ -1,20 +1,11 @@
-export {}
-
+import db from "../model";
 const config = require("../config/auth.config");
-const db = require("../model");
 const User = db.user;
 const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
-var ctl = {
-  signup: null,
-  signin: null,
-  updateUser: null,
-  updatePwd: null,
-};
-
-ctl.signup = (req, res) => {
+export const signup = (req, res) => {
   const user = new User({
     username: req.body.username,
     email: req.body.email,
@@ -63,7 +54,7 @@ ctl.signup = (req, res) => {
     }
   });
 };
-ctl.signin = (req, res) => {
+export const signin = (req, res) => {
   User.findOne({
     username: req.body.username,
   })
@@ -104,7 +95,7 @@ ctl.signin = (req, res) => {
     });
 };
 
-ctl.updateUser = (req, res) => {
+export const updateUser = (req, res) => {
   User.findOne({
     id: req.userId,
   })
@@ -122,7 +113,7 @@ ctl.updateUser = (req, res) => {
     });
 };
 
-ctl.updatePwd = (req, res) => {
+export const updatePwd = (req, res) => {
   User.findOne({
     id: req.userId,
   })
@@ -154,5 +145,3 @@ ctl.updatePwd = (req, res) => {
       res.status(500).send({ message: err });
     });
 };
-
-module.exports = ctl;

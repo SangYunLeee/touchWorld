@@ -1,10 +1,8 @@
-export {}
-
 const { authJwt } = require("../middleware");
 const postCtl = require("../controller/post.controller.ts");
 var router = require("express").Router();
 
-module.exports = app => {
+export default app => {
   app.use(function(req, res, next) {
     res.header(
       "Access-Control-Allow-Headers",
@@ -21,7 +19,7 @@ module.exports = app => {
   // Update a Post with id
   router.put("/:id", [authJwt.verifyToken], postCtl.update);
   // Delete a Post with id
-  router.delete("/:id", [authJwt.verifyToken], postCtl.delete);
+  router.delete("/:id", [authJwt.verifyToken], postCtl.deleteOne);
   // Create a new Post
   router.delete("/", [authJwt.verifyToken], postCtl.deleteAll);
   app.use('/api/post', router);
