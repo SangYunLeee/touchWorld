@@ -1,6 +1,4 @@
-export {}
-
-const db = require("../model");
+import db from "../model";
 const ROLES = db.ROLES;
 const User = db.user;
 const checkDuplicateUsernameOrEmail = (req, res, next) => {
