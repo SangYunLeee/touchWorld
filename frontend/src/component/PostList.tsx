@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { UserContext, UserDispatchContext } from "../contexts/user.context";
-import IPost from "../types/Post";
-import PostDataService from "../service/post.service";
+import React, { useContext } from "react";
+import { UserContext } from "../contexts/user.context";
 import PostItem from "./PostItem";
+import useNavigateDefault from "../helper/useNavigateDefault";
+
 
 export default function PostList(props: { posts }) {
   const { posts } = props;
-  let { authorId } = useParams();
-  let navigate = useNavigate();
-  const location = useLocation();
+  let navigateDefault = useNavigateDefault();
   const currentUser = useContext(UserContext);
 
   const NewButton = () => {
@@ -23,11 +20,7 @@ export default function PostList(props: { posts }) {
           width: "150px",
         }}
         onClick={() => {
-          let prefix = location.pathname;
-          if (location.pathname == "/") {
-            prefix = "";
-          }
-          navigate(`${prefix}/post/new${location.search}`);
+          navigateDefault(`/post/new`)();
         }}
       >
         새 글 올리기 +

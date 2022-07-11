@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import ReactQuill from "react-quill";
 import PostDataService from "../service/post.service";
 import AuthService from "../service/auth.service";
@@ -19,8 +18,6 @@ const c_newPost_container_form_delete_btn =
   "btn btn-danger position-absolute btn-sm";
 
 export default function PostDetailPage(props) {
-  let navigate = useNavigate();
-  const location = useLocation();
   const currentUser = AuthService.getCurrentUser();
   const { postId } = props;
   const initialPostState: IPostData = new IPostData({

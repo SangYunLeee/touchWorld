@@ -2,7 +2,7 @@ import axios from "axios";
 import authHeader from "./auth.header";
 import IUserInfo from "../types/User";
 
-const isLocalhost = (process.env.NODE_ENV == "production")? false : true;
+const isLocalhost = (process.env.NODE_ENV === "production")? false : true;
 
 console.log("process.env.NODE_ENV: ", process.env.NODE_ENV);
 

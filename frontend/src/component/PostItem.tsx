@@ -1,9 +1,8 @@
 import React from "react";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {stripTags} from '../helper';
 import IPostData from "../types/Post"
 import catImg from "../asset/cat_noimage.jpg";
-import { useQueryParam, StringParam } from 'use-query-params';
 import "./PostItem.css";
 
 const c_postitem = "postitem mb-2 myCursor normal-max-width";
@@ -21,7 +20,7 @@ export default function PostItem(props) {
 
   let handleClick = () => {
     let prefix = location.pathname;
-    if (location.pathname == "/") {
+    if (location.pathname === "/") {
       prefix = ""
     }
     if (author?.username) {

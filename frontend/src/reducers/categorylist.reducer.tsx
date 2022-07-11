@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import { v4 as uuidv4 } from 'uuid';
 import IPostCategory from "../types/PostCategory";
 import{ Dispatch } from "react";

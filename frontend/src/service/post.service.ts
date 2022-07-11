@@ -1,4 +1,3 @@
-import http from "../http-common";
 import axios from "axios";
 import authHeader from "./auth.header";
 import IPostData from "../types/Post";
@@ -6,7 +5,7 @@ import {
   createSearchParams
 } from "react-router-dom";
 
-const isLocalhost = (process.env.NODE_ENV == "production")? false : true;
+const isLocalhost = (process.env.NODE_ENV === "production")? false : true;
 
 const axiosDefault = axios.create({
   baseURL : (isLocalhost? "http://localhost:5000/" : "/") +
@@ -15,7 +14,6 @@ const axiosDefault = axios.create({
 
 function getAll(post : {author?, title?, category?}) {
   const query = createSearchParams(post);
-  const params = new URLSearchParams(post).toString();
   console.log("getDB by params: ", post);
   return axiosDefault.get<IPostData[]>(`/?${query}`);
 };

@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { UserContext, UserDispatchContext } from "../contexts/user.context";
-
+import React, { useState, useEffect, } from "react";
+import { useParams } from "react-router-dom";
 import { useQueryParam, StringParam } from "use-query-params";
 
 import PostDataService from "../service/post.service";

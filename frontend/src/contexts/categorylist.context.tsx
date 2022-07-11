@@ -1,4 +1,4 @@
-import React, { createContext, Dispatch, useReducer } from "react";
+import React, { createContext, useReducer } from "react";
 import ICategoryListData from "../types/PostCategory";
 import categorylistReducer, {DispatchType} from "../reducers/categorylist.reducer";
 

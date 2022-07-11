@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useLocalStorageReducer } from "../hook/useLocalStorageReducer";
-import userReducer from "../reducers/user.reducer";
+import React, { useEffect, useContext } from "react";
 import IUserInfo from "../types/User";
 import { UserContext, UserDispatchContext } from "../contexts/user.context";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useNavigateDefault from "../helper/useNavigateDefault";
 import AuthService from "../service/auth.service";
 import NavbarB from "react-bootstrap/Navbar";

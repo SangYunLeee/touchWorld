@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import PostDataService from "../service/post.service";
 import "react-quill/dist/quill.snow.css";

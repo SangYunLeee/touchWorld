@@ -13,7 +13,7 @@ function useLocalStorageReducer(key, defaultVal, reducer) :[typeof reducer[0], t
   });
 
   useEffect(() => {
-    if (state == undefined) {
+    if (state === undefined) {
       window.localStorage.removeItem(key);
     } else {
       window.localStorage.setItem(key, JSON.stringify(state));

@@ -1,13 +1,12 @@
 import React, { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../service/auth.service";
-import { UserContext, UserDispatchContext } from "../contexts/user.context";
+import { UserDispatchContext } from "../contexts/user.context";
 import "./AuthPage.css";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import Form from "react-validation/build/form";
 import catImg from "../asset/cat_noimage.jpg";
-import { useSearchParams } from "react-router-dom";
 
 const required = (value: string) => {
   if (!value) {
