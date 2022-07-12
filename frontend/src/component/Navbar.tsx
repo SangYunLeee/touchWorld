@@ -10,7 +10,7 @@ const navbar = "justify-content-center d-flex bg-light w-100 mb-4 pb-2";
 const navbar_content =
   "col-12 bg-light navbar navbar-expand-sm navbar-light p-0  mb-1 px-2";
 const Img_class = "d-inline-block mr-3";
-const nav_item = "nav-link text-secondary text-center";
+const nav_item = "nav-link text-secondary text-center myCursor";
 
 export default function Navbar() {
   const currentUser = useContext(UserContext);
@@ -48,17 +48,17 @@ export default function Navbar() {
         <Link key="username" className={`${nav_item}`} to={`/author/${currentUser?.username}`}>
           {currentUser?.username}
         </Link>
-        <button key="profile" className={`${nav_item}`}
+        <span key="profile" className={`${nav_item}`}
           onClick={navigateDefault("/profile")}
         >
           내 정보
-        </button>
-        <button key="logout" className={`${nav_item}`} onClick={() => {
+        </span>
+        <span key="logout" className={`${nav_item}`} onClick={() => {
           logOut();
           navigateDefault("/");
         }}>
           로그 아웃
-        </button>
+        </span>
       </>
     );
   };
