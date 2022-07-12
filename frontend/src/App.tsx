@@ -63,7 +63,7 @@ function App() {
       <>
         <Navbar />
         <Container fluid>
-          <div className="row">
+          <div className="row mx-0">
             <Container className="col-3 min-vh-100 d-none d-md-flex">
             <Sidebar />
             </Container>
