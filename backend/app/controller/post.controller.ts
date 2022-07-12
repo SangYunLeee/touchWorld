@@ -61,7 +61,11 @@ export const findAll = async (req, res) => {
   }
   console.log("condition: ", condition);
 
+  const fetchingSize = author ? 0 : 20
+
   Post.find(condition)
+    .sort({_id: -1})
+    .limit(fetchingSize)
     .populate("author category")
     .then(data => {
       console.log("findAll (SUCESS) DB");

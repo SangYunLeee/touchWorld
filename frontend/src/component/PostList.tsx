@@ -30,7 +30,7 @@ export default function PostList(props: { posts }) {
 
   return (
     // 포스트 리스트
-    <div className="d-flex flex-column-reverse DefaultMainContext">
+    <div className="d-flex flex-column DefaultMainContext">
       {/* 새글 올리기 버튼*/}
       {currentUser && <NewButton />}
       {/* 글 리스트 */}
