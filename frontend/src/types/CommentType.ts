@@ -1,24 +1,13 @@
 import IUser from "./User";
-import IComment from "./CommentType";
-export default class IPostData {
+export default class IComment {
   constructor (obj: any) {
     if (obj) {
       Object.assign(this, obj)
     }
   }
-
-  id?: any | null;
-  title: string;
-  description: string;
-  author?: {
-    id: string,
-    username?: string
-  };
-  category?: {
-    author?: string;
-    title?: string;
-  };
-  comments?: IComment[]
+  id: string;
+  text: string;
+  author: IUser;
   createdAt?: string;
   updatedAt?: string;
   localTime(): string {
