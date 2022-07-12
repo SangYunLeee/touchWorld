@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 export var Comment = new Schema({
-  user: {
+  author: {
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
@@ -18,6 +18,8 @@ export var Comment = new Schema({
     required: true,
     ref: 'Post'
   }
+}, {
+  timestamps: true
 });
 
 export default (mongoose) => {

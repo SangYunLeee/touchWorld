@@ -78,11 +78,12 @@ export const findAll = async (req, res) => {
 // Find a single Post with an id
 export const findOne = (req, res) => {
   const id = req.params.id;
-  Post.findById(id).populate("author category")
+  Post.findById(id).populate("author category comments.author")
     .then(data => {
       if (!data)
         res.status(404).send({ message: "Not found Post with id " + id });
       else {
+        console.log("data.toJSON(): ", data.toJSON());
         res.send(data.toJSON());
       }
     })

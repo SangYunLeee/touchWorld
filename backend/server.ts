@@ -35,6 +35,7 @@ require("./app/route/auth.routes").default(app);
 require("./app/route/user.routes").default(app);
 require("./app/route/post.routes").default(app);
 require("./app/route/postCategory.routes").default(app);
+require("./app/route/comment.routes").default(app);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("frontend/build"));
