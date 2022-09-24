@@ -10,7 +10,7 @@ const navbar = "justify-content-center d-flex bg-light w-100 mb-4 pb-2";
 const navbar_content =
   "col-12 bg-light navbar navbar-expand-sm navbar-light p-0  mb-1 px-2";
 const Img_class = "d-inline-block mr-3";
-const nav_item = "nav-link text-secondary text-center myCursor";
+const nav_item = "nav-link text-secondary text-center myCursor px-2";
 
 export default function Navbar() {
   const currentUser = useContext(UserContext);
