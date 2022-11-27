@@ -1,15 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import ReactQuill from "react-quill";
+import { useQueryParam, StringParam } from "use-query-params";
 import PostDataService from "../service/post.service";
 import "react-quill/dist/quill.snow.css";
 import {CategoriesContext} from "../contexts/categorylist.context"
 import IPost from "../types/Post"
+import Select from "react-validation/build/select";
 import useNavigateDefault from "../helper/useNavigateDefault";
 const c_newPost_container_form = "border bg-gray p-3";
 const c_newPost_container_form_btn = "btn btn-success position-absolute";
 
 export default function NewPost(props: any) {
   const postCategories = useContext(CategoriesContext);
+  const [curCategory] = useQueryParam("category", StringParam);
+  const select = useRef<Select>();
   const { postId, isEditMode } = props;
   let navigateDefault = useNavigateDefault();
   const initialPostState = new IPost({
@@ -55,6 +59,10 @@ export default function NewPost(props: any) {
     if (isEditMode) {
       retrievePosts();
     }
+    if (curCategory) {
+      select.current.value = curCategory;
+    }
+
   }, []);
 
   return (
@@ -84,6 +92,7 @@ export default function NewPost(props: any) {
           className="form-select sh-n py-0"
           id="categoryList"
           name='category'
+          ref={select}
           onChange={(e) => {
             handleInputChange(e)
           }}

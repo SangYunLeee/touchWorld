@@ -38,12 +38,22 @@
   flex-wrap: wrap;
 }
 
+
+
 .sidebar .category-list-item .editBtn {
   width: 16px;
   box-sizing: content-box;
   border: 2px solid rgba(255, 0, 0, .0);
   right: 2px;
 }
+
+
+.sidebar .selected{
+  border: 1px solid rgba(255, 142, 142, 0.5);
+  border-top-width: 1px !important;
+  background-color: rgba(255, 194, 194, 0.15);
+}
+
 
 .sidebar .category-list-item:hover .editBtn {
   display: inline-block!important;

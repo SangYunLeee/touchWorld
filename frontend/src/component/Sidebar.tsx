@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import ListGroup from "react-bootstrap/ListGroup";
 import useInputState from "../hook/useInputState";
 import useToggle from "../hook/useToggle";
+import { useQueryParam, StringParam } from "use-query-params";
 import PostCategoryService from "../service/postCategory.service";
 import {ICategoryEnum} from "../reducers/categorylist.reducer";
 import {CategoriesContext, CategoriesDispatchContext} from "../contexts/categorylist.context"
@@ -13,6 +14,7 @@ import CategoryItem from "./SidebarCategoryItem";
 export default function Sidebar(props: any) {
   const [inputValue, handleInputChange, resetInputValue] = useInputState("");
   const [isEditMode, toggleIsEditMode] = useToggle(false);
+  const [curCategory] = useQueryParam("category", StringParam);
 
   const currentUser = useContext(UserContext);
 
@@ -66,6 +68,7 @@ export default function Sidebar(props: any) {
           postCategories.map((category, index) => (
             <CategoryItem
               isEditable={true}
+              isSelected={curCategory == category.id ? true : false }
               category={category}
               title={category.title}
               key={category.id}

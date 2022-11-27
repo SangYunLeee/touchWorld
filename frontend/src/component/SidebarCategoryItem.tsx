@@ -4,13 +4,13 @@ import useToggle from "../hook/useToggle";
 import { useNavigate, useParams, createSearchParams } from "react-router-dom";
 
 export default function SidebarCategoryItem(props) {
-  const { title, deletePostCategory, category, isEditable } = props;
+  const { title, deletePostCategory, category, isEditable, isSelected } = props;
   const [isEditMode, toggleIsEditMode] = useToggle(false);
   const navigate = useNavigate();
   let { authorId } = useParams();
 
   return (
-    <ListGroup.Item className="category-list-item d-flex">
+    <ListGroup.Item className={`category-list-item d-flex ${isSelected && "selected"}`}>
       <span
         className="category-text d-inline-block w-100 text-truncate"
         onClick={() => {
