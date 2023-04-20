@@ -8,7 +8,7 @@
     "npm": "8.5.x"
   },
   "scripts": {
-    "start": "node backend/server.js",
+    "start": "ts-node backend/server.ts",
     "backend": "nodemon backend/server.ts",
     "frontend": "npm run start --prefix frontend",
     "dev": "concurrently \"npm run backend\" \"npm run start --prefix frontend\"",
