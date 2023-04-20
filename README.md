@@ -1,6 +1,6 @@
 # 혼자 만들어본 블로그입니다.
 
-사이트 주소: https://touch-world.herokuapp.com
+사이트 주소: http://www.enttolog.xyz:5000/author/%EC%83%81%EC%9C%A4%EC%93%B0
 스택: node.js, typescript, react
 
 사용자가 카테고리를 추가하고 글을 작성할 수 있습니다.
